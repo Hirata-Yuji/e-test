@@ -1,5 +1,6 @@
 /* ========================================
    FILMS - メインスタイルシート
+   経営者インタビューメディア
    ダークテーマ + 近未来的デザイン
    ======================================== */
 
@@ -78,38 +79,42 @@ header {
 .header-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 1.5rem 2rem;
+    padding: 1.5rem 3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.2em;
     color: var(--text-primary);
     text-decoration: none;
     position: relative;
     transition: var(--transition-smooth);
 }
 
-.logo::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.menu-toggle span {
+    width: 25px;
     height: 2px;
-    background-color: var(--accent-red);
+    background-color: var(--text-primary);
     transition: var(--transition-smooth);
 }
 
-.logo:hover::after {
-    width: 100%;
+/* ナビゲーション */
+nav {
+    display: block;
 }
 
-/* ナビゲーション */
 nav ul {
     list-style: none;
     display: flex;
@@ -162,158 +167,215 @@ nav a:hover::after {
     transition: var(--transition-smooth);
 }
 
-/* ヒーローセクション */
+/* ヒーローセクション - THE FILM ロゴ */
 .hero {
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 8rem 2rem 4rem;
+    padding: 0;
     position: relative;
     overflow: hidden;
 }
 
-.hero::before {
-    content: '';
+.hero-logo {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-brand {
+    font-size: clamp(3rem, 10vw, 8rem);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--text-primary);
+    margin: 0;
+    animation: fadeInUp 1.5s ease-out;
+}
+
+.hero-brand .divider {
+    display: inline-block;
+    margin: 0 0.2em;
+    color: var(--text-primary);
+}
+
+.hero-scroll {
+    position: absolute;
+    bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: var(--text-secondary);
+    animation: fadeInUp 2s ease-out;
+}
+
+.scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--text-secondary), transparent);
+    animation: scrollAnimation 2s ease-in-out infinite;
+}
+
+@keyframes scrollAnimation {
+    0%, 100% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* コンセプトセクション */
+.concept-section {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 4rem 0;
+}
+
+.concept-image {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 50% 50%, rgba(255, 0, 51, 0.1) 0%, transparent 70%);
-    pointer-events: none;
+    z-index: 0;
 }
 
-.hero-content {
-    max-width: 900px;
+.concept-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) brightness(0.4);
+}
+
+.concept-overlay {
     position: relative;
-    z-index: 2;
-    animation: fadeInUp 1s ease-out;
-}
-
-.hero-title {
-    font-size: clamp(2rem, 4.5vw, 3.5rem);
-    font-weight: 800;
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
-}
-
-.hero-subtitle {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
-    color: var(--text-secondary);
-    line-height: 1.8;
-    margin-bottom: 2rem;
-    font-weight: 300;
-}
-
-.accent {
-    color: var(--accent-red);
-    position: relative;
-    display: inline-block;
-}
-
-/* セクション共通スタイル */
-section {
-    padding: 6rem 2rem;
-    max-width: 1400px;
+    z-index: 1;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 4rem 2rem;
 }
 
-.section-title {
-    font-size: clamp(2rem, 4vw, 3rem);
+.concept-content {
+    max-width: 800px;
+    color: var(--text-primary);
+}
+
+.concept-title {
+    font-size: clamp(1.8rem, 4vw, 3rem);
     font-weight: 700;
+    line-height: 1.4;
     margin-bottom: 3rem;
-    text-align: center;
     letter-spacing: -0.01em;
 }
 
-.section-subtitle {
-    font-size: 1.2rem;
+.concept-text {
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    line-height: 2;
     color: var(--text-secondary);
-    text-align: center;
-    max-width: 700px;
-    margin: -2rem auto 4rem;
-    line-height: 1.8;
 }
 
-/* 記事グリッド - 非対称レイアウト */
-.articles-grid {
+.concept-text p {
+    margin-bottom: 2rem;
+}
+
+/* セクション共通スタイル */
+#articles {
+    padding: 0;
+    max-width: 100%;
+    margin: 0;
+}
+
+/* マガジンレイアウト */
+.articles-magazine {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: 2rem;
-    margin-top: 3rem;
+    gap: 1px;
+    background-color: var(--border-color);
+    max-width: 100%;
+    margin: 0 auto;
 }
 
-/* 記事カードの配置 */
-.article-card:nth-child(1) {
-    grid-column: span 7;
-}
-
-.article-card:nth-child(2) {
-    grid-column: span 5;
-}
-
-.article-card:nth-child(3) {
-    grid-column: span 6;
-    grid-row: 2;
-}
-
-.article-card {
-    background-color: var(--secondary-bg);
-    border: 1px solid var(--border-color);
-    overflow: hidden;
-    transition: var(--transition-smooth);
+/* マガジンカード */
+.magazine-card {
     position: relative;
+    overflow: hidden;
+    background-color: var(--primary-bg);
+    text-decoration: none;
+    color: var(--text-primary);
+    display: block;
+    transition: var(--transition-smooth);
 }
 
-.article-card::before {
-    content: '';
+.magazine-card.small {
+    grid-column: span 4;
+    min-height: 600px;
+}
+
+.magazine-card.large {
+    grid-column: span 8;
+    min-height: 600px;
+}
+
+.magazine-image {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent-red) 0%, transparent 100%);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: var(--transition-smooth);
-}
-
-.article-card:hover::before {
-    transform: scaleX(1);
-}
-
-.article-card:hover {
-    transform: translateY(-8px);
-    border-color: var(--accent-red);
-}
-
-.article-image {
-    width: 100%;
-    height: 350px;
-    background-color: var(--tertiary-bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    color: var(--accent-red);
+    height: 100%;
     overflow: hidden;
-    position: relative;
 }
 
-.article-image img {
+.magazine-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     filter: grayscale(100%);
-    transition: var(--transition-smooth);
+    transition: transform 0.6s ease;
 }
 
-.article-card:hover .article-image img {
-    filter: grayscale(80%);
+.magazine-card:hover .magazine-image img {
     transform: scale(1.05);
+}
+
+.magazine-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 3rem 2rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 50%, transparent 100%);
+    z-index: 2;
+}
+
+.magazine-company {
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.magazine-title {
+    font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.magazine-name {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
 }
 
 .article-image i {
@@ -324,10 +386,7 @@ section {
     transform: scale(1.1);
 }
 
-.article-content {
-    padding: 2rem;
-}
-
+/* アーティクルメタ情報 */
 .article-meta {
     display: flex;
     gap: 1rem;
@@ -343,53 +402,171 @@ section {
     letter-spacing: 0.05em;
 }
 
-.article-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    line-height: 1.3;
-}
-
-.article-excerpt {
-    color: var(--text-secondary);
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-}
-
-.read-more {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--accent-red);
-    text-decoration: none;
-    font-weight: 600;
-    transition: var(--transition-smooth);
-}
-
-.read-more:hover {
-    gap: 1rem;
-    color: var(--text-primary);
-}
-
-/* 記事詳細ページ - 2カラムレイアウト */
-.article-detail {
-    max-width: 1400px;
-    margin: 8rem auto 4rem;
-    padding: 0 2rem;
+/* 記事詳細ページ - 2カラムレイアウト（画像＋企業情報 | 記事本文） */
+.article-detail-layout {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 4rem;
+    grid-template-columns: 45% 55%;
+    min-height: 100vh;
+    margin-top: 80px;
 }
 
-.article-main {
-    grid-column: 1;
-}
-
-.article-sidebar {
-    grid-column: 2;
+/* 左カラム：画像と企業情報 */
+.article-left {
+    background-color: var(--secondary-bg);
+    display: flex;
+    flex-direction: column;
     position: sticky;
-    top: 120px;
-    height: fit-content;
+    top: 80px;
+    height: calc(100vh - 80px);
+    align-self: start;
+    overflow: hidden;
+}
+
+.article-image-main {
+    width: 100%;
+    height: 60vh;
+    min-height: 400px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.article-image-main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: grayscale(100%);
+    display: block;
+}
+
+.article-profile {
+    padding: 2.5rem 3rem;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.profile-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.profile-label:first-child {
+    margin-top: 0;
+}
+
+.profile-value {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    line-height: 1.6;
+}
+
+.profile-value a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    word-break: break-all;
+}
+
+.profile-value a:hover {
+    color: var(--accent-red);
+}
+
+.profile-share {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.profile-share > span {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+}
+
+.share-icons {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.share-icons a {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    font-size: 0.85rem;
+}
+
+.share-icons a:hover {
+    color: var(--text-primary);
+    border-color: var(--accent-red);
+}
+
+/* 右カラム：記事本文 */
+.article-right {
+    padding: 0 4rem 4rem 4rem;
+    background-color: var(--primary-bg);
+}
+
+.article-header-right {
+    padding: 8rem 0 3rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.article-title-main {
+    font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+.article-body-right {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--text-secondary);
+}
+
+.article-body-right p {
+    margin-bottom: 1.8rem;
+}
+
+.article-body-right h2 {
+    font-size: 1.4rem;
+    margin: 3rem 0 1.5rem;
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.article-body-right h3 {
+    font-size: 1.15rem;
+    margin: 2.5rem 0 1rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.article-body-right blockquote {
+    border-left: 3px solid var(--accent-red);
+    padding-left: 2rem;
+    margin: 2.5rem 0;
+    font-style: italic;
+    color: var(--text-primary);
+    font-size: 1.05rem;
+    line-height: 1.8;
 }
 
 .article-header {
@@ -460,110 +637,24 @@ section {
     font-size: 1.2rem;
 }
 
-/* 企業情報サイドバー */
-.company-info {
-    background-color: var(--secondary-bg);
-    border: 1px solid var(--border-color);
-    padding: 2rem;
-    margin-bottom: 2rem;
-}
 
-.company-info h3 {
-    font-size: 1.3rem;
-    margin-bottom: 1.5rem;
-    color: var(--text-primary);
-    border-bottom: 2px solid var(--accent-red);
-    padding-bottom: 0.5rem;
-}
-
-.company-logo {
-    width: 100%;
-    height: 120px;
-    background-color: var(--tertiary-bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-    border: 1px solid var(--border-color);
-}
-
-.company-logo img {
-    max-width: 80%;
-    max-height: 80%;
-    object-fit: contain;
-}
-
-.company-details {
-    font-size: 0.95rem;
-}
-
-.company-details .detail-row {
-    display: flex;
-    margin-bottom: 1rem;
-    line-height: 1.6;
-}
-
-.company-details .detail-label {
-    min-width: 80px;
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-.company-details .detail-value {
-    color: var(--text-secondary);
-}
-
-.share-section {
-    background-color: var(--secondary-bg);
-    border: 1px solid var(--border-color);
-    padding: 2rem;
-}
-
-.share-section h3 {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-    color: var(--text-primary);
-}
-
-.share-buttons {
-    display: flex;
-    gap: 1rem;
-}
-
-.share-btn {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--tertiary-bg);
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: var(--transition-smooth);
-}
-
-.share-btn:hover {
-    background-color: var(--accent-red);
-    border-color: var(--accent-red);
-    color: var(--text-primary);
-    transform: translateY(-3px);
-}
 
 /* About, Info, Privacy ページ */
 .page-content {
     max-width: 900px;
-    margin: 8rem auto 4rem;
+    margin: 0 auto 4rem;
     padding: 0 2rem;
+    margin-top: 250px;
 }
 
 .page-header {
     text-align: center;
     margin-bottom: 4rem;
+    padding-top: 0;
 }
 
 .page-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
     margin-bottom: 1rem;
 }
@@ -579,7 +670,7 @@ section {
 }
 
 .content-section h2 {
-    font-size: 2rem;
+    font-size: 1.6rem;
     margin-bottom: 1.5rem;
     color: var(--text-primary);
     position: relative;
@@ -746,13 +837,32 @@ footer {
     animation: fadeInUp 0.8s ease-out forwards;
 }
 
+/* デスクトップナビゲーション（768px以上） */
+@media (min-width: 769px) {
+    nav {
+        display: block !important;
+        position: static !important;
+    }
+    
+    nav ul {
+        display: flex !important;
+        flex-direction: row !important;
+    }
+}
+
 /* レスポンシブデザイン */
 @media (max-width: 768px) {
     .header-container {
         padding: 1rem 1.5rem;
+        justify-content: space-between;
+    }
+    
+    .menu-toggle {
+        display: flex !important;
     }
     
     nav {
+        display: none;
         position: fixed;
         top: 0;
         right: -100%;
@@ -763,9 +873,11 @@ footer {
         padding: 6rem 2rem 2rem;
         transition: var(--transition-smooth);
         border-left: 1px solid var(--border-color);
+        z-index: 999;
     }
     
     nav.active {
+        display: block;
         right: 0;
     }
     
@@ -776,10 +888,6 @@ footer {
     
     nav a {
         font-size: 1.2rem;
-    }
-    
-    .menu-toggle {
-        display: flex;
     }
     
     .menu-toggle.active span:nth-child(1) {
@@ -794,20 +902,15 @@ footer {
         transform: rotate(-45deg) translate(7px, -6px);
     }
     
-    .articles-grid {
+    .articles-magazine {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1px;
     }
     
-    .article-card:nth-child(1),
-    .article-card:nth-child(2),
-    .article-card:nth-child(3) {
+    .magazine-card.small,
+    .magazine-card.large {
         grid-column: span 1;
-        grid-row: auto;
-    }
-    
-    .article-image {
-        height: 250px;
+        min-height: 500px;
     }
     
     section {
@@ -827,25 +930,75 @@ footer {
     .contact-form {
         padding: 2rem 1.5rem;
     }
+    
+    .page-content {
+        padding: 0 1.5rem;
+        margin-top: 180px;
+    }
 }
 
 @media (max-width: 1024px) {
-    .article-detail {
+    .article-detail-layout {
         grid-template-columns: 1fr;
-        gap: 3rem;
+        padding-top: 80px;
     }
     
-    .article-sidebar {
+    .article-left {
         position: static;
+        height: auto;
+    }
+    
+    .article-image-main {
+        height: 400px;
+        min-height: 300px;
+    }
+    
+    .article-right {
+        padding: 3rem 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-brand {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+    }
+    
+    .concept-title {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+    }
+    
+    .concept-text {
+        font-size: 0.95rem;
+    }
+    
+    .magazine-card.small,
+    .magazine-card.large {
+        min-height: 400px;
+    }
+    
+    .magazine-info {
+        padding: 2rem 1.5rem;
+    }
+    
+    .article-profile {
+        padding: 2rem;
+    }
+    
+    .article-right {
+        padding: 2rem 1.5rem;
+    }
+    
+    .article-title-main {
+        font-size: 2rem;
     }
 }
 
 @media (max-width: 480px) {
-    .hero {
-        padding: 6rem 1.5rem 3rem;
+    .hero-brand {
+        font-size: 2.5rem;
     }
     
-    .article-card {
-        font-size: 0.95rem;
+    .magazine-title {
+        font-size: 1.2rem;
     }
 }

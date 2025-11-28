@@ -38,21 +38,48 @@
         </header>
 
         <!-- 記事詳細 -->
-        <article class="article-detail">
-            <!-- メインコンテンツ -->
-            <div class="article-main">
-                <header class="article-header">
-                    <div class="article-meta">
-                        <span class="article-category">Technology</span>
-                        <span class="article-date">2024.01.15</span>
+        <article class="article-detail-layout">
+            <!-- 左カラム：画像と企業情報 -->
+            <div class="article-left">
+                <div class="article-image-main">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&h=1000&fit=crop" alt="山田太郎">
+                </div>
+                <div class="article-profile">
+                    <div class="profile-label">役職</div>
+                    <div class="profile-value">代表取締役社長兼CEO</div>
+                    
+                    <div class="profile-label">氏名</div>
+                    <div class="profile-value">山田 太郎</div>
+                    
+                    <div class="profile-label">会社名</div>
+                    <div class="profile-value">株式会社AI Robotics</div>
+                    
+                    <div class="profile-label">URL</div>
+                    <div class="profile-value"><a href="https://ai-robotics.example.com" target="_blank">https://ai-robotics.example.com</a></div>
+                    
+                    <div class="profile-share">
+                        <span>SHARE</span>
+                        <div class="share-icons">
+                            <a href="#" aria-label="Copy Link"><i class="fas fa-link"></i></a>
+                            <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        </div>
                     </div>
-                    <h1 class="article-title">未来を創造するテクノロジーと人間の可能性</h1>
-                    <p class="article-lead">
-                        AIとロボティクスの最前線で挑戦を続ける若きCEO。テクノロジーの力で社会課題を解決し、人間の可能性を拡張する未来を描く。
-                    </p>
+                </div>
+            </div>
+
+            <!-- 右カラム：記事本文 -->
+            <div class="article-right">
+                <header class="article-header-right">
+                    <h1 class="article-title-main">
+                        道は自分で<br>
+                        引き寄せろ
+                    </h1>
                 </header>
 
-                <div class="article-body">
+                <div class="article-body-right">
                 <p>
                     シリコンバレーでも注目される日本発のAIスタートアップ。その創業者であり、CEOを務める山田太郎氏（仮名）は、わずか28歳でありながら、すでに世界中の投資家から数十億円の資金を調達している。
                 </p>
@@ -134,58 +161,6 @@
                 </p>
                 </div>
             </div>
-
-            <!-- サイドバー -->
-            <aside class="article-sidebar">
-                <!-- 企業情報 -->
-                <div class="company-info">
-                    <h3>企業情報</h3>
-                    <div class="company-logo">
-                        <img src="https://via.placeholder.com/200x80/2a2a2a/FF0033?text=AI+ROBOTICS" alt="企業ロゴ">
-                    </div>
-                    <div class="company-details">
-                        <div class="detail-row">
-                            <span class="detail-label">役職</span>
-                            <span class="detail-value">代表取締役CEO</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">氏名</span>
-                            <span class="detail-value">山田 太郎</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">会社名</span>
-                            <span class="detail-value">株式会社AI Robotics</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">設立</span>
-                            <span class="detail-value">2020年4月</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">所在地</span>
-                            <span class="detail-value">東京都渋谷区</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">事業内容</span>
-                            <span class="detail-value">AI・ロボティクス技術を活用した医療・介護支援システムの開発</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">URL</span>
-                            <span class="detail-value"><a href="#" style="color: var(--accent-red);">https://ai-robotics.example.com</a></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- シェアボタン -->
-                <div class="share-section">
-                    <h3>この記事をシェア</h3>
-                    <div class="share-buttons">
-                        <a href="#" class="share-btn" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="share-btn" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="share-btn" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="share-btn" aria-label="Link"><i class="fas fa-link"></i></a>
-                    </div>
-                </div>
-            </aside>
         </article>
 
         <!-- フッター -->
