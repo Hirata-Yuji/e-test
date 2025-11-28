@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お問い合わせ - 株式会社カンパニー</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">COMPANY</a>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="index.html">HOME</a></li>
+                        <li><a href="aboutus.html">ABOUT US</a></li>
+                        <li><a href="service.html">SERVICE</a></li>
+                        <li><a href="company.html">COMPANY</a></li>
+                        <li><a href="contact.html" class="active">CONTACT</a></li>
+                    </ul>
+                </nav>
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">CONTACT</h1>
+            <p class="page-subtitle">お問い合わせ</p>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="section">
+        <div class="container">
+            <div class="contact-intro">
+                <p>
+                    サービスに関するご質問、ご相談など、お気軽にお問い合わせください。<br>
+                    担当者より3営業日以内にご連絡させていただきます。
+                </p>
+            </div>
+            
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="company" class="form-label">会社名 <span class="required">必須</span></label>
+                    <input type="text" id="company" name="company" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="name" class="form-label">お名前 <span class="required">必須</span></label>
+                    <input type="text" id="name" name="name" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="form-label">メールアドレス <span class="required">必須</span></label>
+                    <input type="email" id="email" name="email" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="tel" class="form-label">電話番号</label>
+                    <input type="tel" id="tel" name="tel" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="category" class="form-label">お問い合わせ種別 <span class="required">必須</span></label>
+                    <select id="category" name="category" class="form-select" required>
+                        <option value="">選択してください</option>
+                        <option value="service">サービスについて</option>
+                        <option value="estimate">お見積もり依頼</option>
+                        <option value="partnership">業務提携について</option>
+                        <option value="recruit">採用について</option>
+                        <option value="other">その他</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message" class="form-label">お問い合わせ内容 <span class="required">必須</span></label>
+                    <textarea id="message" name="message" class="form-textarea" rows="8" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-checkbox">
+                        <input type="checkbox" name="privacy" required>
+                        <span><a href="#" class="privacy-link">プライバシーポリシー</a>に同意する</span>
+                    </label>
+                </div>
+
+                <div class="form-submit">
+                    <button type="submit" class="btn-primary">送信する</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact Info Section -->
+    <section class="section gray-bg">
+        <div class="container">
+            <div class="contact-info-grid">
+                <div class="contact-info-item">
+                    <h3>お電話でのお問い合わせ</h3>
+                    <p class="contact-tel">03-XXXX-XXXX</p>
+                    <p class="contact-hours">受付時間：平日 9:00〜18:00</p>
+                </div>
+                <div class="contact-info-item">
+                    <h3>メールでのお問い合わせ</h3>
+                    <p class="contact-email">
+                        <a href="mailto:info@company-kk.com">info@company-kk.com</a>
+                    </p>
+                    <p class="contact-hours">24時間受付</p>
+                </div>
+                <div class="contact-info-item">
+                    <h3>所在地</h3>
+                    <p class="contact-address">
+                        〒104-0061<br>
+                        東京都中央区銀座5-13-16
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">COMPANY</div>
+                    <p class="footer-address">
+                        〒104-0061<br>
+                        東京都中央区銀座5-13-16<br>
+                        TEL: 03-XXXX-XXXX
+                    </p>
+                </div>
+                <nav class="footer-nav">
+                    <div class="footer-nav-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="aboutus.html">会社概要</a></li>
+                            <li><a href="company.html">企業情報</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav-column">
+                        <h4>Service</h4>
+                        <ul>
+                            <li><a href="service.html">サービス一覧</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav-column">
+                        <h4>Contact</h4>
+                        <ul>
+                            <li><a href="contact.html">お問い合わせ</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2024 COMPANY Corporation. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
