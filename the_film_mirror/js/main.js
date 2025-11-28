@@ -1,5 +1,5 @@
 // ========================================
-// LEADERS VISION - メインJavaScript
+// FILMS - メインJavaScript
 // ========================================
 
 // DOM読み込み完了後に実行
@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================
     // コンソールメッセージ（開発者向け）
     // ========================================
-    console.log('%c LEADERS VISION ', 'background: #FF0033; color: #ffffff; font-size: 20px; font-weight: bold; padding: 10px;');
+    console.log('%c FILMS ', 'background: #FF0033; color: #ffffff; font-size: 20px; font-weight: bold; padding: 10px;');
     console.log('%c 経営者やリーダーのストーリーを切り抜くインタビューメディア ', 'color: #b0b0b0; font-size: 12px;');
     
 });
