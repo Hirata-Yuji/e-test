@@ -21,7 +21,7 @@ export default function Logo({ white = false, size = 'md' }: Props) {
       <span className={color}>En J</span>
       <span
         className={`inline-block rounded-full flex-shrink-0 mx-[0.02em] ${ring}`}
-        style={{ borderColor: '#9B3A52', marginBottom: '0.04em' }}
+        style={{ borderColor: '#C41E3A', marginBottom: '0.04em' }}
         aria-hidden="true"
       />
       <span className={color}>uney</span>

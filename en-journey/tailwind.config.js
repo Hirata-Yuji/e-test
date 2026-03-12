@@ -4,8 +4,24 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        navy:  { DEFAULT: '#0A1628', light: '#1A2E4A', subtle: '#243858' },
-        gold:  { DEFAULT: '#C9A227', light: '#D9B84A', dark: '#A8831A' },
+        crimson: {
+          DEFAULT: '#C41E3A',
+          light:   '#E8435A',
+          dark:    '#9A1530',
+          pale:    '#FFF0F2',
+          muted:   '#F5D5DA',
+        },
+        warm: {
+          white: '#FEFEFE',
+          50:    '#FAF9F7',
+          100:   '#F5F3F0',
+          200:   '#EDE9E3',
+        },
+        charcoal: { DEFAULT: '#1A1A1A', soft: '#3D3D3D' },
+        muted:    { DEFAULT: '#7A7A7A', light: '#A8A8A8' },
+        // keep navy/gold for backward compat on inner pages
+        navy:  { DEFAULT: '#0A1628', light: '#1A2E4A' },
+        gold:  { DEFAULT: '#C9A227' },
         cream: { DEFAULT: '#FAFAF8', warm: '#F5F0E8' },
         stone: { DEFAULT: '#6B7280', light: '#9CA3AF' },
       },
@@ -18,7 +34,7 @@ module.exports = {
         widest3: '0.3em',
       },
       animation: {
-        'fade-up': 'fadeUp 0.8s ease forwards',
+        'fade-up':   'fadeUp 0.8s ease forwards',
         'line-grow': 'lineGrow 1s ease forwards',
       },
       keyframes: {

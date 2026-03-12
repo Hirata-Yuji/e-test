@@ -36,21 +36,22 @@ export default function Footer() {
   const { lang, setLang, tr } = useLang()
 
   return (
-    <footer className="bg-navy text-white">
-      <div className="px-6 md:px-12 lg:px-24 pt-20 pb-8">
+    <footer className="bg-warm-50 border-t border-warm-200">
+      {/* Top crimson bar */}
+      <div className="h-[3px] bg-gradient-to-r from-crimson-dark via-crimson to-crimson-light" />
 
-        {/* Top row */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mb-16 pb-16 border-b border-white/10">
+      <div className="px-6 md:px-12 lg:px-24 pt-16 pb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mb-12 pb-12 border-b border-warm-200">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link href="/" className="inline-flex flex-col mb-6 gap-1">
-              <Logo white size="md" />
-              <span className="text-[10px] tracking-widest text-white/40 font-sans">株式会社エンジャーニー</span>
+            <Link href="/" className="inline-flex flex-col mb-5 gap-1">
+              <Logo size="md" />
+              <span className="text-[9px] tracking-widest text-muted font-sans">株式会社エンジャーニー</span>
             </Link>
-            <p className="text-sm text-white/50 leading-relaxed mb-4 font-sans whitespace-pre-line">
+            <p className="text-sm text-muted leading-relaxed mb-4 font-sans whitespace-pre-line">
               {tr('footer_desc')}
             </p>
-            <p className="text-xs text-white/40 leading-loose font-sans whitespace-pre-line">
+            <p className="text-xs text-muted-light leading-loose font-sans whitespace-pre-line">
               {tr('footer_addr')}
             </p>
           </div>
@@ -59,15 +60,15 @@ export default function Footer() {
           <div className="lg:col-span-3 grid grid-cols-2 sm:grid-cols-3 gap-8">
             {COLS.map(col => (
               <div key={col.titleKey}>
-                <h4 className="text-[10px] tracking-widest2 text-gold font-sans mb-4">
-                  {tr(col.titleKey).toUpperCase()}
+                <h4 className="text-[10px] tracking-widest text-crimson font-sans uppercase mb-4">
+                  {tr(col.titleKey)}
                 </h4>
                 <ul className="flex flex-col gap-3">
                   {col.links.map(l => (
                     <li key={l.key}>
                       <Link href={l.href}
-                        className="text-xs text-white/50 hover:text-white tracking-wider font-sans
-                                   transition-colors duration-300 link-underline">
+                        className="text-xs text-muted hover:text-crimson tracking-wider font-sans
+                                   transition-colors duration-200 link-underline">
                         {tr(l.key)}
                       </Link>
                     </li>
@@ -80,16 +81,14 @@ export default function Footer() {
 
         {/* Bottom row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-[11px] text-white/30 font-sans tracking-wider">
+          <p className="text-[11px] text-muted-light font-sans tracking-wider">
             {tr('footer_copy')} All Rights Reserved.
           </p>
-
-          {/* Language switcher */}
           <div className="flex items-center gap-1">
             {LANGS.map(l => (
               <button key={l.code} onClick={() => setLang(l.code)}
-                className={`text-[10px] px-2 py-1 tracking-wider font-sans transition-all duration-300
-                  ${lang === l.code ? 'bg-gold text-navy' : 'text-white/40 hover:text-white'}`}>
+                className={`text-[10px] px-2 py-1 tracking-wider font-sans transition-all duration-200
+                  ${lang === l.code ? 'bg-crimson text-white' : 'text-muted hover:text-crimson'}`}>
                 {l.label}
               </button>
             ))}
