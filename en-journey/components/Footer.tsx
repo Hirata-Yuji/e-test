@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { useLang } from '@/contexts/LanguageContext'
 import { LANGS } from '@/lib/i18n'
+import Logo from '@/components/Logo'
 
 const COLS = [
   {
@@ -42,9 +43,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mb-16 pb-16 border-b border-white/10">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link href="/" className="inline-flex flex-col mb-6">
-              <span className="font-serif font-light text-2xl tracking-widest text-white">En Journey</span>
-              <span className="text-[10px] tracking-widest2 text-white/40 font-sans mt-1">株式会社エンジャーニー</span>
+            <Link href="/" className="inline-flex flex-col mb-6 gap-1">
+              <Logo white size="md" />
+              <span className="text-[10px] tracking-widest text-white/40 font-sans">株式会社エンジャーニー</span>
             </Link>
             <p className="text-sm text-white/50 leading-relaxed mb-4 font-sans whitespace-pre-line">
               {tr('footer_desc')}

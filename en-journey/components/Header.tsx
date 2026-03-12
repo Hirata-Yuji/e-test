@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLang } from '@/contexts/LanguageContext'
 import { LANGS } from '@/lib/i18n'
+import Logo from '@/components/Logo'
 
 const NAV = [
   {
@@ -50,12 +51,9 @@ export default function Header() {
         <div className="flex items-center justify-between px-6 md:px-10 lg:px-16 h-[72px]">
 
           {/* Logo */}
-          <Link href="/" className="group flex flex-col leading-none">
-            <span className={`font-serif font-light text-xl tracking-widest transition-colors duration-300
-              ${scrolled ? 'text-navy' : 'text-white'}`}>
-              En Journey
-            </span>
-            <span className={`text-[9px] tracking-widest2 font-sans transition-colors duration-300
+          <Link href="/" className="group flex flex-col leading-none gap-1">
+            <Logo white={!scrolled} size="md" />
+            <span className={`text-[9px] tracking-widest font-sans transition-colors duration-300
               ${scrolled ? 'text-stone' : 'text-white/60'}`}>
               株式会社エンジャーニー
             </span>
