@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>事業内容 | 株式会社En Journey</title>
+  <meta name="description" content="株式会社En Journeyの事業内容。国内旅行・海外旅行・インバウンド観光支援・ランドオペレーター業務。">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    .svc-block { padding: var(--sp-xl) 0; }
+    .svc-block:nth-child(even) { background: var(--light-gray); }
+    .svc-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 var(--sp-md);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-xl);
+      align-items: center;
+    }
+    .svc-inner.reverse { direction: rtl; }
+    .svc-inner.reverse > * { direction: ltr; }
+    .svc-visual {
+      border-radius: 12px;
+      overflow: hidden;
+      height: 360px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 6rem;
+    }
+    .svc-visual.blue  { background: linear-gradient(135deg, var(--ocean-blue), var(--sky-blue)); }
+    .svc-visual.deep  { background: linear-gradient(135deg, var(--ocean-deep), var(--ocean-blue)); }
+    .svc-visual.coral { background: linear-gradient(135deg, var(--sunset-coral), #f4a96a); }
+    .svc-visual.gold  { background: linear-gradient(135deg, #c9a227, var(--sand-gold)); }
+    .svc-tag {
+      display: inline-block;
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      color: var(--ocean-blue); text-transform: uppercase;
+      border-bottom: 2px solid var(--sky-blue);
+      padding-bottom: 4px;
+      margin-bottom: var(--sp-sm);
+    }
+    .svc-title { font-size: 30px; font-weight: 700; color: var(--black); margin-bottom: var(--sp-md); }
+    .svc-desc  { font-size: 15px; color: var(--dark-gray); line-height: 1.9; margin-bottom: var(--sp-md); }
+    .svc-points { display: flex; flex-direction: column; gap: 10px; }
+    .svc-point {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14px; color: var(--dark-gray);
+    }
+    .svc-point::before {
+      content: '✓';
+      color: var(--sky-blue); font-weight: 700;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    @media (max-width: 768px) {
+      .svc-inner { grid-template-columns: 1fr; direction: ltr !important; }
+      .svc-inner.reverse > * { direction: ltr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <a href="index.html">
+        <span class="logo-en">En Journey</span>
+        <span class="logo-jp">株式会社エンジャーニー</span>
+      </a>
+    </div>
+    <ul class="nav-main">
+      <li><a href="index.html" data-i18n="nav_home">ホーム</a></li>
+      <li class="has-dropdown">
+        <a href="about.html" data-i18n="nav_about">会社情報</a>
+        <ul class="dropdown">
+          <li><a href="about.html#philosophy" data-i18n="nav_philosophy">企業理念</a></li>
+          <li><a href="about.html#officers" data-i18n="nav_officers">役員紹介</a></li>
+          <li><a href="company.html" data-i18n="nav_overview">会社概要</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown">
+        <a href="service.html" class="active" data-i18n="nav_service">事業内容</a>
+        <ul class="dropdown">
+          <li><a href="#domestic" data-i18n="nav_domestic">国内旅行</a></li>
+          <li><a href="#overseas" data-i18n="nav_overseas">海外旅行</a></li>
+          <li><a href="#inbound" data-i18n="nav_inbound">インバウンド</a></li>
+          <li><a href="#landop" data-i18n="nav_landop">ランドオペレーター</a></li>
+        </ul>
+      </li>
+      <li><a href="news.html" data-i18n="nav_news">お知らせ</a></li>
+      <li><a href="recruit.html" data-i18n="nav_recruit">採用情報</a></li>
+    </ul>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="ja">JP</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="zh">中文</button>
+        <button class="lang-btn" data-lang="th">ภาษาไทย</button>
+        <button class="lang-btn" data-lang="ko">한국어</button>
+      </div>
+      <a href="contact.html" class="btn-contact-header" data-i18n="nav_contact">お問い合わせ</a>
+    </div>
+    <button class="menu-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="page-header">
+  <span class="section-en" data-i18n="svc_page_en">SERVICE</span>
+  <h1 class="section-title" data-i18n="svc_page_title">事業内容</h1>
+  <p class="breadcrumb"><a href="index.html">HOME</a><span>/</span><span data-i18n="nav_service">事業内容</span></p>
+</section>
+
+<!-- Index Nav -->
+<section class="section gray-bg" style="padding:var(--sp-lg) 0;">
+  <div class="container">
+    <div style="display:flex; gap:var(--sp-sm); justify-content:center; flex-wrap:wrap;">
+      <a href="#domestic" class="btn-secondary" style="padding:10px 28px; font-size:14px;" data-i18n="nav_domestic">国内旅行</a>
+      <a href="#overseas" class="btn-secondary" style="padding:10px 28px; font-size:14px;" data-i18n="nav_overseas">海外旅行</a>
+      <a href="#inbound" class="btn-secondary" style="padding:10px 28px; font-size:14px;" data-i18n="nav_inbound">インバウンド</a>
+      <a href="#landop" class="btn-secondary" style="padding:10px 28px; font-size:14px;" data-i18n="nav_landop">ランドオペレーター</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 国内旅行 ═══ -->
+<div class="svc-block" id="domestic">
+  <div class="svc-inner">
+    <div class="svc-visual blue">🗾</div>
+    <div class="svc-text">
+      <p class="svc-tag" data-i18n="svc1_tag">国内旅行</p>
+      <h2 class="svc-title" data-i18n="svc1_title">国内旅行手配業</h2>
+      <p class="svc-desc" data-i18n="svc1_desc">南紀白浜をはじめ、全国各地の観光スポットへの旅行を手配します。宿泊・交通・アクティビティの一括手配に対応し、旅行代理店様向けの卸サービスも承ります。</p>
+      <div class="svc-points">
+        <div class="svc-point">南紀白浜・熊野古道・那智の滝など和歌山の観光手配</div>
+        <div class="svc-point">宿泊・バス・レンタカー・アクティビティの一括手配</div>
+        <div class="svc-point">旅行代理店向け卸販売・ランドサービス</div>
+        <div class="svc-point">個人・グループ・法人ツアーに対応</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 海外旅行 ═══ -->
+<div class="svc-block" id="overseas">
+  <div class="svc-inner reverse">
+    <div class="svc-visual deep">✈️</div>
+    <div class="svc-text">
+      <p class="svc-tag" data-i18n="svc2_tag">海外旅行</p>
+      <h2 class="svc-title" data-i18n="svc2_title">海外旅行手配業</h2>
+      <p class="svc-desc" data-i18n="svc2_desc">アジア・欧米をはじめとする海外各地への旅行パッケージを企画・手配します。法人・グループ・個人旅行のあらゆる形態に対応いたします。</p>
+      <div class="svc-points">
+        <div class="svc-point">アジア・欧米・オセアニアへのパッケージツアー</div>
+        <div class="svc-point">法人視察旅行・インセンティブツアーの企画</div>
+        <div class="svc-point">ハネムーン・記念旅行のコーディネート</div>
+        <div class="svc-point">航空券・ホテル・オプショナルツアーの手配</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ インバウンド ═══ -->
+<div class="svc-block" id="inbound">
+  <div class="svc-inner">
+    <div class="svc-visual coral">🌏</div>
+    <div class="svc-text">
+      <p class="svc-tag" data-i18n="svc3_tag">インバウンド</p>
+      <h2 class="svc-title" data-i18n="svc3_title">インバウンド観光支援</h2>
+      <p class="svc-desc" data-i18n="svc3_desc">訪日外国人旅行者（インバウンド）向けに、日英中タイ韓の5言語対応で旅行手配・観光案内を行います。南紀熊野・白浜エリアの受入体制を強化しています。</p>
+      <div class="svc-points">
+        <div class="svc-point">5言語対応（日本語・英語・中国語・タイ語・韓国語）</div>
+        <div class="svc-point">南紀白浜・熊野古道エリアの観光案内</div>
+        <div class="svc-point">外国人旅行者向け宿泊・交通手配</div>
+        <div class="svc-point">海外エージェント・OTA向け素材提供</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ランドオペレーター ═══ -->
+<div class="svc-block" id="landop">
+  <div class="svc-inner reverse">
+    <div class="svc-visual gold">🏨</div>
+    <div class="svc-text">
+      <p class="svc-tag" data-i18n="svc4_tag">ランドオペレーター</p>
+      <h2 class="svc-title" data-i18n="svc4_title">ランドオペレーター業務</h2>
+      <p class="svc-desc" data-i18n="svc4_desc">旅行代理店・海外エージェントからの依頼を受け、現地手配（宿泊・バス・ガイド・アクティビティ等）を一括してコーディネートするランドオペレーター業務を提供します。</p>
+      <div class="svc-points">
+        <div class="svc-point">宿泊・バス・送迎・ガイドの一括手配</div>
+        <div class="svc-point">国内旅行代理店・海外エージェントへの対応</div>
+        <div class="svc-point">多言語ガイドの手配・同行</div>
+        <div class="svc-point">南紀白浜・熊野エリアを中心としたランドサービス</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 data-i18n="cta_title">お気軽にお問い合わせください</h2>
+    <p data-i18n="cta_sub">旅行に関するご相談・採用に関するご質問はこちらから</p>
+    <div class="cta-btns">
+      <a href="contact.html" class="btn-primary" data-i18n="cta_btn1">お問い合わせ</a>
+      <a href="recruit.html" class="btn-outline-white" data-i18n="cta_btn2">採用情報</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo"><span class="logo-en">En Journey</span><span class="logo-jp">株式会社エンジャーニー</span></div>
+        <p class="footer-desc" data-i18n="footer_desc">和歌山県白浜町を拠点に、国内外の旅行手配・ランドオペレーター・インバウンド観光支援を展開する観光専門企業です。</p>
+        <p class="footer-address" data-i18n="footer_address">〒649-2201<br>和歌山県西牟婁郡白浜町堅田2434-1</p>
+      </div>
+      <nav class="footer-nav-wrap">
+        <div class="footer-nav-col">
+          <h4 data-i18n="footer_col_company">会社情報</h4>
+          <ul>
+            <li><a href="about.html" data-i18n="nav_philosophy">企業理念</a></li>
+            <li><a href="about.html#officers" data-i18n="nav_officers">役員紹介</a></li>
+            <li><a href="company.html" data-i18n="nav_overview">会社概要</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav-col">
+          <h4 data-i18n="footer_col_service">事業内容</h4>
+          <ul>
+            <li><a href="#domestic" data-i18n="nav_domestic">国内旅行</a></li>
+            <li><a href="#overseas" data-i18n="nav_overseas">海外旅行</a></li>
+            <li><a href="#inbound" data-i18n="nav_inbound">インバウンド</a></li>
+            <li><a href="#landop" data-i18n="nav_landop">ランドオペレーター</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav-col">
+          <h4 data-i18n="footer_col_recruit">採用・お問い合わせ</h4>
+          <ul>
+            <li><a href="recruit.html" data-i18n="nav_recruit">採用情報</a></li>
+            <li><a href="contact.html" data-i18n="nav_contact">お問い合わせ</a></li>
+            <li><a href="news.html" data-i18n="nav_news">お知らせ</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav-col">
+          <h4 data-i18n="footer_col_other">その他</h4>
+          <ul>
+            <li><a href="#" data-i18n="footer_privacy">プライバシーポリシー</a></li>
+            <li><a href="#" data-i18n="footer_sitemap">サイトマップ</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="logo"><span class="logo-en">En Journey</span></div>
+      <div class="footer-lang">
+        <button class="lang-btn" data-lang="ja">JP</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="zh">中文</button>
+        <button class="lang-btn" data-lang="th">TH</button>
+        <button class="lang-btn" data-lang="ko">KO</button>
+      </div>
+      <p class="copyright" data-i18n="copyright">© 2025 株式会社En Journey All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/i18n.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

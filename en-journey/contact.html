@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お問い合わせ | 株式会社En Journey</title>
+  <meta name="description" content="株式会社En Journeyへのお問い合わせ。旅行・観光のご相談、旅行代理店様のご相談、採用のお問い合わせはこちら。">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <a href="index.html">
+        <span class="logo-en">En Journey</span>
+        <span class="logo-jp">株式会社エンジャーニー</span>
+      </a>
+    </div>
+    <ul class="nav-main">
+      <li><a href="index.html" data-i18n="nav_home">ホーム</a></li>
+      <li class="has-dropdown">
+        <a href="about.html" data-i18n="nav_about">会社情報</a>
+        <ul class="dropdown">
+          <li><a href="about.html#philosophy" data-i18n="nav_philosophy">企業理念</a></li>
+          <li><a href="about.html#officers" data-i18n="nav_officers">役員紹介</a></li>
+          <li><a href="company.html" data-i18n="nav_overview">会社概要</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown">
+        <a href="service.html" data-i18n="nav_service">事業内容</a>
+        <ul class="dropdown">
+          <li><a href="service.html#domestic" data-i18n="nav_domestic">国内旅行</a></li>
+          <li><a href="service.html#overseas" data-i18n="nav_overseas">海外旅行</a></li>
+          <li><a href="service.html#inbound" data-i18n="nav_inbound">インバウンド</a></li>
+          <li><a href="service.html#landop" data-i18n="nav_landop">ランドオペレーター</a></li>
+        </ul>
+      </li>
+      <li><a href="news.html" data-i18n="nav_news">お知らせ</a></li>
+      <li><a href="recruit.html" data-i18n="nav_recruit">採用情報</a></li>
+    </ul>
+    <div class="header-right">
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="ja">JP</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="zh">中文</button>
+        <button class="lang-btn" data-lang="th">ภาษาไทย</button>
+        <button class="lang-btn" data-lang="ko">한국어</button>
+      </div>
+      <a href="contact.html" class="btn-contact-header active" data-i18n="nav_contact">お問い合わせ</a>
+    </div>
+    <button class="menu-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="page-header">
+  <span class="section-en" data-i18n="cont_page_en">CONTACT</span>
+  <h1 class="section-title" data-i18n="cont_page_title">お問い合わせ</h1>
+  <p class="breadcrumb"><a href="index.html">HOME</a><span>/</span><span data-i18n="nav_contact">お問い合わせ</span></p>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- Left: Contact Info -->
+      <div class="contact-info-box">
+        <div class="contact-info-card">
+          <h3>📍 所在地</h3>
+          <p>〒649-2201<br>和歌山県西牟婁郡白浜町堅田2434-1</p>
+        </div>
+        <div class="contact-info-card">
+          <h3>🕐 営業時間</h3>
+          <p>月〜金 9:00〜18:00<br>土・日・祝日休業</p>
+        </div>
+        <div class="contact-info-card">
+          <h3>🌐 対応言語</h3>
+          <p>日本語 / English<br>中文 / ภาษาไทย / 한국어</p>
+        </div>
+        <div class="contact-info-card">
+          <h3>🏢 対応内容</h3>
+          <ul style="font-size:14px; color:var(--dark-gray); margin-top:4px; display:flex; flex-direction:column; gap:6px;">
+            <li>・旅行・観光に関するご相談</li>
+            <li>・旅行代理店様向けサービス</li>
+            <li>・インバウンド旅行のご相談</li>
+            <li>・採用に関するお問い合わせ</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right: Contact Form -->
+      <div class="contact-form-box">
+        <form id="contactForm" novalidate>
+          <!-- Inquiry Type -->
+          <div class="form-group">
+            <label class="form-label">
+              <span data-i18n="cont_cat">お問い合わせ種別</span>
+              <span class="form-required">必須</span>
+            </label>
+            <div class="form-radio-group">
+              <label class="form-radio">
+                <input type="radio" name="category" value="travel" checked>
+                <span data-i18n="cont_cat_travel">旅行・観光に関するご相談</span>
+              </label>
+              <label class="form-radio">
+                <input type="radio" name="category" value="agency">
+                <span data-i18n="cont_cat_agency">旅行代理店様向けご相談</span>
+              </label>
+              <label class="form-radio">
+                <input type="radio" name="category" value="recruit">
+                <span data-i18n="cont_cat_recruit">採用に関するお問い合わせ</span>
+              </label>
+              <label class="form-radio">
+                <input type="radio" name="category" value="other">
+                <span data-i18n="cont_cat_other">その他</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Company -->
+          <div class="form-group">
+            <label class="form-label" for="cont_company">
+              <span data-i18n="cont_company">会社名・団体名</span>
+            </label>
+            <input type="text" id="cont_company" name="company" class="form-input" placeholder="例：株式会社〇〇">
+          </div>
+
+          <!-- Name -->
+          <div class="form-group">
+            <label class="form-label" for="cont_name">
+              <span data-i18n="cont_name">お名前</span>
+              <span class="form-required">必須</span>
+            </label>
+            <input type="text" id="cont_name" name="name" class="form-input" placeholder="例：山田 太郎" required>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="cont_email">
+              <span data-i18n="cont_email">メールアドレス</span>
+              <span class="form-required">必須</span>
+            </label>
+            <input type="email" id="cont_email" name="email" class="form-input" placeholder="例：info@example.com" required>
+          </div>
+
+          <!-- Tel -->
+          <div class="form-group">
+            <label class="form-label" for="cont_tel">
+              <span data-i18n="cont_tel">電話番号</span>
+            </label>
+            <input type="tel" id="cont_tel" name="tel" class="form-input" placeholder="例：0739-XX-XXXX">
+          </div>
+
+          <!-- Language preference -->
+          <div class="form-group">
+            <label class="form-label">ご希望の対応言語</label>
+            <select class="form-select" name="lang_pref">
+              <option value="ja">日本語</option>
+              <option value="en">English</option>
+              <option value="zh">中文</option>
+              <option value="th">ภาษาไทย</option>
+              <option value="ko">한국어</option>
+            </select>
+          </div>
+
+          <!-- Message -->
+          <div class="form-group">
+            <label class="form-label" for="cont_msg">
+              <span data-i18n="cont_msg">お問い合わせ内容</span>
+              <span class="form-required">必須</span>
+            </label>
+            <textarea id="cont_msg" name="message" class="form-textarea" rows="6" placeholder="ご質問・ご相談内容をご入力ください。" required></textarea>
+          </div>
+
+          <!-- Privacy -->
+          <div class="form-group">
+            <label class="form-check">
+              <input type="checkbox" id="privacy" name="privacy" required>
+              <span data-i18n="cont_privacy">プライバシーポリシーに同意する</span>
+            </label>
+          </div>
+
+          <div class="form-submit">
+            <button type="submit" class="btn-submit" data-i18n="cont_submit">送信する</button>
+            <p style="margin-top:12px; font-size:13px; color:var(--mid-gray);" data-i18n="cont_note">※ 3営業日以内にご返信いたします</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Map -->
+<section class="section gray-bg">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-en">ACCESS</span>
+      <h2 class="section-title" data-i18n="comp_access">アクセス</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="map-embed" style="max-width:900px; margin:0 auto;">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3290.5!2d135.3618!3d33.6768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000d0e1c4e5a5a5%3A0x0!2z5ZKM5rGJ55yM6KW_55ac6YO95aSn55Sw77yI55m96aas55+l6KeJ55+l77yJ!5e0!3m2!1sja!2sjp!4v1600000000000"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        title="En Journey 所在地マップ">
+      </iframe>
+    </div>
+    <p style="text-align:center; margin-top:var(--sp-md); font-size:14px; color:var(--dark-gray);" data-i18n="comp_access_val">JR紀勢本線「白浜駅」より車で約10分</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo"><span class="logo-en">En Journey</span><span class="logo-jp">株式会社エンジャーニー</span></div>
+        <p class="footer-desc" data-i18n="footer_desc">和歌山県白浜町を拠点に、国内外の旅行手配・ランドオペレーター・インバウンド観光支援を展開する観光専門企業です。</p>
+        <p class="footer-address" data-i18n="footer_address">〒649-2201<br>和歌山県西牟婁郡白浜町堅田2434-1</p>
+      </div>
+      <nav class="footer-nav-wrap">
+        <div class="footer-nav-col">
+          <h4 data-i18n="footer_col_company">会社情報</h4>
+          <ul>
+            <li><a href="about.html" data-i18n="nav_philosophy">企業理念</a></li>
+            <li><a href="about.html#officers" data-i18n="nav_officers">役員紹介</a></li>
+            <li><a href="company.html" data-i18n="nav_overview">会社概要</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav-col">
+          <h4 data-i18n="footer_col_service">事業内容</h4>
+          <ul>
+            <li><a href="service.html#domestic" data-i18n="nav_domestic">国内旅行</a></li>
+            <li><a href="service.html#overseas" data-i18n="nav_overseas">海外旅行</a></li>
+            <li><a href="service.html#inbound" data-i18n="nav_inbound">インバウンド</a></li>
+            <li><a href="service.html#landop" data-i18n="nav_landop">ランドオペレーター</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav-col">
+          <h4 data-i18n="footer_col_recruit">採用・お問い合わせ</h4>
+          <ul>
+            <li><a href="recruit.html" data-i18n="nav_recruit">採用情報</a></li>
+            <li><a href="contact.html" data-i18n="nav_contact">お問い合わせ</a></li>
+            <li><a href="news.html" data-i18n="nav_news">お知らせ</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav-col">
+          <h4 data-i18n="footer_col_other">その他</h4>
+          <ul>
+            <li><a href="#" data-i18n="footer_privacy">プライバシーポリシー</a></li>
+            <li><a href="#" data-i18n="footer_sitemap">サイトマップ</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="logo"><span class="logo-en">En Journey</span></div>
+      <div class="footer-lang">
+        <button class="lang-btn" data-lang="ja">JP</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="zh">中文</button>
+        <button class="lang-btn" data-lang="th">TH</button>
+        <button class="lang-btn" data-lang="ko">KO</button>
+      </div>
+      <p class="copyright" data-i18n="copyright">© 2025 株式会社En Journey All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/i18n.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
