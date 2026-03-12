@@ -69,25 +69,9 @@
            hover:after:w-full;
   }
 
-  /* Scene image presets */
-  .scene-beach {
-    background: linear-gradient(180deg,
-      #87CEEB 0%, #B8DFF5 20%, #FFD4A8 40%,
-      #FFB060 52%, #5BBCD8 62%, #2E96C4 80%, #1A7AAF 100%);
-  }
-  .scene-mountain {
-    background: linear-gradient(180deg,
-      #DFF0FA 0%, #9AC8E8 28%, #7AB8A0 50%,
-      #4A9065 68%, #2D6845 85%, #1B4A30 100%);
-  }
-  .scene-temple {
-    background: linear-gradient(160deg,
-      #FEF3E2 0%, #FAD9A1 35%, #F0B06A 55%,
-      #D4845A 72%, #A85C38 88%, #7A3A1E 100%);
-  }
-  .scene-sky {
-    background: linear-gradient(135deg,
-      #E8F6FF 0%, #C8E8FF 35%,
-      #FFEFD0 70%, #FFD9A8 100%);
-  }
+  /* Scene image presets – kept as CSS fallbacks only */
+  .scene-beach    { background: linear-gradient(180deg, #87CEEB 0%, #5BBCD8 60%, #F5DEB3 100%); }
+  .scene-mountain { background: linear-gradient(180deg, #DFF0FA 0%, #4A9065 55%, #1B4A30 100%); }
+  .scene-temple   { background: linear-gradient(160deg, #FEF3E2 0%, #D4845A 60%, #7A3A1E 100%); }
+  .scene-sky      { background: linear-gradient(135deg, #E8F6FF 0%, #FFEFD0 100%); }
 }
