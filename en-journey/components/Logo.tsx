@@ -1,29 +1,30 @@
-import Image from 'next/image'
-
 interface Props {
   white?: boolean
   size?: 'sm' | 'md' | 'lg'
 }
 
-// Heights in px match the previous text-based logo sizes (text-xl / text-2xl / text-4xl)
-// Width is kept at 'auto' so the SVG's native 600:140 aspect ratio is preserved.
-const heightMap: Record<NonNullable<Props['size']>, number> = {
-  sm: 20,
-  md: 24,
-  lg: 36,
+const sizeMap = {
+  sm: { text: 'text-xl',  ring: 'w-[0.60em] h-[0.60em] border-[0.10em]' },
+  md: { text: 'text-2xl', ring: 'w-[0.60em] h-[0.60em] border-[0.10em]' },
+  lg: { text: 'text-4xl', ring: 'w-[0.60em] h-[0.60em] border-[0.12em]' },
 }
 
 export default function Logo({ white = false, size = 'md' }: Props) {
-  const h = heightMap[size]
+  const color = white ? 'text-white' : 'text-[#231815]'
+  const { text, ring } = sizeMap[size]
+
   return (
-    <Image
-      src="/logo-dark.svg"
-      alt="En Jouney"
-      width={600}
-      height={140}
-      style={{ height: h, width: 'auto' }}
-      className={white ? 'brightness-0 invert' : ''}
-      priority
-    />
+    <span
+      className={`inline-flex items-center leading-none tracking-tight select-none ${text}`}
+      style={{ fontFamily: "'Nunito', 'Helvetica Neue', Arial, sans-serif", fontWeight: 800 }}
+    >
+      <span className={color}>En J</span>
+      <span
+        className={`inline-block rounded-full flex-shrink-0 mx-[0.03em] ${ring}`}
+        style={{ borderColor: '#9B3A52', marginBottom: '0.03em' }}
+        aria-hidden="true"
+      />
+      <span className={color}>uney</span>
+    </span>
   )
 }
