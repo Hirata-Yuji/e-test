@@ -73,7 +73,7 @@ export default function Header() {
                 onMouseEnter={() => item.children && setActiveDD(item.key)}
                 onMouseLeave={() => setActiveDD(null)}
               >
-                <Link href={item.href} className="nav-link text-[11px]">
+                <Link href={item.href} className="nav-link">
                   {tr(item.key)}
                 </Link>
 
@@ -84,14 +84,14 @@ export default function Header() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-52"
+                      className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-72"
                     >
                       <div className="bg-white border-t-2 border-crimson shadow-[0_8px_32px_rgba(0,0,0,0.10)]">
                         {item.children.map(c => (
                           <Link
                             key={c.key}
                             href={c.href}
-                            className="block px-5 py-3 text-[11px] tracking-widest text-muted
+                            className="block px-6 py-4 text-base font-bold tracking-wider text-muted
                                        border-b border-warm-100
                                        hover:text-crimson hover:bg-crimson-pale
                                        transition-colors duration-200"
