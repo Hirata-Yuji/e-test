@@ -8,7 +8,7 @@
     @apply font-sans text-charcoal bg-white antialiased;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.015'/%3E%3C/svg%3E");
   }
-  h1, h2, h3 { @apply font-serif tracking-wide; }
+  h1, h2, h3 { @apply font-sans tracking-wide; }
 }
 
 @layer components {
@@ -17,7 +17,7 @@
   .label-en {
     @apply block text-[10px] tracking-widest font-sans text-crimson uppercase mb-2;
   }
-  .title-ja { @apply font-serif leading-snug tracking-wide; }
+  .title-ja { @apply font-sans leading-snug tracking-wide; }
   .accent-line { @apply block w-10 h-[2px] bg-crimson mb-8; }
 
   /* Buttons */

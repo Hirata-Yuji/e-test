@@ -40,8 +40,8 @@ const SERVICES = [
   {
     id: 'bustour', num: '05', emoji: '🚌',
     tagKey: 'nav_bustour', titleKey: 'svc5_title', bodyKey: 'svc5_body',
-    points: ['南紀白浜・熊野古道・那智の滝など名所を巡るコース', '多言語ガイド同行（英語・中国語・タイ語・韓国語）', '少人数制でゆったりと観光', '海外旅行代理店・ホテルとの提携プラン対応'],
-    points_en: ['Scenic routes covering Shirahama, Kumano Kodo & Nachi Falls', 'Multilingual guides (EN/ZH/TH/KO)', 'Small-group tours for a relaxed experience', 'Partnership plans with overseas agents & hotels'],
+    points: ['多言語ガイド同行（英語・中国語・タイ語・韓国語）', '少人数制でゆったりと観光', '海外旅行代理店・ホテルとの提携プラン対応'],
+    points_en: ['Multilingual guides (EN/ZH/TH/KO)', 'Small-group tours for a relaxed experience', 'Partnership plans with overseas agents & hotels'],
     color: 'from-[#8B4513] to-[#5C2D0A]',
     img: '/e-test/images/service-bustour.jpg',
   },

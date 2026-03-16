@@ -20,6 +20,7 @@ const COLS = [
       { key: 'nav_overseas', href: '/service#overseas' },
       { key: 'nav_inbound',  href: '/service#inbound' },
       { key: 'nav_landop',   href: '/service#landop' },
+      { key: 'nav_bustour',  href: '/service#bustour' },
     ],
   },
   {
@@ -36,7 +37,7 @@ export default function Footer() {
   const { lang, setLang, tr } = useLang()
 
   return (
-    <footer className="bg-warm-50 border-t border-warm-200">
+    <footer className="bg-white border-t border-warm-200">
       {/* Top crimson bar */}
       <div className="h-[3px] bg-gradient-to-r from-crimson-dark via-crimson to-crimson-light" />
 
