@@ -59,9 +59,6 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex flex-col leading-none gap-0.5">
             <Logo size="sm" />
-            <span className="text-[8px] tracking-widest font-sans text-muted">
-              株式会社エンジャーニー
-            </span>
           </Link>
 
           {/* Desktop Nav */}
