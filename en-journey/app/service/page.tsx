@@ -37,6 +37,14 @@ const SERVICES = [
     color: 'from-[#2E5C3F] to-[#1A3A28]',
     img: '/e-test/images/service-landop.jpg',
   },
+  {
+    id: 'bustour', num: '05', emoji: '🚌',
+    tagKey: 'nav_bustour', titleKey: 'svc5_title', bodyKey: 'svc5_body',
+    points: ['南紀白浜・熊野古道・那智の滝など名所を巡るコース', '多言語ガイド同行（英語・中国語・タイ語・韓国語）', '少人数制でゆったりと観光', '海外旅行代理店・ホテルとの提携プラン対応'],
+    points_en: ['Scenic routes covering Shirahama, Kumano Kodo & Nachi Falls', 'Multilingual guides (EN/ZH/TH/KO)', 'Small-group tours for a relaxed experience', 'Partnership plans with overseas agents & hotels'],
+    color: 'from-[#8B4513] to-[#5C2D0A]',
+    img: '',
+  },
 ]
 
 export default function ServicePage() {
@@ -70,9 +78,12 @@ export default function ServicePage() {
 
               {/* Visual */}
               <AnimateIn direction={i % 2 === 0 ? 'left' : 'right'}>
-                <div className="aspect-[4/3] rounded-sm overflow-hidden relative">
-                  <img src={s.img} alt={s.id}
-                    className="w-full h-full object-cover object-center" />
+                <div className={`aspect-[4/3] rounded-sm overflow-hidden relative
+                                ${!s.img ? `bg-gradient-to-br ${s.color} flex items-center justify-center` : ''}`}>
+                  {s.img
+                    ? <img src={s.img} alt={s.id} className="w-full h-full object-cover object-center" />
+                    : <span className="text-8xl opacity-40">{s.emoji}</span>
+                  }
                   <div className="absolute top-6 left-6">
                     <span className="text-white/40 font-sans text-6xl font-light drop-shadow">{s.num}</span>
                   </div>
