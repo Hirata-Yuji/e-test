@@ -16,6 +16,7 @@ const SERVICES = [
   { num: '02', titleKey: 'svc2_title', bodyKey: 'svc2_body', href: '/service#overseas', img: '/e-test/images/overseas.jpg', alt: '海外旅行', tag: 'OVERSEAS' },
   { num: '03', titleKey: 'svc3_title', bodyKey: 'svc3_body', href: '/service#inbound',  img: '/e-test/images/inbound.jpg',  alt: 'インバウンド', tag: 'INBOUND' },
   { num: '04', titleKey: 'svc4_title', bodyKey: 'svc4_body', href: '/service#landop',   img: '/e-test/images/landop.jpg',   alt: 'ランドオペレーター', tag: 'LAND OP' },
+  { num: '05', titleKey: 'svc5_title', bodyKey: 'svc5_body', href: '/service#bustour',  img: '/e-test/images/service-bustour.jpg', alt: '観光バス事業', tag: 'CHARTER BUS' },
 ]
 
 export default function Home() {
