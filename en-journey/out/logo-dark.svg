@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 140" fill="none">
+  <defs>
+    <style>
+      .logo-text {
+        font-family: 'Nunito', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 96px;
+        font-weight: 800;
+        dominant-baseline: auto;
+      }
+    </style>
+  </defs>
+
+  <!-- Full text with transparent "o" placeholder -->
+  <text class="logo-text" y="105">
+    <tspan fill="#231815">En J</tspan><tspan fill="none">o</tspan><tspan fill="#231815">uney</tspan>
+  </text>
+
+  <!-- Rose ring replacing the "o" -->
+  <!-- Approximate center of "o": x≈282, y≈57 (mid-cap height at size 96) -->
+  <circle cx="282" cy="57" r="34" stroke="#9B3A52" stroke-width="14" fill="none"/>
+</svg>
