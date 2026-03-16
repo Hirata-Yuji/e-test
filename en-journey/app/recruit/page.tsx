@@ -65,7 +65,11 @@ export default function RecruitPage() {
 
       {/* Hero message */}
       <section className="py-32 bg-navy relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5"
+        <div className="absolute inset-0">
+          <img src="/e-test/images/recruit-hero.jpg" alt="recruit"
+            className="w-full h-full object-cover object-center opacity-30" />
+        </div>
+        <div className="absolute inset-0 opacity-60"
           style={{ backgroundImage: 'radial-gradient(circle at 30% 60%, #C9A227 0%, transparent 50%)' }} />
         <div className="px-6 md:px-12 lg:px-24 max-w-screen-xl mx-auto relative z-10 max-w-2xl">
           <AnimateIn>
