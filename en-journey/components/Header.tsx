@@ -54,7 +54,7 @@ export default function Header() {
         {/* Crimson top bar */}
         <div className="h-[3px] bg-gradient-to-r from-crimson-dark via-crimson to-crimson-light" />
 
-        <div className="flex items-center justify-between px-6 md:px-10 lg:px-16 h-16">
+        <div className="flex items-center justify-between px-6 md:px-10 lg:px-16 h-20">
 
           {/* Logo */}
           <Link href="/" className="flex flex-col leading-none gap-0.5">

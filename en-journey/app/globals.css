@@ -42,7 +42,7 @@
 
   /* Nav link */
   .nav-link {
-    @apply text-xs tracking-widest font-sans text-charcoal-soft
+    @apply text-sm font-bold tracking-widest font-sans text-charcoal-soft
            relative after:absolute after:bottom-0 after:left-0
            after:h-px after:w-0 after:bg-crimson after:transition-all after:duration-300
            hover:text-crimson hover:after:w-full;

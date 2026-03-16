@@ -6,7 +6,7 @@ interface Props {
 }
 
 const sizeMap = {
-  sm: { width: 120, height: 40 },
+  sm: { width: 180, height: 60 },
   md: { width: 160, height: 54 },
   lg: { width: 220, height: 74 },
 }
