@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>B事業 来期売上見通し 回答メモ</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;font-size:13px;color:#1a1a1a;background:#f5f4f0;line-height:1.65}
+.page{max-width:980px;margin:0 auto;padding:32px 24px 80px}
+h1{font-size:21px;font-weight:600;color:#1F3864;letter-spacing:-.02em}
+h2{font-size:15px;font-weight:600;color:#1F3864;border-bottom:2px solid #2E75B6;padding-bottom:5px;margin:28px 0 12px}
+h3{font-size:13px;font-weight:600;color:#1F5C8B;margin:16px 0 7px}
+p{font-size:13px;margin-bottom:6px;color:#222}
+.header-meta{display:flex;gap:10px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.badge{display:inline-block;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:600}
+.badge-red{background:#F7C1C1;color:#791F1F}
+.badge-blue{background:#B5D4F4;color:#0C447C}
+.badge-gray{background:#D3D1C7;color:#2C2C2A}
+.meta-table{width:100%;border-collapse:collapse;font-size:12px;margin:12px 0}
+.meta-table td{padding:6px 10px;border:0.5px solid #ddd}
+.meta-table td:first-child{color:#666;width:110px;background:#f8f8f8}
+.card{background:#fff;border:0.5px solid #ddd;border-radius:10px;padding:14px 18px;margin-bottom:10px}
+.card.blue{background:#EAF3FB;border-color:#B5D4F4}
+.card.amber{background:#FDF5E6;border-color:#FAC775}
+.card.red{background:#FDF2F2;border-color:#F7C1C1}
+.card.green{background:#EFF7E8;border-color:#C0DD97}
+.card-label{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px;color:#888}
+.card.blue .card-label{color:#185FA5}
+.card.amber .card-label{color:#854F0B}
+.card.red .card-label{color:#A32D2D}
+.card.green .card-label{color:#3B6D11}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}
+.kpi{background:#f2f2f0;border-radius:8px;padding:12px 14px}
+.kpi .lbl{font-size:10px;color:#666;margin-bottom:3px}
+.kpi .val{font-size:20px;font-weight:600;color:#1F3864;line-height:1.2}
+.kpi .sub{font-size:11px;color:#888;margin-top:2px}
+.kpi.warn .val{color:#A32D2D}
+.kpi.ok .val{color:#1E7145}
+.kpi.hi .val{color:#1F5C8B}
+.q-block{border-left:3px solid #2E75B6;padding:12px 16px;margin:14px 0;background:#f8fbff;border-radius:0 8px 8px 0}
+.q-block .q{font-size:12px;font-weight:600;color:#0C447C;margin-bottom:6px}
+.q-block .a strong{color:#1F3864}
+.two-col{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.three-col{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+table.data{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0}
+table.data thead th{background:#1F3864;color:#fff;padding:7px 10px;font-weight:500;text-align:center}
+table.data thead th:first-child{text-align:left}
+table.data tbody tr:nth-child(odd){background:#fff}
+table.data tbody tr:nth-child(even){background:#f7f7f7}
+table.data tbody td{padding:6px 10px;border-bottom:0.5px solid #eee}
+table.data tbody td:not(:first-child){text-align:right}
+table.data tbody tr.hl td{background:#E6F1FB;font-weight:600;color:#0C447C}
+table.data tbody tr.total td{background:#E5EBF4;font-weight:600;color:#1F3864}
+.scenario{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;margin-bottom:5px;font-size:12px}
+.scenario.rec{background:#E6F1FB;border:1.5px solid #378ADD}
+.scenario .s-lbl{flex:1}
+.scenario .s-val{font-weight:600;font-size:15px;color:#1F3864}
+.scenario .s-diff{font-size:11px;color:#888}
+.chart-wrap{position:relative;width:100%}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:11px;color:#555;margin-bottom:6px}
+.leg-dot{width:10px;height:10px;border-radius:2px;display:inline-block}
+.ir-box{background:#F1EFE8;border:0.5px solid #D3D1C7;border-radius:8px;padding:14px 18px;margin:12px 0}
+.ir-box .ir-label{font-size:10px;font-weight:600;letter-spacing:.06em;color:#5F5E5A;margin-bottom:8px}
+.ir-box p{font-size:12px;color:#333;font-style:italic;line-height:1.7}
+.action-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+.action-card{background:#fff;border:0.5px solid #ddd;border-radius:8px;padding:12px 14px}
+.action-card.urgent{border-color:#E24B4A}
+.action-card .num{width:20px;height:20px;border-radius:50%;background:#1F3864;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;margin-bottom:6px}
+.action-card.urgent .num{background:#A32D2D}
+.action-card h4{font-size:12px;font-weight:600;color:#1F3864;margin-bottom:3px}
+.action-card p{font-size:11px;color:#555;margin:0}
+hr{border:none;border-top:0.5px solid #e0e0e0;margin:20px 0}
+.footnote{font-size:11px;color:#999;margin-top:5px}
+.tag{display:inline-block;padding:1px 7px;border-radius:3px;font-size:11px;font-weight:500}
+.tag-r{background:#F7C1C1;color:#791F1F}
+.tag-g{background:#C0DD97;color:#27500A}
+.tag-b{background:#B5D4F4;color:#0C447C}
+.tag-a{background:#FAC775;color:#412402}
+.divider-title{display:flex;align-items:center;gap:10px;margin:28px 0 12px}
+.divider-title span{font-size:15px;font-weight:600;color:#1F3864;white-space:nowrap}
+.divider-title::after{content:'';flex:1;height:2px;background:#2E75B6}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div style="margin-bottom:20px">
+  <div class="header-meta">
+    <span class="badge badge-red">CONFIDENTIAL</span>
+    <span class="badge badge-gray">社内連絡メモ 回答</span>
+    <span class="badge badge-blue">B事業</span>
+  </div>
+  <h1>B事業 来期売上見通し — 矛盾点の解消と検証結果</h1>
+  <table class="meta-table" style="max-width:480px;margin-top:10px">
+    <tr><td>宛先</td><td>本田 幸大（CEO）</td></tr>
+    <tr><td>作成者</td><td>平田 佑司（CSO）</td></tr>
+    <tr><td>日付</td><td>2026年3月20日</td></tr>
+    <tr><td>件名</td><td>CEOメモ（2026年3月）への回答 ― 4確認事項の数値整理</td></tr>
+  </table>
+</div>
+
+<div class="card amber">
+  <div class="card-label">回答の結論</div>
+  <p><strong>「採用計画の3,000万前提は過小評価」というCEOの感触は正しい。</strong>実データではシニア層（在籍3年超22名）の平均生産性は6,925万/人であり、3,000万前提の2.3倍です。来期の精緻試算では<strong>20.75億円（207,462万）</strong>が推奨値となります。CEOの「横ばい＋1億（24億）」との差は▲3.25億ですが、この差の主因は①成約高の減少トレンド、②Stockリテイナーの年率15%自然逓減です。新規成約の回復次第でCEO見通しに近づけることができます。</p>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi hi">
+    <div class="lbl">シニア層（3年超）平均売上</div>
+    <div class="val">6,925万</div>
+    <div class="sub">22名 ／ 計152,341万</div>
+  </div>
+  <div class="kpi">
+    <div class="lbl">今期着地（旧データ定義）</div>
+    <div class="val">~24.0億</div>
+    <div class="sub">CEOメモ記載値と整合</div>
+  </div>
+  <div class="kpi ok">
+    <div class="lbl">来期推奨値（精緻試算）</div>
+    <div class="val">20.75億</div>
+    <div class="sub">CEO見通し比 ▲3.25億</div>
+  </div>
+  <div class="kpi warn">
+    <div class="lbl">採用計画試算（3,000万×57名）</div>
+    <div class="val">17.1億</div>
+    <div class="sub">シニア実態が未反映</div>
+  </div>
+</div>
+
+<div class="divider-title"><span>1. CEO確認事項への回答（4点）</span></div>
+
+<div class="q-block">
+  <div class="q">Q1. シニア（在籍3年超）と新人（在籍1〜2年）の人数と1人あたり売上の実績値。3,000万前提はシニア実態が未反映ではないか？</div>
+  <div class="a">
+    <strong>回答：未反映です。シニア層の実態は3,000万の2.3倍です。</strong>
+    <table class="data" style="margin:10px 0">
+      <thead><tr><th>在籍年数</th><th>人数</th><th>平均売上/人</th><th>合計売上</th><th>3,000万前提比</th></tr></thead>
+      <tbody>
+        <tr class="hl"><td>3年超（シニア）</td><td>22名</td><td>6,925万</td><td>152,341万</td><td><span class="tag tag-g">+130%上振れ</span></td></tr>
+        <tr><td>2年台</td><td>7名</td><td>2,438万</td><td>17,068万</td><td><span class="tag tag-a">▲19%</span></td></tr>
+        <tr><td>1年台</td><td>5名</td><td>729万</td><td>3,644万</td><td><span class="tag tag-r">▲76%</span></td></tr>
+        <tr><td>1年未満（本田世代）</td><td>20名</td><td>216万</td><td>4,310万</td><td><span class="tag tag-r">▲93%</span></td></tr>
+        <tr class="total"><td>全体平均</td><td>54名</td><td>3,284万</td><td>177,363万</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <p>B事業の売上の約<strong>86%（152,341万）はシニア22名が生み出しています。</strong>全員一律3,000万で試算すると、シニア層を大幅に過小評価し、結果が実態より▲4〜6億低く出る構造的欠陥があります。</p>
+  </div>
+</div>
+
+<div class="q-block">
+  <div class="q">Q2. 既存リテイナー契約のうち「担当者が変わっても継続される契約」はどのくらいの規模か？</div>
+  <div class="a">
+    <strong>回答：FY2025のStock（月次リテイナー）は年間12.63億円（事業部売上の58.7%）です。</strong>
+    <div class="two-col" style="margin:10px 0">
+      <div><div class="chart-wrap" style="height:180px"><canvas id="cStock"></canvas></div></div>
+      <div style="padding-top:8px">
+        <table class="data" style="font-size:11px">
+          <thead><tr><th>時点</th><th>Stock月次残高</th><th>累積変化</th></tr></thead>
+          <tbody>
+            <tr><td>2025年6月（期初）</td><td>11,693万</td><td>─</td></tr>
+            <tr><td>2025年12月（期中）</td><td>10,408万</td><td><span class="tag tag-r">▲10.9%</span></td></tr>
+            <tr class="hl"><td>2026年5月（期末）</td><td>9,380万</td><td><span class="tag tag-r">▲19.8%</span></td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:12px;margin-top:8px">月次平均継続率98.0%、<strong>年間では78.7%が翌年に持ち越されます。</strong>来期期初のStock月次ベースライン：約9,200万/月（年間換算 約11.0億）。担当者変更でも継続するのがStockの主体ですが、年率約15%の自然逓減は織り込む必要があります。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="q-block">
+  <div class="q">Q3. 来期に離脱が見込まれる人員に高生産性（年間5,000万超）の人材が含まれているか？</div>
+  <div class="a">
+    <strong>回答：現時点でFY2025中の離脱は確認されていません。上位層の離脱リスクは低い構造です。</strong>
+    <table class="data" style="margin:10px 0">
+      <thead><tr><th>氏名</th><th>ランク</th><th>FY2025売上</th><th>在籍年数</th><th>スクリーニング</th><th>離脱リスク</th></tr></thead>
+      <tbody id="top17tbody"></tbody>
+    </table>
+    <p>5,000万超17名の合計売上は<strong>135,310万（事業全体の約90%）</strong>。全員在籍3年以上のシニアであり、「上位層の離脱率が低い」というCEOの直感はデータと整合しています。</p>
+  </div>
+</div>
+
+<div class="q-block">
+  <div class="q">Q4. 来期後半から稼働開始する新入社員（本田スクリーニング）の売上貢献は採用計画に織り込まれているか？</div>
+  <div class="a">
+    <strong>回答：貢献は限定的（3,330万）ですが、来々期（FY2027）に向けたポテンシャルは高い。</strong>
+    <div class="two-col" style="margin:10px 0;gap:12px">
+      <div class="card" style="margin:0"><div class="card-label">来期（FY2026）1年目の貢献</div>
+        <div style="font-size:20px;font-weight:600;color:#1F3864;margin:4px 0">3,330万</div>
+        <p style="font-size:12px">本田スクリーニング15名 × 222万/人（4月入社→10ヶ月稼働）</p>
+      </div>
+      <div class="card green" style="margin:0"><div class="card-label">来々期（FY2027）2年目への成長期待</div>
+        <div style="font-size:20px;font-weight:600;color:#1E7145;margin:4px 0">26,100万</div>
+        <p style="font-size:12px">15名 × 1,740万/人（過去健全世代の2年目実績）<br>本田世代定着率<strong>87%</strong>が根拠</p>
+      </div>
+    </div>
+    <p>来期1年目の貢献は3,330万（約0.3億）と小さい。ただし来々期FY2027に2年目となった際の成長ポテンシャルは最大26,100万で、<strong>「採用の質が変わった」というIR訴求の最も強力な材料</strong>です。</p>
+  </div>
+</div>
+
+<div class="divider-title"><span>2. 採用計画との矛盾解消：精緻化した来期試算</span></div>
+
+<div class="two-col">
+  <div>
+    <h3>シニア・新人分離モデル（確定数値）</h3>
+    <table class="data">
+      <thead><tr><th>層・ランク</th><th>人数</th><th>成約高/人</th><th>純係数</th><th>小計</th></tr></thead>
+      <tbody>
+        <tr class="hl"><td>CEO</td><td>3名</td><td>4,500万</td><td>1.519</td><td>20,506万</td></tr>
+        <tr class="hl"><td>COO</td><td>3名</td><td>4,500万</td><td>1.470</td><td>19,845万</td></tr>
+        <tr class="hl"><td>主任（シニア）</td><td>15名</td><td>4,200万</td><td>1.650</td><td>103,950万</td></tr>
+        <tr class="hl"><td>中堅メンバー</td><td>2名</td><td>4,700万</td><td>1.050</td><td>9,870万</td></tr>
+        <tr><td>3年目・成長途上</td><td>3名</td><td>2,500万</td><td>0.980</td><td>7,350万</td></tr>
+        <tr><td>2年目（本田世代）</td><td>18名</td><td>1,900万</td><td>0.780</td><td>26,676万</td></tr>
+        <tr><td>1年目（新規入社）</td><td>15名</td><td>600万</td><td>0.370</td><td>3,330万</td></tr>
+        <tr class="total"><td>自力合計</td><td>59名</td><td>—</td><td>—</td><td>191,527万</td></tr>
+        <tr><td>＋引継ぎ継続分（58%）</td><td>—</td><td>—</td><td>—</td><td>15,935万</td></tr>
+        <tr class="total"><td><strong>来期合計（推奨値）</strong></td><td>—</td><td>—</td><td>—</td><td><strong>207,462万 = 20.75億</strong></td></tr>
+      </tbody>
+    </table>
+    <p class="footnote">※ 純係数 = 自力納品高÷成約高（引継ぎ除き）。FY2022〜2025実績中央値。引継ぎ継続分はFY2025通期換算27,380万×58%。</p>
+  </div>
+  <div>
+    <h3>シナリオ比較</h3>
+    <div id="scenarios"></div>
+    <div class="chart-wrap" style="height:200px;margin-top:10px"><canvas id="cScen"></canvas></div>
+    <div class="card amber" style="margin-top:10px;padding:10px 14px">
+      <div class="card-label">矛盾解消の説明</div>
+      <p style="font-size:12px">採用計画の「17〜18億」はシニア22名の実態（6,925万/人）を全員一律3,000万で希薄化しているため。分離モデルでは<strong>20.75億</strong>となりCEO見通しとの差は▲3.25億に縮小。残差はStockの自然逓減（年率▲15%）と成約高の下落トレンドによる構造的要因です。</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider-title"><span>3. 事業部全体（stock/spot）の推移と来期見通し</span></div>
+
+<div class="chart-wrap" style="height:240px;margin-bottom:6px"><canvas id="cMain"></canvas></div>
+<div class="legend">
+  <span><span class="leg-dot" style="background:#1F5C8B"></span>Stock（月次リテイナー）</span>
+  <span><span class="leg-dot" style="background:#85B7EB"></span>Spot（スポット案件）</span>
+  <span><span class="leg-dot" style="background:#BA7517;width:24px;height:3px;border-radius:0"></span>成約高（先行指標）</span>
+</div>
+<p class="footnote">出所：stock_spot_FY2021_FY2026_fixed_1.xlsx。FY2025は12ヶ月確定値（21.50億）。</p>
+
+<div class="card red" style="margin-top:12px">
+  <div class="card-label">事業部全体の構造的課題（stock/spot定義）</div>
+  <p>Stock（月次リテイナー）はFY2022ピーク（17.8億）から年率▲15〜17%で逓減中。Spot（スポット案件）も成約高の下落（FY2022: 26.6億→FY2026通期換算: 16.6億）が直撃。<strong>24億達成には①新規成約の回復（月次14,000万以上を目標）②Spotパイプラインの積み上げが必要条件です。</strong></p>
+</div>
+
+<div class="divider-title"><span>4. IR戦略：本田スクリーニング効果の訴求</span></div>
+
+<div class="ir-box">
+  <div class="ir-label">IR資料組み込み案（承認済み文案）</div>
+  <p>「過去体制下における採用の定着率は平均9〜31%でした。スクリーニング担当者の変更により、直近採用コホートの定着率は87%まで回復しています。一人あたり生産性は過去から高水準を維持しており、稼ぐ力自体は劣化していません。採用の質が根本的に変わったことで、中期的な人員積み上げの確度は飛躍的に高まっています。」</p>
+</div>
+
+<div class="three-col" style="margin:14px 0">
+  <div class="card" style="margin:0">
+    <div class="card-label">定着率の改善（スクリーニング別）</div>
+    <table class="data" style="font-size:11px;margin-top:6px">
+      <thead><tr><th>採用期</th><th>現在籍/採用数</th><th>定着率</th></tr></thead>
+      <tbody>
+        <tr><td>前体制 FY2022</td><td>4名 / 47名</td><td><span class="tag tag-r">9%</span></td></tr>
+        <tr><td>前体制 FY2023</td><td>10名 / 41名</td><td><span class="tag tag-a">24%</span></td></tr>
+        <tr><td>前体制 FY2024</td><td>5名 / 16名</td><td><span class="tag tag-a">31%</span></td></tr>
+        <tr class="hl"><td>本田 FY2025</td><td>27名 / 31名</td><td><span class="tag tag-g">87%</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card" style="margin:0">
+    <div class="card-label">本田世代の成長曲線</div>
+    <div class="chart-wrap" style="height:130px"><canvas id="cHonda"></canvas></div>
+  </div>
+  <div class="card" style="margin:0">
+    <div class="card-label">中期シナリオ（FY2027〜）</div>
+    <table class="data" style="font-size:11px;margin-top:6px">
+      <tbody>
+        <tr><td>FY2026 来期1年目</td><td>3,330万</td></tr>
+        <tr class="hl"><td>FY2027 本田世代2年目</td><td>最大26,100万</td></tr>
+        <tr><td>FY2027 和歌山高卒本格化</td><td>追加上乗せ</td></tr>
+        <tr class="hl"><td>FY2028 非連続成長フェーズ</td><td>全事業フル稼働</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="divider-title"><span>5. 来期業績予想レンジ（4Q開示向け）</span></div>
+
+<div class="card blue">
+  <div class="card-label">推奨レンジ（2026年8月予定）</div>
+  <div class="three-col" style="margin-top:8px;gap:10px">
+    <div style="text-align:center;padding:10px;background:#fff;border-radius:6px;border:0.5px solid #B5D4F4">
+      <div style="font-size:11px;color:#888;margin-bottom:4px">下限（保守）</div>
+      <div style="font-size:22px;font-weight:600;color:#1F3864">21.5億</div>
+      <div style="font-size:11px;color:#888">Stock/Spot実績継続率ベース</div>
+    </div>
+    <div style="text-align:center;padding:10px;background:#EAF3FB;border-radius:6px;border:2px solid #378ADD">
+      <div style="font-size:11px;color:#185FA5;font-weight:600;margin-bottom:4px">★推奨中央値</div>
+      <div style="font-size:22px;font-weight:600;color:#0C447C">20.75億</div>
+      <div style="font-size:11px;color:#185FA5">分離モデル・引継58%</div>
+    </div>
+    <div style="text-align:center;padding:10px;background:#fff;border-radius:6px;border:0.5px solid #B5D4F4">
+      <div style="font-size:11px;color:#888;margin-bottom:4px">上限（CEO感触）</div>
+      <div style="font-size:22px;font-weight:600;color:#1E7145">24.0億</div>
+      <div style="font-size:11px;color:#888">成約回復＋引継ぎ80%想定</div>
+    </div>
+  </div>
+  <p style="font-size:12px;margin-top:10px;color:#0C447C">業績予想レンジとして「20.75〜24.0億円（推奨中央値20.75億）」を提案します。上振れ条件は新規成約の回復（月次成約高14,000万以上）と引継ぎ案件の継続率改善です。</p>
+</div>
+
+<div class="divider-title"><span>6. 残課題</span></div>
+
+<div class="action-grid">
+  <div class="action-card urgent">
+    <div class="num">1</div>
+    <h4>「B事業売上」の定義統一（最優先）</h4>
+    <p>旧データ（PR担当者定義 ≒ 24億）と事業部全体（stock/spot ≒ 21.5億）の差▲2.5億の定義問題を解消。中計・業績予想・IR開示の基準を一本化する。</p>
+  </div>
+  <div class="action-card urgent">
+    <div class="num">2</div>
+    <h4>新規成約の回復計画</h4>
+    <p>成約高が3年連続下落（FY2022: 26.6億→FY2026通期換算: 16.6億）。24億達成には月次成約高14,000万以上の回復が必要。具体的施策と数値目標を月次で設定する。</p>
+  </div>
+  <div class="action-card">
+    <div class="num">3</div>
+    <h4>中計シートv6の係数修正</h4>
+    <p>売上倍率を純係数（CEO: 1.519、主任: 1.650等）に更新。既存売上高（行43）を月次1,328万に引き上げ。中堅メンバーを4名→5名に修正（+6,345万）。</p>
+  </div>
+  <div class="action-card">
+    <div class="num">4</div>
+    <h4>柴田・子俣・南の在籍確認</h4>
+    <p>人材DB上のスクリーニング情報が不明の3名（売上合計約1.8億）について、来期の稼働継続を確認する。</p>
+  </div>
+</div>
+
+<hr>
+<p class="footnote">【データ出所】人材DB（2026/3/16）、stock_spot_FY2021_FY2026_fixed_1.xlsx（事業部売上・確定値）、新規既存成約テータ_6カ年統合.xlsx、納品額CSV（2026/3/18付）、引継ぎ案件CSV（2026/3/19付）。FY2025はQ1-Q3（10ヶ月）元データからゼロベース集計（確定値）。在籍年数はFY2026期初（2025/6/1）時点で算出。</p>
+<p class="footnote">【注意】本資料は内部分析用。個人名を含む情報の対外的な使用は禁止。IR開示時は「前体制」「スクリーニング担当者の変更」という表現に留めること。</p>
+</div>
+
+<script>
+const top17=[
+  ['里崎 仁奈','主任','13,927万','15.9年','不明'],
+  ['町田 宗誠','CEO','13,158万','7.2年','本田'],
+  ['山田 紗羅','主任','10,394万','3.2年','前体制'],
+  ['宜保 勇貴','主任','9,582万','10.2年','本田'],
+  ['吉野 幸裕','主任','8,846万','11.7年','不明'],
+  ['佐藤 志保','主任','8,683万','8.2年','本田'],
+  ['片山 光弘','主任','8,612万','7.2年','本田'],
+  ['奥野 昂輝','COO','7,936万','5.2年','本田'],
+  ['廣瀬 哲夫','主任','7,331万','15.1年','不明'],
+  ['小峰 茂樹','CEO','7,126万','8.2年','本田'],
+  ['柴田 栞','主任','6,213万','不明','不明'],
+  ['神能 康佑','中堅','6,158万','4.2年','不明'],
+  ['秋山 湧基','COO','6,070万','5.2年','本田'],
+  ['定國 翼','CEO','5,478万','6.2年','本田'],
+  ['清水 莉胡','主任','5,427万','4.2年','不明'],
+  ['小川 雄矢','主任','5,357万','4.2年','不明'],
+  ['木村 喬太','主任','5,012万','4.2年','不明'],
+];
+document.getElementById('top17tbody').innerHTML=top17.map(([n,r,s,y,sc])=>{
+  const risk=y==='不明'?'<span class="tag tag-a">要確認</span>':'<span class="tag tag-g">低（シニア）</span>';
+  return `<tr><td>${n}</td><td>${r}</td><td>${s}</td><td>${y}</td><td>${sc}</td><td>${risk}</td></tr>`;
+}).join('');
+
+/* ── 確定シナリオ（バグ修正済み） ── */
+const SELF=191527, INHER=15935;
+const TOTAL=SELF+INHER; // 207,462万 = 20.75億
+const scenList=[
+  {label:'採用計画（3,000万×57名）',val:17100,rec:false},
+  {label:'推奨値（分離モデル・引継58%）★',val:TOTAL,rec:true},
+  {label:'上振れ（引継65%）',val:Math.round(SELF+27380*0.65),rec:false},
+  {label:'CEO感触（横ばい+1億）',val:240000,rec:false},
+];
+document.getElementById('scenarios').innerHTML=scenList.map(d=>{
+  const diff=((d.val-240000)/10000).toFixed(2);
+  const ds=diff>=0?`+${diff}億`:`${diff}億`;
+  return `<div class="scenario ${d.rec?'rec':''}">
+    <div class="s-lbl">${d.label}</div>
+    <div class="s-val">${(d.val/10000).toFixed(2)}億</div>
+    <div class="s-diff">${ds}</div></div>`;
+}).join('');
+
+Chart.defaults.font.family="'Helvetica Neue',Arial,sans-serif";
+Chart.defaults.font.size=11;
+
+/* ── Stock月次推移 ── */
+new Chart(document.getElementById('cStock'),{
+  type:'line',
+  data:{labels:['6月','7月','8月','9月','10月','11月','12月','1月','2月','3月','4月','5月'],
+    datasets:[{data:[11693,11396,11108,10962,10800,10681,10408,10213,9904,9878,9870,9380],
+      borderColor:'#1F5C8B',backgroundColor:'rgba(31,92,139,0.08)',fill:true,
+      pointBackgroundColor:'#1F5C8B',pointRadius:3,tension:0.3,borderWidth:2}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+    scales:{x:{grid:{display:false},ticks:{font:{size:10}}},
+      y:{beginAtZero:false,min:8000,max:13000,
+        ticks:{callback:v=>v.toLocaleString()+'万',font:{size:10}},
+        grid:{color:'rgba(0,0,0,0.05)'}}}}
+});
+
+/* ── シナリオ横棒 ── */
+new Chart(document.getElementById('cScen'),{
+  type:'bar',
+  data:{labels:scenList.map(d=>d.label.replace('★','').trim()).concat(['FY2025実績']),
+    datasets:[{data:scenList.map(d=>d.val).concat([214971]),
+      backgroundColor:['#B4B2A9','#378ADD','#5F5E5A','#E24B4A','#1D9E75'],borderRadius:4}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+(c.parsed.x/10000).toFixed(2)+'億'}}},
+    scales:{x:{min:14000,max:260000,ticks:{callback:v=>(v/10000).toFixed(0)+'億'},grid:{color:'rgba(0,0,0,0.05)'}},
+      y:{grid:{display:false},ticks:{font:{size:10}}}}},
+  plugins:[{id:'lbl',afterDraw(c){
+    const{ctx,scales:{x}}=c;
+    c.data.datasets[0].data.forEach((v,i)=>{
+      const b=c.getDatasetMeta(0).data[i];
+      ctx.save();ctx.fillStyle='#333';ctx.font='500 10px Helvetica Neue';
+      ctx.textAlign='left';ctx.fillText((v/10000).toFixed(2)+'億',b.x+4,b.y+4);ctx.restore();
+    });
+  }}]
+});
+
+/* ── 事業部全体推移 ── */
+const fy=['FY2021','FY2022','FY2023','FY2024','FY2025'];
+new Chart(document.getElementById('cMain'),{
+  data:{labels:fy,datasets:[
+    {type:'bar',label:'Stock',data:[148566,178053,177828,148381,126294],backgroundColor:'#1F5C8B',stack:'s'},
+    {type:'bar',label:'Spot', data:[147633,155776,116829,122308,88677], backgroundColor:'#85B7EB',stack:'s'},
+    {type:'line',label:'成約高',data:[259905,265515,208651,174867,165625],
+      borderColor:'#BA7517',backgroundColor:'transparent',
+      pointBackgroundColor:'#BA7517',pointRadius:4,tension:0.3,borderWidth:2,yAxisID:'y2'}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+    scales:{x:{stacked:true,grid:{display:false}},
+      y:{stacked:true,beginAtZero:true,max:380000,
+        ticks:{callback:v=>(v/10000).toFixed(0)+'億'},grid:{color:'rgba(0,0,0,0.05)'}},
+      y2:{position:'right',beginAtZero:true,max:380000,
+        ticks:{callback:v=>(v/10000).toFixed(0)+'億'},grid:{display:false}}}}
+});
+
+/* ── 本田世代成長曲線 ── */
+new Chart(document.getElementById('cHonda'),{
+  type:'bar',
+  data:{labels:['FY2025\n1年目\n実績','FY2026\n2年目\n（本田世代）','FY2026\n1年目\n来期入社'],
+    datasets:[{data:[214,1740,222],backgroundColor:['#9FE1CB','#1D9E75','#C0DD97'],borderRadius:4}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+    scales:{x:{grid:{display:false},ticks:{font:{size:10}}},
+      y:{beginAtZero:true,ticks:{callback:v=>v+'万',font:{size:10}},grid:{color:'rgba(0,0,0,0.05)'}}}}
+});
+</script>
+</body>
+</html>
