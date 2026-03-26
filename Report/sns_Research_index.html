@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大学新卒 就職活動リサーチレポート（2024〜2027年卒）</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2b6cb0;
+            --accent: #ed8936;
+            --bg: #f7fafc;
+            --card: #ffffff;
+            --text: #2d3748;
+            --text-light: #718096;
+            --border: #e2e8f0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'メイリオ', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: #fff;
+            padding: 48px 24px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .header .subtitle {
+            font-size: 15px;
+            opacity: 0.85;
+        }
+        .header .date {
+            font-size: 13px;
+            opacity: 0.7;
+            margin-top: 12px;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 32px 20px;
+        }
+        .toc {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px 32px;
+            margin-bottom: 32px;
+        }
+        .toc h2 {
+            font-size: 18px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+        .toc ol {
+            padding-left: 20px;
+        }
+        .toc li {
+            margin-bottom: 6px;
+        }
+        .toc a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        .section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 28px;
+        }
+        .section h2 {
+            font-size: 22px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--accent);
+        }
+        .section h3 {
+            font-size: 17px;
+            color: var(--primary-light);
+            margin: 24px 0 12px 0;
+        }
+        .section h4 {
+            font-size: 15px;
+            color: var(--text);
+            margin: 16px 0 8px 0;
+            font-weight: 600;
+        }
+        p {
+            margin-bottom: 12px;
+            font-size: 14.5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 10px 14px;
+            text-align: left;
+        }
+        th {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        tr:nth-child(even) { background: #f7fafc; }
+        tr:hover { background: #edf2f7; }
+        .highlight {
+            background: #fffbeb;
+            border-left: 4px solid var(--accent);
+            padding: 14px 18px;
+            margin: 16px 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 14px;
+        }
+        .chart-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .bar-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .bar-label {
+            width: 140px;
+            text-align: right;
+            font-size: 13px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .bar-track {
+            flex: 1;
+            background: #edf2f7;
+            border-radius: 4px;
+            height: 28px;
+            position: relative;
+        }
+        .bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            min-width: 40px;
+            transition: width 0.5s;
+        }
+        .bar-fill.blue { background: linear-gradient(90deg, #2b6cb0, #4299e1); }
+        .bar-fill.green { background: linear-gradient(90deg, #276749, #48bb78); }
+        .bar-fill.orange { background: linear-gradient(90deg, #c05621, #ed8936); }
+        .bar-fill.purple { background: linear-gradient(90deg, #553c9a, #805ad5); }
+        .bar-fill.red { background: linear-gradient(90deg, #9b2c2c, #fc8181); }
+        .bar-fill.teal { background: linear-gradient(90deg, #285e61, #38b2ac); }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-left: 6px;
+        }
+        .badge-up { background: #c6f6d5; color: #276749; }
+        .badge-down { background: #fed7d7; color: #9b2c2c; }
+        .badge-new { background: #bee3f8; color: #2a4365; }
+
+        .sources {
+            background: #f7fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px 32px;
+            margin-top: 32px;
+        }
+        .sources h2 {
+            font-size: 18px;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+        .sources ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sources li {
+            margin-bottom: 8px;
+            font-size: 13px;
+            padding-left: 16px;
+            position: relative;
+        }
+        .sources li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        .sources a {
+            color: var(--primary-light);
+            text-decoration: none;
+            word-break: break-all;
+        }
+        .sources a:hover { text-decoration: underline; }
+
+        .footer {
+            text-align: center;
+            padding: 32px 20px;
+            color: var(--text-light);
+            font-size: 12px;
+        }
+        .exec-summary {
+            background: linear-gradient(135deg, #ebf8ff 0%, #e9d8fd 100%);
+            border: 1px solid #bee3f8;
+            border-radius: 8px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+        }
+        .exec-summary h2 {
+            color: var(--primary);
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+        .exec-summary ul {
+            padding-left: 20px;
+        }
+        .exec-summary li {
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+        .note {
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin: 16px 0;
+            font-size: 13px;
+            color: #742a2a;
+        }
+        @media (max-width: 640px) {
+            .header h1 { font-size: 20px; }
+            .section { padding: 20px; }
+            .bar-label { width: 100px; font-size: 11px; }
+            table { font-size: 12px; }
+            th, td { padding: 6px 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>大学新卒 就職活動リサーチレポート</h1>
+    <div class="subtitle">2024年卒〜2027年卒の就活生におけるSNS・媒体・情報収集ツールの利用動向</div>
+    <div class="date">調査日：2026年3月26日 ｜ 作成：株式会社Enjin リサーチチーム</div>
+</div>
+
+<div class="container">
+
+    <!-- 目次 -->
+    <div class="toc">
+        <h2>目次</h2>
+        <ol>
+            <li><a href="#summary">エグゼクティブサマリー</a></li>
+            <li><a href="#sns">就職活動で使用しているSNS</a></li>
+            <li><a href="#media">就職活動で登録している媒体</a></li>
+            <li><a href="#tools">情報収集に利用しているツール</a></li>
+            <li><a href="#trends">年度別トレンドと今後の展望</a></li>
+            <li><a href="#methodology">調査方法・出典</a></li>
+        </ol>
+    </div>
+
+    <!-- エグゼクティブサマリー -->
+    <div class="exec-summary" id="summary">
+        <h2>1. エグゼクティブサマリー</h2>
+        <ul>
+            <li><strong>SNS活用率は年々上昇</strong>：26卒の68.2%がSNSを就活準備に利用。最多はX（旧Twitter）で72.6%、次いでInstagram 61.1%。TikTokは24卒5.1%→26卒12.9%と急伸。</li>
+            <li><strong>ナビサイトはマイナビ一強</strong>：26卒のマイナビ登録者数は約59.4万人。リクナビは約43.0万人で減少傾向。ONE CAREERが第3勢力として台頭。</li>
+            <li><strong>逆求人型が急成長</strong>：OfferBox（約24万人）、キミスカ（約13.2万人）、dodaキャンパス等のスカウト型サービスが存在感を増す。</li>
+            <li><strong>AI活用が爆発的に拡大</strong>：27卒の75.8%が就活でAIを活用。ES作成（79.9%）、自己分析（59.4%）が主な用途。ChatGPTが圧倒的シェア。</li>
+            <li><strong>企業のリアル情報への需要</strong>：学生が求める情報は「1日の仕事の流れ」（57.9%）、「社内の人間関係」（45.3%）、「実際の勤務時間」（42.1%）。</li>
+        </ul>
+    </div>
+
+    <!-- SNS -->
+    <div class="section" id="sns">
+        <h2>2. 就職活動で使用しているSNS</h2>
+
+        <h3>2-1. SNS利用率の推移</h3>
+        <p>マイナビの調査によると、就活準備においてSNSを活用している学生の割合は年々上昇しています。</p>
+
+        <table>
+            <tr>
+                <th>卒年</th>
+                <th>SNS利用率</th>
+                <th>備考</th>
+            </tr>
+            <tr>
+                <td>2024年卒</td>
+                <td>約50%</td>
+                <td>SNS就活の本格化初期</td>
+            </tr>
+            <tr>
+                <td>2025年卒</td>
+                <td>59.6%</td>
+                <td>i-plug調査</td>
+            </tr>
+            <tr>
+                <td>2026年卒</td>
+                <td>68.2%</td>
+                <td>マイナビ調査（就活準備時点）</td>
+            </tr>
+            <tr>
+                <td>2027年卒</td>
+                <td>70%超（推定）</td>
+                <td>AI×SNSの複合利用が拡大</td>
+            </tr>
+        </table>
+
+        <h3>2-2. SNS別利用率</h3>
+        <p>就活で最も利用されているSNSはX（旧Twitter）です。マンパワーグループの2024年調査では以下の結果が報告されています。</p>
+
+        <div class="chart-container">
+            <div class="bar-chart">
+                <div class="bar-row">
+                    <div class="bar-label">X（旧Twitter）</div>
+                    <div class="bar-track"><div class="bar-fill blue" style="width:72.6%">72.6%</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">Instagram</div>
+                    <div class="bar-track"><div class="bar-fill purple" style="width:61.1%">61.1%</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">LINE</div>
+                    <div class="bar-track"><div class="bar-fill green" style="width:51.6%">51.6%</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">YouTube</div>
+                    <div class="bar-track"><div class="bar-fill red" style="width:40.7%">40.7%</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">TikTok</div>
+                    <div class="bar-track"><div class="bar-fill orange" style="width:12.9%">12.9%</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="note">
+            ※ X・Instagram・LINEはマンパワーグループ調査（2024年、就活経験者対象）。YouTubeはValues社調査。TikTokはマイナビ26卒調査。調査母集団・時期が異なるため、厳密な横比較ではなく傾向把握としてご参照ください。
+        </div>
+
+        <h3>2-3. SNS別の利用目的と特徴</h3>
+        <table>
+            <tr>
+                <th>SNS</th>
+                <th>主な利用目的</th>
+                <th>特徴</th>
+            </tr>
+            <tr>
+                <td><strong>X（旧Twitter）</strong></td>
+                <td>企業の情報収集（62.3%）、就活仲間との交流、選考情報の共有</td>
+                <td>リアルタイム性が高く、「#就活」「#26卒」等のハッシュタグで情報交換。就活アカウント（通称「就活垢」）の運用が一般的。</td>
+            </tr>
+            <tr>
+                <td><strong>Instagram</strong></td>
+                <td>企業の情報収集（48.3%）、社風・職場の雰囲気確認</td>
+                <td>企業の公式アカウントで社員紹介やオフィス写真を閲覧。ストーリーズやリールで「社員の1日」動画が人気。</td>
+            </tr>
+            <tr>
+                <td><strong>LINE</strong></td>
+                <td>企業の公式アカウントからの情報受信、説明会予約</td>
+                <td>26卒では45.6%がLINE公式アカウントを利用。プッシュ通知でイベント情報を受け取る使い方が主流。</td>
+            </tr>
+            <tr>
+                <td><strong>YouTube</strong></td>
+                <td>企業紹介動画の視聴、面接対策、業界研究</td>
+                <td>「就活の教科書」等の就活系チャンネルが人気。企業の採用動画やOB/OG座談会動画も増加。</td>
+            </tr>
+            <tr>
+                <td><strong>TikTok</strong></td>
+                <td>企業のカジュアルな情報収集、社風の確認</td>
+                <td>24卒5.1%→25卒7.7%→26卒12.9%と急伸。短尺動画で「社員の日常」コンテンツが人気。Z世代のメインSNSとして今後さらに拡大見込み。</td>
+            </tr>
+        </table>
+
+        <div class="highlight">
+            <strong>ポイント：</strong>就活生の9割以上が企業SNSで「社員の雰囲気」を重視（HRプロ調査）。採用サイトや就職情報サイトでは得られない「企業のリアル」をSNSに求める傾向が顕著。
+        </div>
+    </div>
+
+    <!-- 媒体 -->
+    <div class="section" id="media">
+        <h2>3. 就職活動で登録している媒体</h2>
+
+        <h3>3-1. 就職ナビサイト（総合型）</h3>
+        <table>
+            <tr>
+                <th>媒体名</th>
+                <th>24卒 登録者数</th>
+                <th>25卒 登録者数</th>
+                <th>26卒 登録者数</th>
+                <th>傾向</th>
+            </tr>
+            <tr>
+                <td><strong>マイナビ</strong></td>
+                <td>約61.6万人</td>
+                <td>約57.5万人</td>
+                <td>約59.4万人</td>
+                <td>微減後に回復 <span class="badge badge-up">↑</span></td>
+            </tr>
+            <tr>
+                <td><strong>リクナビ</strong></td>
+                <td>約48.2万人</td>
+                <td>約45.6万人</td>
+                <td>約43.0万人</td>
+                <td>減少継続 <span class="badge badge-down">↓</span></td>
+            </tr>
+            <tr>
+                <td><strong>ONE CAREER</strong></td>
+                <td>—</td>
+                <td>—</td>
+                <td>累計登録約40万人超</td>
+                <td>急成長 <span class="badge badge-up">↑↑</span></td>
+            </tr>
+            <tr>
+                <td><strong>キャリタス就活</strong></td>
+                <td>約40万人</td>
+                <td>約38万人</td>
+                <td>約35万人</td>
+                <td>緩やかに減少 <span class="badge badge-down">↓</span></td>
+            </tr>
+        </table>
+
+        <div class="highlight">
+            <strong>マイナビ一強の構図：</strong>掲載企業数もマイナビが約3万社に対し、リクナビは約1.1万社と差が拡大。東洋経済の報道によれば「リクナビの退潮」は鮮明で、ONE CAREERが第3勢力として存在感を増している。
+        </div>
+
+        <h3>3-2. 逆求人型（ダイレクトリクルーティング）</h3>
+        <p>企業から学生にオファーが届く「逆求人型」の利用が急拡大しています。</p>
+        <table>
+            <tr>
+                <th>媒体名</th>
+                <th>登録者数（推定）</th>
+                <th>特徴</th>
+            </tr>
+            <tr>
+                <td><strong>OfferBox</strong></td>
+                <td>約24万人</td>
+                <td>逆求人サービス最大手。プロフィールを登録すると企業からオファーが届く。利用企業数は約1.9万社。</td>
+            </tr>
+            <tr>
+                <td><strong>キミスカ</strong></td>
+                <td>約13.2万人</td>
+                <td>「就活生の3人に1人が利用」。3段階のスカウト（ゴールド・シルバー・ノーマル）で企業の本気度がわかる。</td>
+            </tr>
+            <tr>
+                <td><strong>dodaキャンパス</strong></td>
+                <td>約66.8万人（4学年合算）</td>
+                <td>ベネッセ運営。低学年からの登録が多く、インターンシップへの誘導に強み。</td>
+            </tr>
+        </table>
+
+        <h3>3-3. 口コミ・体験記サイト</h3>
+        <table>
+            <tr>
+                <th>媒体名</th>
+                <th>利用率の傾向</th>
+                <th>特徴</th>
+            </tr>
+            <tr>
+                <td><strong>ONE CAREER</strong></td>
+                <td>急拡大中</td>
+                <td>選考体験記・ES・面接体験談が充実。企業の実態を知るための情報源として定着。</td>
+            </tr>
+            <tr>
+                <td><strong>就活会議</strong></td>
+                <td>上位維持</td>
+                <td>内定者のES・面接体験記を閲覧可能。企業の評価・年収情報も。</td>
+            </tr>
+            <tr>
+                <td><strong>OpenWork</strong></td>
+                <td>文系42%、理系39%（24卒）</td>
+                <td>社員の口コミ・評価サイト。「企業のリアル」を知る手段として利用増。23卒→24卒で3〜4ポイント上昇。</td>
+            </tr>
+            <tr>
+                <td><strong>楽天みん就</strong></td>
+                <td>上位維持</td>
+                <td>掲示板型の情報交換。選考スケジュールの共有に利用される。</td>
+            </tr>
+        </table>
+
+        <h3>3-4. 理系特化・専門型</h3>
+        <table>
+            <tr>
+                <th>媒体名</th>
+                <th>対象</th>
+                <th>備考</th>
+            </tr>
+            <tr>
+                <td><strong>LabBase</strong></td>
+                <td>理系大学院生</td>
+                <td>23卒10%→24卒12%と利用率上昇。研究内容ベースのマッチング。</td>
+            </tr>
+            <tr>
+                <td><strong>Re就活キャンパス</strong></td>
+                <td>全般（中堅〜中小企業志向）</td>
+                <td>中堅・中小・ベンチャー企業の掲載が多い。</td>
+            </tr>
+            <tr>
+                <td><strong>外資就活ドットコム</strong></td>
+                <td>外資・コンサル志望</td>
+                <td>外資系・コンサル・金融に特化。上位校学生の利用が多い。</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ツール -->
+    <div class="section" id="tools">
+        <h2>4. 情報収集に利用しているツール</h2>
+
+        <h3>4-1. 企業研究の情報源（26卒調査）</h3>
+        <p>HRプロの調査によると、26卒生が企業研究に利用する情報源は以下の通りです。</p>
+
+        <div class="chart-container">
+            <div class="bar-chart">
+                <div class="bar-row">
+                    <div class="bar-label">企業のHP</div>
+                    <div class="bar-track"><div class="bar-fill blue" style="width:66%">66%</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">就職情報サイト</div>
+                    <div class="bar-track"><div class="bar-fill green" style="width:86.2%">86.2%</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">企業説明会</div>
+                    <div class="bar-track"><div class="bar-fill purple" style="width:33%">33%</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">企業公式SNS</div>
+                    <div class="bar-track"><div class="bar-fill orange" style="width:14.9%">14.9%</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">非公式SNS</div>
+                    <div class="bar-track"><div class="bar-fill red" style="width:5.1%">5.1%</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="note">
+            ※ 就職情報サイト86.2%はマイナビ調査。企業HP66%・企業説明会33%はHRプロ26卒調査。SNS関連はマイナビ調査。調査母集団・質問文が異なるため、数値は傾向把握として参照してください。
+        </div>
+
+        <h3>4-2. AI（生成AI）の活用</h3>
+        <p>就活におけるAI活用は急速に拡大しており、27卒では最も大きなトレンドとなっています。</p>
+
+        <table>
+            <tr>
+                <th>指標</th>
+                <th>25卒</th>
+                <th>26卒</th>
+                <th>27卒</th>
+            </tr>
+            <tr>
+                <td>生成AI利用経験率</td>
+                <td>60.5%</td>
+                <td>86.9%</td>
+                <td>97.7%</td>
+            </tr>
+            <tr>
+                <td>就活でのAI利用率</td>
+                <td>45.8%</td>
+                <td>66.6%</td>
+                <td>75.8%</td>
+            </tr>
+        </table>
+
+        <h4>AI活用の主な用途（27卒・OfferBox調査）</h4>
+        <div class="chart-container">
+            <div class="bar-chart">
+                <div class="bar-row">
+                    <div class="bar-label">ES・履歴書の添削</div>
+                    <div class="bar-track"><div class="bar-fill blue" style="width:79.9%">79.9%</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">自己分析</div>
+                    <div class="bar-track"><div class="bar-fill green" style="width:59.4%">59.4%</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">メール文面の作成</div>
+                    <div class="bar-track"><div class="bar-fill purple" style="width:52.8%">52.8%</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">面接対策</div>
+                    <div class="bar-track"><div class="bar-fill orange" style="width:52.2%">52.2%</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">業界・企業研究</div>
+                    <div class="bar-track"><div class="bar-fill teal" style="width:45%">45%</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight">
+            <strong>注目：</strong>利用ツールはChatGPTが圧倒的多数。就活特化型AI（「就活AI byジェイック」「ES Maker」等）も登場しているが、シェアはまだ小さい。一方、企業側の97.2%は「AI利用を検出する手段がない」と回答しており、対応が追いついていない。
+        </div>
+
+        <h3>4-3. その他の情報収集ツール</h3>
+        <table>
+            <tr>
+                <th>ツール・手段</th>
+                <th>内容</th>
+                <th>備考</th>
+            </tr>
+            <tr>
+                <td><strong>大学のキャリアセンター</strong></td>
+                <td>個別相談、ES添削、模擬面接</td>
+                <td>対面での相談ニーズは依然として高い</td>
+            </tr>
+            <tr>
+                <td><strong>OB/OG訪問アプリ</strong></td>
+                <td>Matcher、ビズリーチ・キャンパス等</td>
+                <td>社員との直接対話による「リアル情報」収集</td>
+            </tr>
+            <tr>
+                <td><strong>就活エージェント</strong></td>
+                <td>キャリアチケット、JobSpring等</td>
+                <td>専門アドバイザーによる個別支援。無料。</td>
+            </tr>
+            <tr>
+                <td><strong>Webセミナー・オンライン説明会</strong></td>
+                <td>企業のライブ配信、録画説明会</td>
+                <td>コロナ禍以降定着。地方学生のアクセス改善に貢献。</td>
+            </tr>
+            <tr>
+                <td><strong>Podcast・音声コンテンツ</strong></td>
+                <td>就活系Podcast、Voicy等</td>
+                <td>通学中の「ながら聴き」需要。まだニッチ。</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- トレンド -->
+    <div class="section" id="trends">
+        <h2>5. 年度別トレンドと今後の展望</h2>
+
+        <h3>5-1. 主要トレンドの推移</h3>
+        <table>
+            <tr>
+                <th>トレンド</th>
+                <th>2024年卒</th>
+                <th>2025年卒</th>
+                <th>2026年卒</th>
+                <th>2027年卒</th>
+            </tr>
+            <tr>
+                <td>SNS活用率</td>
+                <td>約50%</td>
+                <td>59.6%</td>
+                <td>68.2%</td>
+                <td>70%超（推定）</td>
+            </tr>
+            <tr>
+                <td>AI活用率</td>
+                <td>—</td>
+                <td>45.8%</td>
+                <td>66.6%</td>
+                <td>75.8%</td>
+            </tr>
+            <tr>
+                <td>TikTok利用率</td>
+                <td>5.1%</td>
+                <td>7.7%</td>
+                <td>12.9%</td>
+                <td>拡大見込み</td>
+            </tr>
+            <tr>
+                <td>逆求人利用</td>
+                <td>拡大中</td>
+                <td>拡大中</td>
+                <td>定着</td>
+                <td>さらに普及</td>
+            </tr>
+            <tr>
+                <td>就活の早期化</td>
+                <td>進行中</td>
+                <td>加速</td>
+                <td>顕著</td>
+                <td>さらに前倒し</td>
+            </tr>
+        </table>
+
+        <h3>5-2. 今後の展望</h3>
+        <table>
+            <tr>
+                <th>領域</th>
+                <th>予測</th>
+            </tr>
+            <tr>
+                <td><strong>AI×就活の深化</strong></td>
+                <td>ES自動生成→面接シミュレーション→企業マッチングまで、AI活用の範囲が拡大。企業側もAI面接・AI選考の導入を模索（ただし学生の7割超が否定的）。</td>
+            </tr>
+            <tr>
+                <td><strong>ナビサイトの再編</strong></td>
+                <td>マイナビ一強は継続。リクナビの相対的地位低下。ONE CAREER、OfferBox等の特化型サービスがシェア拡大。</td>
+            </tr>
+            <tr>
+                <td><strong>動画SNSの台頭</strong></td>
+                <td>TikTok・YouTube Shortsでの企業ブランディングが採用競争力の差になる可能性。「タイパ」重視のZ世代に短尺動画はフィット。</td>
+            </tr>
+            <tr>
+                <td><strong>「リアル情報」需要の拡大</strong></td>
+                <td>口コミサイト（OpenWork等）、SNSでの非公式情報、OB/OG訪問への依存度が引き続き上昇。採用サイトの「きれいな情報」だけでは学生に選ばれない時代へ。</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 出典 -->
+    <div class="sources" id="methodology">
+        <h2>6. 調査方法・出典</h2>
+        <p style="margin-bottom:16px; font-size:13px;">本レポートは、以下の公開調査データおよび報道記事を基に作成しています。各数値は出典元の調査時点・調査母集団に基づくものであり、厳密な横比較には一定の留意が必要です。</p>
+        <ul>
+            <li><a href="https://career-research.mynavi.jp/column/20250115_91304/" target="_blank">マイナビキャリアリサーチLab「SNS就活最前線！SNSを活用する学生の事情（第1章）」（2025年1月）</a></li>
+            <li><a href="https://career-research.mynavi.jp/column/20250210_92351/" target="_blank">マイナビキャリアリサーチLab「SNS就活最前線！SNSを活用する企業について（第2章）」（2025年2月）</a></li>
+            <li><a href="https://career-research.mynavi.jp/reserch/20241114_88214/" target="_blank">マイナビ「2026年卒大学生インターンシップ・就職活動準備実態調査（10月）」（2024年11月）</a></li>
+            <li><a href="https://prtimes.jp/main/html/rd/p/000000113.000041771.html" target="_blank">i-plug「就活生の就職活動でのSNS活用調査」（2024年）</a></li>
+            <li><a href="https://www.manpowergroup.jp/client/jinji/240311.html" target="_blank">マンパワーグループ「新卒就活で最も利用されたSNS調査」（2024年3月）</a></li>
+            <li><a href="https://www.hrpro.co.jp/trend_news.php?news_no=3483" target="_blank">HRプロ「26卒生の就活状況調査」（2025年）</a></li>
+            <li><a href="https://www.hrpro.co.jp/trend_news.php?news_no=2236" target="_blank">HRプロ「就活生の企業SNS重視に関する調査」</a></li>
+            <li><a href="https://www.ssen.co.jp/blog/154" target="_blank">採用総研「主要新卒就職ナビ2026グランドオープン速報」（2025年）</a></li>
+            <li><a href="https://www.kakehashi-skysol.co.jp/newgrad-chiebukuro/mynavirikunabi_comparison/" target="_blank">かけはし「マイナビとリクナビ登録者数比較（2026年最新）」</a></li>
+            <li><a href="https://toyokeizai.net/articles/-/434837" target="_blank">東洋経済オンライン「リクナビの退潮鮮明、就活サイトの人気が一変」</a></li>
+            <li><a href="https://offerbox.jp/company/jinji-zine/report_27_ai_utilization/" target="_blank">OfferBox/人事ZINE「27卒学生のChatGPT等の活用に関する調査」（2026年2月）</a></li>
+            <li><a href="https://aismiley.co.jp/ai_news/2026-new-graduates-job-hunting-ai/" target="_blank">AIsmiley「2026年卒学生の就職活動でのAI利用倍増」</a></li>
+            <li><a href="https://career-research.mynavi.jp/reserch/20250526_96625/" target="_blank">マイナビ「2026年卒大学生キャリア意向調査：就職活動におけるAI利用」（2025年5月）</a></li>
+            <li><a href="https://www.paiza.co.jp/news/20250904/20250904_paiza_generative_ai_investigation_report_2/" target="_blank">paiza「26卒の8割超が生成AIを活用」（2025年9月）</a></li>
+            <li><a href="https://manamina.valuesccg.com/articles/2798" target="_blank">マナミナ「Z世代就活生の情報収集はSNSが5割超」</a></li>
+            <li><a href="https://www.gakuseikyosan.com/media/?p=4347" target="_blank">学生共算「就活生の情報収集ツール・サービス調査」</a></li>
+            <li><a href="https://togaru.co.jp/contents/2662/" target="_blank">トガル株式会社「Z世代のSNSを活用した就職活動に関する調査」</a></li>
+            <li><a href="https://thinkings.co.jp/news/20250709_snsresearch_dl/" target="_blank">thinkings「就職活動・転職活動におけるSNS利用実態調査」（2025年7月）</a></li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        &copy; 2026 株式会社Enjin ｜ 本レポートの無断転載を禁じます。
+    </div>
+</div>
+
+</body>
+</html>
