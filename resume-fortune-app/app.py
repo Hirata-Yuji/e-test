@@ -123,13 +123,26 @@ def parse_gender(text):
     return "不明"
 
 
-def analyze_face_with_claude(pdf_base64):
-    """Claude API VisionでPDFを直接送信して人相学鑑定を行う"""
+def analyze_all_with_claude(pdf_base64, shichusuimei_result, kyusei_result):
+    """Claude API 1回で人相学＋総合鑑定をまとめて実行（時間短縮）"""
     api_key = os.getenv("ANTHROPIC_API_KEY")
     if not api_key:
-        return {"error": "ANTHROPIC_API_KEY が設定されていません。環境変数にAPIキーを設定してください。"}
+        face = {"error": "ANTHROPIC_API_KEY が設定されていません。環境変数にAPIキーを設定してください。"}
+        return face, "ANTHROPIC_API_KEY が設定されていません。"
 
     client = anthropic.Anthropic(api_key=api_key)
+
+    fortune_context = f"""## 四柱推命の鑑定結果
+- 日主（日干）: {shichusuimei_result.get('日主', '')}（{shichusuimei_result.get('日主の五行', '')}・{shichusuimei_result.get('日主の陰陽', '')}）
+- 性格特性: {json.dumps(shichusuimei_result.get('日主の性格', {}), ensure_ascii=False)}
+- 五行バランス: {json.dumps(shichusuimei_result.get('五行バランス', {}), ensure_ascii=False)}
+- 通変星: {json.dumps(shichusuimei_result.get('通変星', {}), ensure_ascii=False)}
+
+## 九星気学の鑑定結果
+- 本命星: {kyusei_result.get('本命星', '')}
+- 月命星: {kyusei_result.get('月命星', '')}
+- 日命星: {kyusei_result.get('日命星', '')}
+- 本命星の詳細: {json.dumps(kyusei_result.get('本命星の詳細', {}), ensure_ascii=False)}"""
 
     content = [
         {
@@ -142,37 +155,19 @@ def analyze_face_with_claude(pdf_base64):
         },
         {
             "type": "text",
-            "text": """あなたは東洋の人相学（観相学）の専門家です。
-提供された履歴書の写真から、人相学に基づいた人物鑑定を行ってください。
+            "text": f"""あなたは東洋占術（四柱推命・九星気学・人相学）の総合鑑定師です。
+提供された履歴書PDFと以下の占術データを元に、2つのセクションに分けて鑑定してください。
 
-以下の観点から詳細に分析してください：
+{fortune_context}
 
-1. **顔の輪郭・骨格**（面相）
-   - 顔の形（丸顔・面長・角顔・逆三角形など）から読み取れる性格傾向
-   - 額の広さ・形から読み取れる知性・運勢
+---
 
-2. **目・眉**
-   - 目の大きさ・形・目力から読み取れる意志力・性格
-   - 眉の形・濃さから読み取れる性格・運勢
+【セクション1: 人相学鑑定】
+履歴書の顔写真から人相学に基づいた鑑定を行い、以下のJSON形式で出力してください。
+写真が確認できない場合は、確認できない旨を各項目に記載してください。
 
-3. **鼻・口**
-   - 鼻の形・大きさから読み取れる金運・仕事運
-   - 口の形・大きさから読み取れる対人関係・表現力
-
-4. **全体的な印象**
-   - 表情から読み取れる内面の傾向
-   - 全体のバランスから読み取れる運勢
-
-5. **総合鑑定**
-   - 仕事適性
-   - 対人関係の傾向
-   - 今後の運勢のアドバイス
-
-※人相学は東洋の伝統的な観相術に基づいた文化的な鑑定です。エンターテイメントとしてお楽しみください。
-※写真が不鮮明な場合や、顔が確認できない場合は、その旨を伝えてください。
-
-JSON形式で以下の構造で回答してください：
-{
+```json
+{{
     "顔の輪郭分析": "...",
     "目と眉の分析": "...",
     "鼻と口の分析": "...",
@@ -181,77 +176,62 @@ JSON形式で以下の構造で回答してください：
     "対人関係": "...",
     "運勢アドバイス": "...",
     "総合鑑定": "..."
-}""",
+}}
+```
+
+【セクション2: 総合人物鑑定】
+四柱推命・九星気学・人相学の3つを統合した総合鑑定文を以下の項目で作成してください：
+1. この人物の本質
+2. 性格の多面性
+3. 仕事・適職
+4. 対人関係・コミュニケーション
+5. 強みと課題
+6. 開運アドバイス
+7. 採用担当者へのコメント
+
+※東洋占術に基づいたエンターテイメント鑑定であることを最後に付記してください。
+
+必ず「===SECTION1===」と「===SECTION2===」で2つのセクションを区切ってください。""",
         },
     ]
 
     try:
         response = client.messages.create(
             model="claude-sonnet-4-6",
-            max_tokens=2000,
+            max_tokens=4000,
             messages=[{"role": "user", "content": content}],
         )
         result_text = response.content[0].text
 
-        # JSONを抽出
-        json_match = re.search(r'\{[\s\S]*\}', result_text)
-        if json_match:
-            return json.loads(json_match.group())
-        return {"総合鑑定": result_text}
+        # セクション分割
+        face_result = {}
+        combined_text = result_text
+
+        if "===SECTION1===" in result_text and "===SECTION2===" in result_text:
+            parts = result_text.split("===SECTION2===")
+            section1 = parts[0].replace("===SECTION1===", "").strip()
+            combined_text = parts[1].strip() if len(parts) > 1 else result_text
+
+            json_match = re.search(r'\{[\s\S]*?\}', section1)
+            if json_match:
+                try:
+                    face_result = json.loads(json_match.group())
+                except json.JSONDecodeError:
+                    face_result = {"総合鑑定": section1}
+            else:
+                face_result = {"総合鑑定": section1}
+        else:
+            json_match = re.search(r'\{[\s\S]*?\}', result_text)
+            if json_match:
+                try:
+                    face_result = json.loads(json_match.group())
+                except json.JSONDecodeError:
+                    pass
+
+        return face_result, combined_text
 
     except Exception as e:
-        return {"error": f"Claude API エラー: {str(e)}"}
-
-
-def generate_combined_analysis(shichusuimei_result, kyusei_result, face_result):
-    """Claude APIで総合鑑定を生成"""
-    api_key = os.getenv("ANTHROPIC_API_KEY")
-    if not api_key:
-        return "ANTHROPIC_API_KEY が設定されていません。"
-
-    client = anthropic.Anthropic(api_key=api_key)
-
-    prompt = f"""あなたは東洋占術の総合鑑定師です。以下の3つの鑑定結果を総合して、この人物の詳細な総合鑑定を行ってください。
-
-## 四柱推命の鑑定結果
-- 日主（日干）: {shichusuimei_result.get('日主', '')}（{shichusuimei_result.get('日主の五行', '')}・{shichusuimei_result.get('日主の陰陽', '')}）
-- 性格特性: {json.dumps(shichusuimei_result.get('日主の性格', {}), ensure_ascii=False)}
-- 五行バランス: {json.dumps(shichusuimei_result.get('五行バランス', {}), ensure_ascii=False)}
-- 五行分析: {shichusuimei_result.get('五行分析', '')}
-- 通変星: {json.dumps(shichusuimei_result.get('通変星', {}), ensure_ascii=False)}
-- 十二運: {json.dumps(shichusuimei_result.get('十二運', {}), ensure_ascii=False)}
-
-## 九星気学の鑑定結果
-- 本命星: {kyusei_result.get('本命星', '')}
-- 月命星: {kyusei_result.get('月命星', '')}
-- 日命星: {kyusei_result.get('日命星', '')}
-- 本命星の詳細: {json.dumps(kyusei_result.get('本命星の詳細', {}), ensure_ascii=False)}
-
-## 人相学の鑑定結果
-{json.dumps(face_result, ensure_ascii=False)}
-
-以上の3つの鑑定結果を総合し、以下の項目について詳細な総合鑑定文を作成してください：
-
-1. **この人物の本質**（四柱推命の日主と九星気学の本命星を中心に）
-2. **性格の多面性**（表の顔・裏の顔・本質的な性格）
-3. **仕事・適職**（四柱推命の通変星と人相学から）
-4. **対人関係・コミュニケーション**
-5. **強みと課題**
-6. **開運アドバイス**
-7. **採用担当者へのコメント**（この人物がチームにもたらす価値）
-
-※東洋占術に基づいたエンターテイメント鑑定であることを最後に付記してください。
-鑑定文は丁寧で読みやすい日本語で書いてください。"""
-
-    try:
-        response = client.messages.create(
-            model="claude-sonnet-4-6",
-            max_tokens=3000,
-            messages=[{"role": "user", "content": prompt}],
-        )
-        return response.content[0].text
-    except Exception as e:
-        return f"総合鑑定の生成中にエラーが発生しました: {str(e)}"
+        return {"error": f"Claude API エラー: {str(e)}"}, f"Claude APIエラー: {str(e)}"
 
 
 @app.route("/")
@@ -313,17 +293,13 @@ def analyze():
         step = "九星気学鑑定"
         kyusei_result = kyusei.analyze(year, month, day)
 
-        # 4. 人相学鑑定（PDFをそのままClaude APIに送信）
-        step = "人相学鑑定（Claude API）"
-        face_result = analyze_face_with_claude(pdf_base64)
+        # 4+5. 人相学＋総合鑑定を1回のAPI呼び出しで実行
+        step = "AI鑑定（Claude API）"
+        face_result, combined = analyze_all_with_claude(pdf_base64, shichusuimei_result, kyusei_result)
 
         # メモリ解放
         del pdf_bytes
         del pdf_base64
-
-        # 5. 総合鑑定
-        step = "総合鑑定（Claude API）"
-        combined = generate_combined_analysis(shichusuimei_result, kyusei_result, face_result)
 
         # レスポンス
         result = {
