@@ -14,7 +14,6 @@ from datetime import datetime
 
 from flask import Flask, render_template, request, jsonify
 from dotenv import load_dotenv
-import fitz  # PyMuPDF
 import anthropic
 
 import shichusuimei
@@ -44,60 +43,40 @@ def handle_exception(e):
     return jsonify({"error": f"予期しないエラー: {str(e)}"}), 500
 
 
-def extract_text_from_pdf(pdf_path):
-    """PDFからテキストを抽出"""
-    doc = fitz.open(pdf_path)
+def extract_text_from_pdf_bytes(pdf_bytes):
+    """PDFバイナリからテキストを抽出（軽量版 - PyMuPDFを使わない）"""
+    # PDFバイナリからテキストを正規表現で抽出する簡易パーサー
     text = ""
-    for page in doc:
-        text += page.get_text()
-    doc.close()
+    try:
+        # PDFストリーム内のテキストを抽出
+        content = pdf_bytes.decode("latin-1")
+        # BT...ET ブロック内の Tj/TJ オペレータからテキスト抽出
+        bt_blocks = re.findall(r'BT(.*?)ET', content, re.DOTALL)
+        for block in bt_blocks:
+            # (text) Tj パターン
+            texts = re.findall(r'\((.*?)\)\s*Tj', block)
+            text += "".join(texts)
+            # [(text)] TJ パターン
+            tj_arrays = re.findall(r'\[(.*?)\]\s*TJ', block)
+            for arr in tj_arrays:
+                parts = re.findall(r'\((.*?)\)', arr)
+                text += "".join(parts)
+    except Exception:
+        pass
+
+    # UTF-16でエンコードされたテキストも試行
+    try:
+        utf16_texts = re.findall(b'<FEFF([0-9A-Fa-f]+)>', pdf_bytes)
+        for hex_text in utf16_texts:
+            try:
+                decoded = bytes.fromhex(hex_text.decode("ascii")).decode("utf-16-be")
+                text += decoded
+            except Exception:
+                pass
+    except Exception:
+        pass
+
     return text
-
-
-def extract_images_from_pdf(pdf_path):
-    """PDFから画像を抽出してbase64エンコードで返す（最大1枚、サイズ制限あり）"""
-    doc = fitz.open(pdf_path)
-    images = []
-    for page_num in range(len(doc)):
-        page = doc[page_num]
-        image_list = page.get_images(full=True)
-        for img_idx, img in enumerate(image_list):
-            xref = img[0]
-            base_image = doc.extract_image(xref)
-            if base_image:
-                image_bytes = base_image["image"]
-                # 500KB以上の画像はスキップ（メモリ節約）
-                if len(image_bytes) > 500 * 1024:
-                    continue
-                image_ext = base_image["ext"]
-                mime_type = f"image/{image_ext}" if image_ext != "jpg" else "image/jpeg"
-                b64 = base64.b64encode(image_bytes).decode("utf-8")
-                images.append({
-                    "base64": b64,
-                    "mime_type": mime_type,
-                    "page": page_num + 1,
-                })
-                if len(images) >= 1:  # 1枚のみ抽出
-                    break
-        if len(images) >= 1:
-            break
-    doc.close()
-    return images
-
-
-def render_pdf_page_as_image(pdf_path, page_num=0, dpi=100):
-    """PDFページを画像としてレンダリング（低解像度で省メモリ）"""
-    doc = fitz.open(pdf_path)
-    if page_num >= len(doc):
-        doc.close()
-        return None
-    page = doc[page_num]
-    mat = fitz.Matrix(dpi / 72, dpi / 72)
-    pix = page.get_pixmap(matrix=mat)
-    image_bytes = pix.tobytes("jpeg")
-    b64 = base64.b64encode(image_bytes).decode("utf-8")
-    doc.close()
-    return {"base64": b64, "mime_type": "image/jpeg"}
 
 
 def parse_birthdate(text):
@@ -144,45 +123,26 @@ def parse_gender(text):
     return "不明"
 
 
-def analyze_face_with_claude(images, pdf_page_image=None):
-    """Claude API Visionで人相学鑑定を行う"""
+def analyze_face_with_claude(pdf_base64):
+    """Claude API VisionでPDFを直接送信して人相学鑑定を行う"""
     api_key = os.getenv("ANTHROPIC_API_KEY")
     if not api_key:
-        return {"error": "ANTHROPIC_API_KEY が設定されていません。.envファイルにAPIキーを設定してください。"}
+        return {"error": "ANTHROPIC_API_KEY が設定されていません。環境変数にAPIキーを設定してください。"}
 
     client = anthropic.Anthropic(api_key=api_key)
 
-    content = []
-
-    # まず埋め込み画像があれば送る
-    if images:
-        for img in images[:3]:  # 最大3枚
-            content.append({
-                "type": "image",
-                "source": {
-                    "type": "base64",
-                    "media_type": img["mime_type"],
-                    "data": img["base64"],
-                },
-            })
-
-    # PDFページ画像も送る（顔写真が埋め込み画像として抽出できない場合のフォールバック）
-    if pdf_page_image:
-        content.append({
-            "type": "image",
+    content = [
+        {
+            "type": "document",
             "source": {
                 "type": "base64",
-                "media_type": pdf_page_image["mime_type"],
-                "data": pdf_page_image["base64"],
+                "media_type": "application/pdf",
+                "data": pdf_base64,
             },
-        })
-
-    if not content:
-        return {"error": "画像が見つかりませんでした。"}
-
-    content.append({
-        "type": "text",
-        "text": """あなたは東洋の人相学（観相学）の専門家です。
+        },
+        {
+            "type": "text",
+            "text": """あなたは東洋の人相学（観相学）の専門家です。
 提供された履歴書の写真から、人相学に基づいた人物鑑定を行ってください。
 
 以下の観点から詳細に分析してください：
@@ -222,7 +182,8 @@ JSON形式で以下の構造で回答してください：
     "運勢アドバイス": "...",
     "総合鑑定": "..."
 }""",
-    })
+        },
+    ]
 
     try:
         response = client.messages.create(
@@ -310,15 +271,15 @@ def analyze():
     if not file.filename.lower().endswith(".pdf"):
         return jsonify({"error": "PDFファイルのみアップロード可能です"}), 400
 
-    # ファイル保存
-    filename = f"resume_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
-    filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-    file.save(filepath)
-
     try:
-        step = "PDF解析"
+        step = "PDF読み込み"
+        # PDFをメモリ上で読み込み（ファイル保存しない）
+        pdf_bytes = file.read()
+        pdf_base64 = base64.b64encode(pdf_bytes).decode("utf-8")
+
         # 1. テキスト抽出・生年月日解析
-        text = extract_text_from_pdf(filepath)
+        step = "PDF解析"
+        text = extract_text_from_pdf_bytes(pdf_bytes)
         birthdate = parse_birthdate(text)
         gender = parse_gender(text)
 
@@ -339,7 +300,7 @@ def analyze():
         if not birthdate:
             return jsonify({
                 "error": "生年月日を読み取れませんでした。手動で入力してください。",
-                "text_extracted": text[:500],
+                "text_extracted": text[:500] if text else "(テキスト抽出不可)",
             }), 400
 
         year, month, day = birthdate
@@ -352,16 +313,13 @@ def analyze():
         step = "九星気学鑑定"
         kyusei_result = kyusei.analyze(year, month, day)
 
-        # 4. 画像抽出・人相学鑑定
-        step = "画像抽出"
-        images = extract_images_from_pdf(filepath)
-        # 埋め込み画像がなければページ全体を低解像度でレンダリング
-        pdf_page_image = None
-        if not images:
-            pdf_page_image = render_pdf_page_as_image(filepath, page_num=0)
-
+        # 4. 人相学鑑定（PDFをそのままClaude APIに送信）
         step = "人相学鑑定（Claude API）"
-        face_result = analyze_face_with_claude(images, pdf_page_image)
+        face_result = analyze_face_with_claude(pdf_base64)
+
+        # メモリ解放
+        del pdf_bytes
+        del pdf_base64
 
         # 5. 総合鑑定
         step = "総合鑑定（Claude API）"
@@ -382,11 +340,6 @@ def analyze():
     except Exception as e:
         traceback.print_exc()
         return jsonify({"error": f"「{step}」でエラーが発生しました: {str(e)}"}), 500
-
-    finally:
-        # アップロードファイル削除
-        if os.path.exists(filepath):
-            os.remove(filepath)
 
 
 if __name__ == "__main__":
