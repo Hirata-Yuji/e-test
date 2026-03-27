@@ -55,7 +55,7 @@ def extract_text_from_pdf(pdf_path):
 
 
 def extract_images_from_pdf(pdf_path):
-    """PDFから画像を抽出してbase64エンコードで返す"""
+    """PDFから画像を抽出してbase64エンコードで返す（最大1枚、サイズ制限あり）"""
     doc = fitz.open(pdf_path)
     images = []
     for page_num in range(len(doc)):
@@ -66,6 +66,9 @@ def extract_images_from_pdf(pdf_path):
             base_image = doc.extract_image(xref)
             if base_image:
                 image_bytes = base_image["image"]
+                # 500KB以上の画像はスキップ（メモリ節約）
+                if len(image_bytes) > 500 * 1024:
+                    continue
                 image_ext = base_image["ext"]
                 mime_type = f"image/{image_ext}" if image_ext != "jpg" else "image/jpeg"
                 b64 = base64.b64encode(image_bytes).decode("utf-8")
@@ -74,12 +77,16 @@ def extract_images_from_pdf(pdf_path):
                     "mime_type": mime_type,
                     "page": page_num + 1,
                 })
+                if len(images) >= 1:  # 1枚のみ抽出
+                    break
+        if len(images) >= 1:
+            break
     doc.close()
     return images
 
 
-def render_pdf_page_as_image(pdf_path, page_num=0, dpi=200):
-    """PDFページを画像としてレンダリング"""
+def render_pdf_page_as_image(pdf_path, page_num=0, dpi=100):
+    """PDFページを画像としてレンダリング（低解像度で省メモリ）"""
     doc = fitz.open(pdf_path)
     if page_num >= len(doc):
         doc.close()
@@ -87,10 +94,10 @@ def render_pdf_page_as_image(pdf_path, page_num=0, dpi=200):
     page = doc[page_num]
     mat = fitz.Matrix(dpi / 72, dpi / 72)
     pix = page.get_pixmap(matrix=mat)
-    image_bytes = pix.tobytes("png")
+    image_bytes = pix.tobytes("jpeg")
     b64 = base64.b64encode(image_bytes).decode("utf-8")
     doc.close()
-    return {"base64": b64, "mime_type": "image/png"}
+    return {"base64": b64, "mime_type": "image/jpeg"}
 
 
 def parse_birthdate(text):
@@ -348,7 +355,10 @@ def analyze():
         # 4. 画像抽出・人相学鑑定
         step = "画像抽出"
         images = extract_images_from_pdf(filepath)
-        pdf_page_image = render_pdf_page_as_image(filepath, page_num=0)
+        # 埋め込み画像がなければページ全体を低解像度でレンダリング
+        pdf_page_image = None
+        if not images:
+            pdf_page_image = render_pdf_page_as_image(filepath, page_num=0)
 
         step = "人相学鑑定（Claude API）"
         face_result = analyze_face_with_claude(images, pdf_page_image)
