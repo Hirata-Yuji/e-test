@@ -39,6 +39,11 @@ def internal_error(e):
     return jsonify({"error": f"サーバー内部エラー: {str(e)}"}), 500
 
 
+@app.errorhandler(Exception)
+def handle_exception(e):
+    return jsonify({"error": f"予期しないエラー: {str(e)}"}), 500
+
+
 def extract_text_from_pdf(pdf_path):
     """PDFからテキストを抽出"""
     doc = fitz.open(pdf_path)
@@ -304,6 +309,7 @@ def analyze():
     file.save(filepath)
 
     try:
+        step = "PDF解析"
         # 1. テキスト抽出・生年月日解析
         text = extract_text_from_pdf(filepath)
         birthdate = parse_birthdate(text)
@@ -332,17 +338,23 @@ def analyze():
         year, month, day = birthdate
 
         # 2. 四柱推命鑑定
+        step = "四柱推命鑑定"
         shichusuimei_result = shichusuimei.analyze(year, month, day, gender)
 
         # 3. 九星気学鑑定
+        step = "九星気学鑑定"
         kyusei_result = kyusei.analyze(year, month, day)
 
         # 4. 画像抽出・人相学鑑定
+        step = "画像抽出"
         images = extract_images_from_pdf(filepath)
         pdf_page_image = render_pdf_page_as_image(filepath, page_num=0)
+
+        step = "人相学鑑定（Claude API）"
         face_result = analyze_face_with_claude(images, pdf_page_image)
 
         # 5. 総合鑑定
+        step = "総合鑑定（Claude API）"
         combined = generate_combined_analysis(shichusuimei_result, kyusei_result, face_result)
 
         # レスポンス
@@ -359,7 +371,7 @@ def analyze():
 
     except Exception as e:
         traceback.print_exc()
-        return jsonify({"error": f"鑑定中にエラーが発生しました: {str(e)}"}), 500
+        return jsonify({"error": f"「{step}」でエラーが発生しました: {str(e)}"}), 500
 
     finally:
         # アップロードファイル削除
