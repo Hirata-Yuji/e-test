@@ -23,10 +23,20 @@ import kyusei
 load_dotenv()
 
 app = Flask(__name__)
-app.config["UPLOAD_FOLDER"] = os.path.join(os.path.dirname(__file__), "uploads")
+app.config["UPLOAD_FOLDER"] = os.path.join("/tmp", "resume_uploads")
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024  # 16MB
 
 os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
+
+
+@app.errorhandler(413)
+def too_large(e):
+    return jsonify({"error": "ファイルサイズが大きすぎます（最大16MB）"}), 413
+
+
+@app.errorhandler(500)
+def internal_error(e):
+    return jsonify({"error": f"サーバー内部エラー: {str(e)}"}), 500
 
 
 def extract_text_from_pdf(pdf_path):
