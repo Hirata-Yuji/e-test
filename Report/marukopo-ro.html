@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>営業職 採用・定着 分析レポート（HR向け）</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--card2:#334155;--tx:#e2e8f0;--tx2:#94a3b8;--gn:#4ade80;--rd:#f87171;--yl:#fbbf24;--bl:#60a5fa;--pp:#a78bfa;--pk:#f472b6;--or:#fb923c;--accent:#38bdf8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:var(--bg);color:var(--tx);line-height:1.7;padding:16px;max-width:1200px;margin:0 auto}
+h1{font-size:1.6em;margin:24px 0 8px;color:var(--accent);text-align:center}
+h2{font-size:1.3em;margin:32px 0 12px;color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:6px}
+h3{font-size:1.1em;margin:20px 0 8px;color:var(--bl)}
+h4{font-size:1em;margin:12px 0 6px;color:var(--tx)}
+.subtitle{text-align:center;color:var(--tx2);margin-bottom:24px;font-size:0.9em}
+.card{background:var(--card);border-radius:12px;padding:20px;margin:16px 0}
+.card2{background:var(--card2);border-radius:8px;padding:16px;margin:12px 0}
+
+/* Executive Summary */
+.exec{background:linear-gradient(135deg,#1e3a5f,#1e293b);border:1px solid var(--accent);border-radius:12px;padding:24px;margin:20px 0}
+.exec h2{border:none;margin-top:0}
+
+/* KPI row */
+.kpi-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:16px 0}
+.kpi{background:var(--card2);border-radius:10px;padding:14px 20px;text-align:center;flex:1;min-width:140px;max-width:200px}
+.kpi .num{font-size:2em;font-weight:700}
+.kpi .lb{font-size:0.8em;color:var(--tx2);margin-top:4px}
+
+/* Alert boxes */
+.alert{border-radius:10px;padding:16px 20px;margin:12px 0}
+.alert-red{background:rgba(248,113,113,0.12);border-left:4px solid var(--rd)}
+.alert-green{background:rgba(74,222,128,0.12);border-left:4px solid var(--gn)}
+.alert-yellow{background:rgba(251,191,36,0.12);border-left:4px solid var(--yl)}
+.alert-blue{background:rgba(96,165,250,0.12);border-left:4px solid var(--bl)}
+
+/* Verdict badge */
+.verdict{display:inline-block;padding:4px 14px;border-radius:20px;font-weight:700;font-size:0.9em}
+.verdict-true{background:rgba(248,113,113,0.25);color:var(--rd)}
+.verdict-partial{background:rgba(251,191,36,0.25);color:var(--yl)}
+
+/* Chart containers */
+.chart-box{background:var(--card);border-radius:12px;padding:16px;margin:16px 0;position:relative}
+.chart-box canvas{max-height:360px}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:768px){.chart-row{grid-template-columns:1fr}}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:0.9em}
+th{background:var(--card2);padding:10px 12px;text-align:left;font-weight:600;color:var(--accent)}
+td{padding:8px 12px;border-bottom:1px solid rgba(148,163,184,0.15)}
+tr:hover td{background:rgba(148,163,184,0.05)}
+.highlight-cell{font-weight:700}
+
+/* Recommendation cards */
+.rec{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin:16px 0}
+.rec-card{background:var(--card2);border-radius:10px;padding:16px;border-top:3px solid var(--accent)}
+.rec-card.priority-high{border-top-color:var(--rd)}
+.rec-card.priority-mid{border-top-color:var(--yl)}
+.rec-card.priority-low{border-top-color:var(--gn)}
+.rec-card h4{margin-top:0}
+.tag{display:inline-block;font-size:0.75em;padding:2px 8px;border-radius:10px;margin-right:4px}
+.tag-high{background:rgba(248,113,113,0.2);color:var(--rd)}
+.tag-mid{background:rgba(251,191,36,0.2);color:var(--yl)}
+.tag-low{background:rgba(74,222,128,0.2);color:var(--gn)}
+
+/* Process flow */
+.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0}
+.flow-step{background:var(--card2);border-radius:8px;padding:10px 16px;font-size:0.85em;text-align:center}
+.flow-arrow{color:var(--tx2);font-size:1.2em}
+
+/* Collapsible */
+details{margin:8px 0}
+summary{cursor:pointer;padding:8px 12px;background:var(--card2);border-radius:8px;font-weight:600;color:var(--bl);font-size:0.95em}
+summary:hover{background:rgba(96,165,250,0.15)}
+details[open] summary{border-radius:8px 8px 0 0}
+
+/* Footer */
+.footer{text-align:center;color:var(--tx2);font-size:0.75em;margin-top:40px;padding:16px;border-top:1px solid var(--card2)}
+
+.note{font-size:0.85em;color:var(--tx2);margin:8px 0;font-style:italic}
+.em{color:var(--yl);font-weight:600}
+.red{color:var(--rd)}
+.green{color:var(--gn)}
+.blue{color:var(--bl)}
+strong{color:var(--tx)}
+</style>
+</head>
+<body>
+
+<h1>営業職の採用と定着に関する分析レポート</h1>
+<p class="subtitle">マルコポーロ適性検査データ × 人材DBの総合分析 ｜ 2026年3月30日</p>
+
+<!-- ============================================================ -->
+<!-- SECTION 1: エグゼクティブサマリー -->
+<!-- ============================================================ -->
+<div class="exec">
+<h2>エグゼクティブサマリー（経営層向け）</h2>
+
+<div class="kpi-row">
+  <div class="kpi"><div class="num red">17.8%</div><div class="lb">Sランク定着率<br>（129名中23名）</div></div>
+  <div class="kpi"><div class="num green">36.8%</div><div class="lb">Cランク定着率<br>（19名中7名）</div></div>
+  <div class="kpi"><div class="num" style="color:var(--yl)">26.8%</div><div class="lb">×ランク定着率<br>（41名中11名）</div></div>
+  <div class="kpi"><div class="num" style="color:var(--pp)">2.1倍</div><div class="lb">C/S定着率比</div></div>
+</div>
+
+<div class="alert alert-red">
+  <strong>最重要発見：マルコポーロの営業適性評価が高い人ほど、この組織では辞めやすい</strong><br>
+  「営業Sランク」の定着率は17.8%で、「×ランク」の26.8%を下回っています。営業スコアを四分位に分けると、下位25%の定着率28.1%に対し、上位25%は17.2%。スコアが高いほど定着率が低くなる「右肩下がり」のパターンが確認されました。
+</div>
+
+<div class="alert alert-yellow">
+  <strong>注意：統計的有意性はボーダーライン</strong><br>
+  この差は「偶然かもしれない」レベルをギリギリ超えていません（95%信頼区間が0をまたぐ）。しかし、2020〜2023年の4年連続でSランクの定着率が非Sランクを下回っており、パターンとしては一貫しています。「Sランクだから安心」という判断は、少なくとも誤りです。
+</div>
+
+<h3>3行で言うと</h3>
+<div class="card2">
+  <p>❶ マルコポーロが「営業向き」と判定する人材は、面接映えはするが、<span class="em">この組織に長くとどまる特性とは別物</span>です。</p>
+  <p>❷ 逆に、「営業に不向き」とされた人の中に、<span class="em">実は最も定着する人材パターン</span>が隠れています。</p>
+  <p>❸ マルコポーロの結果は「不採用の根拠」に使うのではなく、<span class="em">入社後のフォロー設計の材料</span>として使い方を変えるべきです。</p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 2: 何が起きているのか -->
+<!-- ============================================================ -->
+<h2>第1章：何が起きているのか</h2>
+
+<div class="card">
+<h3>営業適性ランク別の定着率</h3>
+<p>マルコポーロの「営業適性」は、S（最高）〜×（不適）の5段階で判定されます。一般的には「Sランクの人を採るのがベスト」と考えがちですが、実際の定着率は逆になっています。</p>
+
+<div class="chart-box"><canvas id="rankChart" height="280"></canvas></div>
+
+<table>
+<thead><tr><th>営業ランク</th><th>人数</th><th>在籍者</th><th>退職者</th><th>定着率</th><th>判定</th></tr></thead>
+<tbody>
+<tr><td><strong>S（最高評価）</strong></td><td>129名</td><td>23名</td><td>106名</td><td class="red highlight-cell">17.8%</td><td>⚠️ 最も辞めやすい</td></tr>
+<tr><td>A</td><td>28名</td><td>5名</td><td>23名</td><td class="red">17.9%</td><td>⚠️ Sと同水準</td></tr>
+<tr><td>B</td><td>39名</td><td>9名</td><td>30名</td><td>23.1%</td><td>平均やや上</td></tr>
+<tr><td>C</td><td>19名</td><td>7名</td><td>12名</td><td class="green highlight-cell">36.8%</td><td>✅ 最も定着</td></tr>
+<tr><td>×（不適判定）</td><td>41名</td><td>11名</td><td>30名</td><td class="green">26.8%</td><td>✅ Sより高い</td></tr>
+</tbody>
+</table>
+
+<p class="note">※ 分析対象：2024年以前入社でマルコポーロ受検済の256名。2025年以降入社は観察期間が短いため除外。</p>
+</div>
+
+<div class="card">
+<h3>営業統合スコアの四分位別定着率</h3>
+<p>ランクではなく「点数」で見ても同じ傾向です。スコアが上がるほど、定着率は下がっています。</p>
+
+<div class="chart-box"><canvas id="quartileChart" height="260"></canvas></div>
+
+<p>統計検定：スピアマン相関 r = -0.092（p = 0.143）。有意ではないものの、単調減少のパターンは一貫しています。</p>
+</div>
+
+<div class="card">
+<h3>「年度の違い」で説明できるか？ → できない</h3>
+<p>「最近Sランクの採用が増えたから、まだ辞めていないだけでは？」という疑問への回答です。</p>
+
+<div class="chart-box"><canvas id="cohortChart" height="280"></canvas></div>
+
+<p>2020〜2023年の主要4コホートすべてで、Sランクの定着率は非Sランクと同等以下です。2022年入社コホートが最も顕著で、Sランク43名中在籍はわずか4名（9.3%）でした。入社年度の影響を統計的に取り除いても（ロジスティック回帰）、ランクCのオッズ比は2.47（p=0.089）と、Sの約2.5倍の定着しやすさを示しています。</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 3: なぜ起きているのか -->
+<!-- ============================================================ -->
+<h2>第2章：なぜこの逆転が起きるのか</h2>
+
+<div class="card">
+<h3>「営業向きの性格」と「この会社に残る性格」は正反対</h3>
+<p>これが逆転現象の核心です。マルコポーロが営業Sランクと判定する人は、外向的で好奇心旺盛、協調性が高い。しかし、この組織で実際に定着している人は、むしろ内向的で孤立を厭わず、回避動機が高い人たちです。</p>
+
+<div class="chart-box"><canvas id="traitChart" height="300"></canvas></div>
+
+<table>
+<thead><tr><th>性格特性</th><th>Sランクの人は…</th><th>実際に定着する人は…</th><th>矛盾</th></tr></thead>
+<tbody>
+<tr><td>外向性</td><td class="blue">高い（平均59.6）</td><td>低い方が定着（在籍51.9 vs 退職55.5, p=0.036）</td><td class="red">✕ 逆</td></tr>
+<tr><td>協調性</td><td class="blue">高い（平均52.5）</td><td>低い方が定着（在籍45.1 vs 退職49.1, p=0.030）</td><td class="red">✕ 逆</td></tr>
+<tr><td>知的好奇心</td><td class="blue">高い（平均51.8）</td><td>低い方が定着（在籍45.2 vs 退職47.4, p=0.149）</td><td class="red">✕ 逆</td></tr>
+<tr><td>回避動機</td><td>低い（平均29.7）</td><td class="green">高い方が定着（在籍43.3 vs 退職38.5, p=0.026）</td><td class="red">✕ 逆</td></tr>
+<tr><td>孤立性</td><td>低い（平均23.2）</td><td class="green">高い方が定着（在籍32.0 vs 退職26.9, p=0.054）</td><td class="red">✕ 逆</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card">
+<h3>なぜ「優秀な営業タイプ」ほど辞めるのか — 3つの仮説</h3>
+
+<div class="alert alert-blue">
+<h4>仮説① 市場価値が高く、選択肢が多い</h4>
+<p>外向的で協調性が高い人は、社外とのネットワークも広く、他社からの引き合いが来やすい。Sランクの退職者は平均754日（約2年）で離職しており、「仕事を覚えた頃に次に移る」パターンが見えます。×ランクの退職者は平均1,142日（約3年）と、比較的長く在籍してから辞めています。</p>
+</div>
+
+<div class="alert alert-blue">
+<h4>仮説② 組織の問題に敏感で「見切り」が早い</h4>
+<p>知的好奇心が高く情報感度が高い人は、組織の構造的問題（評価制度、キャリアパス、マネジメント品質）に早期に気づきます。Sランクの1年以内離職率は27.9%で、×ランクの19.5%を大きく上回っています。</p>
+</div>
+
+<div class="alert alert-blue">
+<h4>仮説③ 組織との「相性」のミスマッチ</h4>
+<p>Sランクかつ「組織人」もSランクの人（＝営業力も組織適応力も最高評価）は、<span class="em">12名中12名が全員退職</span>（定着率0%）。皮肉なことに、あらゆる指標で「理想的」と判定された人が最も残りません。この組織が「理想的な人材」を活かせる環境になっていない可能性を示唆しています。</p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 4: パーソナリティタイプ別の定着 -->
+<!-- ============================================================ -->
+<h2>第3章：どんなタイプが定着するのか</h2>
+
+<div class="card">
+<h3>16タイプ（16T）別 定着率</h3>
+<p>マルコポーロは性格を16タイプに分類します。タイプによって定着率に大きな差があります。</p>
+
+<div class="chart-box"><canvas id="type16Chart" height="300"></canvas></div>
+
+<table>
+<thead><tr><th>タイプ</th><th>特徴</th><th>人数</th><th>定着率</th><th>ポイント</th></tr></thead>
+<tbody>
+<tr style="background:rgba(74,222,128,0.08)"><td><strong>IRFO</strong></td><td>内向・現実・感情・協調</td><td>18名</td><td class="green highlight-cell">44.4%</td><td>✅ 最も定着。静かに地道に働く職人タイプ</td></tr>
+<tr style="background:rgba(74,222,128,0.05)"><td><strong>IRLA</strong></td><td>内向・現実・論理・主導</td><td>18名</td><td class="green">33.3%</td><td>✅ 論理的で自律的。自分で判断して動ける</td></tr>
+<tr><td><strong>ENFO</strong></td><td>外向・直感・感情・協調</td><td>28名</td><td>28.6%</td><td>協調型の外向。チームに溶け込みやすい</td></tr>
+<tr><td><strong>INFA</strong></td><td>内向・直感・感情・主導</td><td>18名</td><td>27.8%</td><td>内向だが主導権を取れる。独自路線</td></tr>
+<tr style="background:rgba(248,113,113,0.08)"><td><strong>ENFA</strong></td><td>外向・直感・感情・主導</td><td>48名</td><td class="red highlight-cell">8.3%</td><td>⚠️ 典型的「カリスマ営業」。最多人数だが最も定着しない</td></tr>
+<tr style="background:rgba(248,113,113,0.08)"><td><strong>ERLA</strong></td><td>外向・現実・論理・主導</td><td>14名</td><td class="red">7.1%</td><td>⚠️ 最低定着率。外向×論理×主導で攻めすぎるタイプ</td></tr>
+</tbody>
+</table>
+
+<div class="alert alert-yellow">
+<strong>採用への示唆：</strong>ENFAは「面接で映える営業パーソナリティ」の典型ですが、48名中44名が退職しています。一方、IRFOは面接では「おとなしい」印象を受けがちですが、定着率は5.3倍です。「面接映え」と「定着」は別の能力であることを認識する必要があります。
+</div>
+</div>
+
+<div class="card">
+<h3>3つの人材クラスター</h3>
+<p>256名の性格スコアを統計的にグループ分けすると、3つのパターンが浮かび上がります。</p>
+
+<div class="chart-row">
+<div class="chart-box"><canvas id="radarChart" height="320"></canvas></div>
+<div>
+  <div class="alert alert-green">
+    <h4>タイプA「独立自走型」— 定着率27.7%（最高）</h4>
+    <p><strong>83名 ｜ 営業ランク×が40%と最多</strong></p>
+    <p>一人で黙々と仕事をこなすタイプ。外向性・協調性は低いが、他人に頼らず自分のペースで業務を遂行する。対人ストレスが少ないため、組織への不満が溜まりにくい。マルコポーロ的には「営業に不向き」だが、実は最も辞めない。</p>
+  </div>
+  <div class="alert alert-red">
+    <h4>タイプB「優等生型」— 定着率15.7%（最低）</h4>
+    <p><strong>70名 ｜ 営業ランクSが90%</strong></p>
+    <p>すべてのスコアが高い「完璧な営業」。情緒安定・ストレス耐性・協調性・知的好奇心すべてが高い。しかしその優秀さゆえに市場価値も高く、組織の課題にも敏感で「ここにいるべきではない」と早期に判断しがち。</p>
+  </div>
+  <div class="alert alert-yellow">
+    <h4>タイプC「平均型」— 定着率20.4%</h4>
+    <p><strong>103名 ｜ 営業ランクS47%・A19%</strong></p>
+    <p>特に突出した特性がないバランス型。大きな不満も大きな野心もなく、一定の定着が見込める。</p>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 5: ファクトチェック（逆転現象の信頼性） -->
+<!-- ============================================================ -->
+<h2>第4章：この分析はどこまで信頼できるか</h2>
+
+<div class="card">
+<h3>信頼性の検証結果</h3>
+<p>「本当にSランクの方が辞めやすいのか」を、複数の角度から検証しました。</p>
+
+<table>
+<thead><tr><th>検証項目</th><th>結果</th><th>判定</th></tr></thead>
+<tbody>
+<tr><td>営業ランク S vs × の定着率差</td><td>S: 17.8% vs ×: 26.8%（差 -9.0pp）</td><td><span class="verdict verdict-true">逆転あり</span></td></tr>
+<tr><td>ブートストラップ95%信頼区間</td><td>[-17.7pp, +3.0pp]（0を含む）</td><td><span class="verdict verdict-partial">統計的に有意とは言い切れない</span></td></tr>
+<tr><td>入社年度を統制した回帰分析</td><td>C vs S: OR=2.47, p=0.089</td><td><span class="verdict verdict-partial">傾向あり（ボーダーライン）</span></td></tr>
+<tr><td>コホート別分析（同じ入社年度内）</td><td>2020-2023の4年連続でS ≤ 非S</td><td><span class="verdict verdict-true">パターンは一貫</span></td></tr>
+<tr><td>営業統合スコア四分位</td><td>Q1(低)28.1% → Q4(高)17.2%（単調減少）</td><td><span class="verdict verdict-true">傾向は一貫</span></td></tr>
+<tr><td>退職者の在籍日数</td><td>S: 754日 vs ×: 1,142日</td><td><span class="verdict verdict-true">Sは早く辞める</span></td></tr>
+<tr><td>1年以内離職率</td><td>S: 27.9% vs ×: 19.5%</td><td><span class="verdict verdict-true">Sの早期離職が多い</span></td></tr>
+<tr><td>性別の影響</td><td>男女ともS < × のパターン</td><td><span class="verdict verdict-true">性別では説明不可</span></td></tr>
+<tr><td>S+組織人Sの人材</td><td>12名中12名退職（定着率0%）</td><td><span class="verdict verdict-true">最優秀人材が最も辞める</span></td></tr>
+</tbody>
+</table>
+
+<div class="alert alert-yellow">
+<h4>総合判定</h4>
+<p>統計的有意性は95%水準に達していませんが、複数の異なる分析手法で一貫して同じパターンが確認されています。「Sランクの方が明らかに定着する」という証拠は<strong>一切ありません</strong>。少なくとも「Sランク＝安心」という前提は撤回すべきです。また、Cや×ランクの人材を排除することは、定着しやすい人材を自ら除外している可能性があります。</p>
+</div>
+</div>
+
+<div class="card">
+<h3>この分析の限界（正直に言うと）</h3>
+<div class="card2">
+  <p><strong>① サンプルサイズ：</strong>256名（マルコポーロ受検者）は統計的に小さくはないが、ランク別に分けるとC=19名、×=41名と少数。個別の数値は変動する可能性があります。</p>
+  <p><strong>② 右打切り：</strong>在籍中の人も将来退職する可能性があります。定着率は「今この瞬間の定着率」であり、最終的な数値はさらに下がる可能性があります。</p>
+  <p><strong>③ 退職理由：</strong>退職が自発的か非自発的かの区別がデータにありません。パフォーマンス不足による退職と、引き抜きによる退職は別物ですが、区別できていません。</p>
+  <p><strong>④ 因果関係：</strong>「Sランクだから辞める」のではなく、「Sランクの性格特性を持つ人は、この組織と相性が悪い」という相関関係です。</p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 6: 採用への提言 -->
+<!-- ============================================================ -->
+<h2>第5章：じゃあどうすればいいのか — 採用への提言</h2>
+
+<div class="card">
+<h3>提言の全体像</h3>
+<p>マルコポーロの結果は「採否の判断材料」から「入社後のフォロー設計の材料」に位置づけを変えることを提案します。</p>
+
+<div class="flow">
+  <div class="flow-step" style="border:2px solid var(--rd)">❌ 現在の使い方<br>Sランク → 採用<br>×ランク → 不採用</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step" style="border:2px solid var(--gn)">✅ 推奨する使い方<br>全ランク → 採用候補<br>タイプ別 → フォロー設計</div>
+</div>
+</div>
+
+<div class="rec">
+<div class="rec-card priority-high">
+  <span class="tag tag-high">優先度：高</span>
+  <h4>提言1：マルコポーロのランクで足切りしない</h4>
+  <p>Sランクの定着率17.8%に対し、Cランクは36.8%、×ランクは26.8%です。ランクで足切りすると、定着しやすい人材を自ら排除することになります。</p>
+  <p><strong>具体的に：</strong>「営業ランクB以下は不採用」等のルールがあれば撤廃する。</p>
+</div>
+
+<div class="rec-card priority-high">
+  <span class="tag tag-high">優先度：高</span>
+  <h4>提言2：ENFAタイプの大量採用を見直す</h4>
+  <p>ENFA（外向・直感・感情・主導）は48名中44名が退職。面接では最も「営業向き」に見えるタイプですが、定着率8.3%です。IRFO（44.4%）やIRLA（33.3%）など、内向型も積極的に候補に含めてください。</p>
+  <p><strong>具体的に：</strong>面接評価シートに「内向的だが論理的・堅実」のポジティブ評価項目を追加する。</p>
+</div>
+
+<div class="rec-card priority-high">
+  <span class="tag tag-high">優先度：高</span>
+  <h4>提言3：Sランク人材には入社後の手厚いフォロー</h4>
+  <p>Sランクは1年以内に27.9%が退職。特に入社後6ヶ月のフォローが重要です。「優秀だから放っておいても大丈夫」は逆効果です。</p>
+  <p><strong>具体的に：</strong>Sランク人材には月1の1on1、6ヶ月面談を必須化。キャリアパスの早期提示。</p>
+</div>
+
+<div class="rec-card priority-mid">
+  <span class="tag tag-mid">優先度：中</span>
+  <h4>提言4：「回避動機」「孤立性」をポジティブに評価</h4>
+  <p>回避動機が高い人（安定志向）、孤立性が高い人（独立型）は統計的に定着率が高い。これらを「消極的」とネガティブに評価せず、「安定して長く働ける」とポジティブに捉え直す。</p>
+  <p><strong>具体的に：</strong>面接評価基準のうち「積極性」を過度に重視しない。</p>
+</div>
+
+<div class="rec-card priority-mid">
+  <span class="tag tag-mid">優先度：中</span>
+  <h4>提言5：組織側の課題にも目を向ける</h4>
+  <p>「最も優秀な人から辞めていく」パターンは、人材の問題ではなく組織の問題である可能性が高い。評価制度、キャリアパス、マネジメント品質の点検を推奨します。</p>
+  <p><strong>具体的に：</strong>退職者面談の系統的な実施と分析。特にSランク退職者の退職理由を集中的にヒアリング。</p>
+</div>
+
+<div class="rec-card priority-low">
+  <span class="tag tag-low">優先度：参考</span>
+  <h4>提言6：採用基準の「組み合わせ」を研究する</h4>
+  <p>営業ランクSかつ組織人ランクSの12名が全員退職している一方、営業ランクSかつ組織人ランクBの50名は定着率22.0%。ランクの「組み合わせ」に定着のヒントがあります。</p>
+  <p><strong>具体的に：</strong>次のクォーターの採用で、複合ランクの追跡を開始する。</p>
+</div>
+</div>
+
+<div class="card">
+<h3>採用面接での「見方の転換」早見表</h3>
+<table>
+<thead><tr><th>マルコポーロの項目</th><th>従来の見方</th><th>データが示す見方</th><th>推奨アクション</th></tr></thead>
+<tbody>
+<tr><td>営業ランク S</td><td>「最高の人材」</td><td>「離職リスクが最も高い人材」</td><td>フォロー体制を事前に準備</td></tr>
+<tr><td>営業ランク ×</td><td>「不採用」</td><td>「Sより9pp高い定着率」</td><td>一律排除をやめる</td></tr>
+<tr><td>外向性が高い</td><td>「営業に向いている」</td><td>「退職しやすい（p=0.036）」</td><td>加点対象から除外</td></tr>
+<tr><td>回避動機が高い</td><td>「消極的で不安」</td><td>「最も定着する因子の一つ（p=0.026）」</td><td>ポジティブに再評価</td></tr>
+<tr><td>孤立性が高い</td><td>「チームに馴染めない」</td><td>「独立して業務遂行可能（p=0.054）」</td><td>個人作業中心のポジション検討</td></tr>
+<tr><td>知的好奇心が高い</td><td>「学習意欲が高い」</td><td>「離職の最強予測因子（OR=0.40）」</td><td>知的刺激のある業務を早期にアサイン</td></tr>
+<tr><td>16T：ENFA</td><td>「カリスマ営業タイプ」</td><td>「定着率8.3%」</td><td>大量採用を控える</td></tr>
+<tr><td>16T：IRFO</td><td>「営業に不向き」</td><td>「定着率44.4%（ENFAの5.3倍）」</td><td>候補に含める</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 7: 分析方法（技術的な詳細） -->
+<!-- ============================================================ -->
+<details>
+<summary>📊 分析方法の詳細（技術担当者向け）</summary>
+<div class="card">
+<h3>データソースと前処理</h3>
+<p>人材DB（479名）からの営業職379名と、マルコポーロ適性検査（342名、394変数）を氏名ベースで結合。結合成功率67.5%（256名）。2025年以降入社は観察期間バイアスのため主要分析から除外。</p>
+
+<h3>使用した統計手法</h3>
+<table>
+<thead><tr><th>手法</th><th>目的</th><th>結果</th></tr></thead>
+<tbody>
+<tr><td>Welch's t検定</td><td>在籍/退職群の平均差</td><td>外向性(p=0.036)、協調性(p=0.030)、回避動機(p=0.026)が有意</td></tr>
+<tr><td>Point-Biserial相関</td><td>連続変数と定着の関係</td><td>62変数中、有意(p<0.05)は7変数</td></tr>
+<tr><td>χ²検定</td><td>カテゴリ変数の関連</td><td>16Tタイプ: χ²=22.85, p=0.087</td></tr>
+<tr><td>ロジスティック回帰（入社年度統制）</td><td>交絡除去後の効果</td><td>C vs S: OR=2.47, p=0.089</td></tr>
+<tr><td>ブートストラップ（10,000回）</td><td>定着率差の信頼区間</td><td>S-非S差: -7.4pp [-17.7, +3.0]</td></tr>
+<tr><td>K-Means（k=3）</td><td>人材タイプの分類</td><td>独立自走型/優等生型/平均型</td></tr>
+<tr><td>スピアマン相関</td><td>スコアと定着の単調関係</td><td>r=-0.092, p=0.143</td></tr>
+</tbody>
+</table>
+
+<h3>信頼性に関する注記</h3>
+<p>営業ランクによる定着率差は、いずれの検定でもp<0.05を達成していません。これは「差がない」のではなく、「このサンプルサイズでは断定できない」という意味です。複数手法で一貫したパターンが見られることから、効果の方向性は信頼してよいが、正確な大きさは今後のデータ蓄積で精緻化が必要です。</p>
+</div>
+</details>
+
+<!-- ============================================================ -->
+<!-- SECTION 8: 補足データ -->
+<!-- ============================================================ -->
+<details>
+<summary>📋 補足データ：マルコポーロ未受検者について</summary>
+<div class="card">
+<p>マルコポーロ未受検で2024年以前入社の営業職は51名おり、全員が退職しています（定着率0%）。これは主に初期入社者（マルコポーロ導入前）であり、長期在籍者がすでに退職したコホートと考えられます。分析への直接的影響はありませんが、マルコポーロ受検者（定着率21.5%）との差は、導入時期の違いによるものです。</p>
+</div>
+</details>
+
+<div class="footer">
+  分析日: 2026年3月30日 ｜ 対象: 営業職379名（マルコポーロ結合: 256名）<br>
+  本レポートの数値はすべて生データから再検証済み ｜ ツール: Python (scipy, statsmodels, sklearn)<br>
+  ⚠️ 個人情報を含むため取り扱いにはご注意ください
+</div>
+
+<script>
+// ========== Chart.js Configurations ==========
+
+// 1. 営業ランク別定着率
+new Chart(document.getElementById('rankChart'),{type:'bar',data:{
+  labels:['S（最高）','A','B','C','×（不適）'],
+  datasets:[
+    {label:'定着率(%)',data:[17.8,17.9,23.1,36.8,26.8],
+     backgroundColor:['rgba(248,113,113,0.7)','rgba(248,113,113,0.6)','rgba(129,140,248,0.6)','rgba(74,222,128,0.7)','rgba(74,222,128,0.6)'],
+     borderRadius:6},
+    {label:'人数',data:[129,28,39,19,41],type:'line',yAxisID:'y2',
+     borderColor:'rgba(148,163,184,0.6)',pointRadius:4,pointBackgroundColor:'#94a3b8',borderDash:[5,5]}
+  ]
+},options:{responsive:true,plugins:{legend:{labels:{color:'#e2e8f0'}},
+  title:{display:true,text:'マルコポーロ営業ランクが高いほど、定着率は低い',color:'#fbbf24',font:{size:14}}},
+  scales:{y:{beginAtZero:true,max:50,title:{display:true,text:'定着率(%)',color:'#94a3b8'},ticks:{color:'#94a3b8'},grid:{color:'rgba(71,85,105,0.3)'}},
+  y2:{position:'right',beginAtZero:true,max:150,title:{display:true,text:'人数',color:'#94a3b8'},ticks:{color:'#94a3b8'},grid:{display:false}},
+  x:{ticks:{color:'#e2e8f0'},grid:{color:'rgba(71,85,105,0.2)'}}}}});
+
+// 2. 四分位別定着率
+new Chart(document.getElementById('quartileChart'),{type:'bar',data:{
+  labels:['Q1（低スコア）','Q2','Q3','Q4（高スコア）'],
+  datasets:[{label:'定着率(%)',data:[28.1,21.9,18.8,17.2],
+    backgroundColor:['rgba(74,222,128,0.7)','rgba(129,140,248,0.6)','rgba(251,191,36,0.6)','rgba(248,113,113,0.7)'],
+    borderRadius:6}]
+},options:{responsive:true,indexAxis:'y',plugins:{legend:{display:false},
+  title:{display:true,text:'営業統合スコアの四分位別：スコアが上がるほど定着率は下がる',color:'#fbbf24',font:{size:13}}},
+  scales:{x:{beginAtZero:true,max:35,title:{display:true,text:'定着率(%)',color:'#94a3b8'},ticks:{color:'#94a3b8'},grid:{color:'rgba(71,85,105,0.3)'}},
+  y:{ticks:{color:'#e2e8f0'},grid:{display:false}}}}});
+
+// 3. コホート別 S vs 非S
+new Chart(document.getElementById('cohortChart'),{type:'bar',data:{
+  labels:['2020年','2021年','2022年','2023年'],
+  datasets:[
+    {label:'Sランク定着率(%)',data:[21.4,13.6,9.3,17.9],backgroundColor:'rgba(248,113,113,0.7)',borderRadius:4},
+    {label:'非Sランク定着率(%)',data:[33.3,14.3,16.7,31.6],backgroundColor:'rgba(74,222,128,0.7)',borderRadius:4}
+  ]
+},options:{responsive:true,plugins:{legend:{labels:{color:'#e2e8f0'}},
+  title:{display:true,text:'入社年度別：同じ年に入社しても、Sランクの方が辞めやすい',color:'#fbbf24',font:{size:13}}},
+  scales:{y:{beginAtZero:true,max:40,title:{display:true,text:'定着率(%)',color:'#94a3b8'},ticks:{color:'#94a3b8'},grid:{color:'rgba(71,85,105,0.3)'}},
+  x:{ticks:{color:'#e2e8f0'},grid:{display:false}}}}});
+
+// 4. 性格特性の比較
+new Chart(document.getElementById('traitChart'),{type:'bar',data:{
+  labels:['外向性','協調性','知的好奇心','回避動機','孤立性'],
+  datasets:[
+    {label:'Sランクの平均',data:[59.6,52.5,51.8,29.7,23.2],backgroundColor:'rgba(248,113,113,0.6)',borderRadius:4},
+    {label:'在籍者の平均',data:[51.9,45.1,45.2,43.3,32.0],backgroundColor:'rgba(74,222,128,0.6)',borderRadius:4},
+    {label:'退職者の平均',data:[55.5,49.1,47.4,38.5,26.9],backgroundColor:'rgba(129,140,248,0.5)',borderRadius:4}
+  ]
+},options:{responsive:true,plugins:{legend:{labels:{color:'#e2e8f0'}},
+  title:{display:true,text:'Sランクの性格特性は「在籍者」より「退職者」に近い',color:'#fbbf24',font:{size:13}}},
+  scales:{y:{beginAtZero:true,title:{display:true,text:'スコア',color:'#94a3b8'},ticks:{color:'#94a3b8'},grid:{color:'rgba(71,85,105,0.3)'}},
+  x:{ticks:{color:'#e2e8f0'},grid:{display:false}}}}});
+
+// 5. 16Tタイプ別
+new Chart(document.getElementById('type16Chart'),{type:'bar',data:{
+  labels:['IRFO\n(n=18)','IRLA\n(n=18)','ENFO\n(n=28)','INFA\n(n=18)','IRLO\n(n=15)','ENLA\n(n=21)','INLA\n(n=22)','ERFO\n(n=12)','ENFA\n(n=48)','ERLA\n(n=14)'],
+  datasets:[{label:'定着率(%)',data:[44.4,33.3,28.6,27.8,20.0,19.0,18.2,16.7,8.3,7.1],
+    backgroundColor:[44.4,33.3,28.6,27.8,20.0,19.0,18.2,16.7,8.3,7.1].map(v=>v>25?'rgba(74,222,128,0.7)':v>15?'rgba(129,140,248,0.6)':'rgba(248,113,113,0.7)'),
+    borderRadius:4}]
+},options:{responsive:true,plugins:{legend:{display:false},
+  title:{display:true,text:'16タイプ別定着率：内向型（I始まり）が概して高い',color:'#fbbf24',font:{size:13}}},
+  scales:{y:{beginAtZero:true,max:50,title:{display:true,text:'定着率(%)',color:'#94a3b8'},ticks:{color:'#94a3b8'},grid:{color:'rgba(71,85,105,0.3)'}},
+  x:{ticks:{color:'#e2e8f0',font:{size:10}},grid:{display:false}}}}});
+
+// 6. レーダーチャート（3クラスター）
+new Chart(document.getElementById('radarChart'),{type:'radar',data:{
+  labels:['外向性','協調性','良識性','情緒安定性','知的好奇心','ストレス適応','自己実現','社会的成功','達成動機','回避動機','孤立性','非協調性'],
+  datasets:[
+    {label:'A:独立自走型(27.7%)',data:[-0.99,-1.01,-0.58,-0.99,-0.49,-0.89,-0.82,-0.18,-0.57,0.86,1.07,0.80],
+     borderColor:'rgba(74,222,128,0.8)',backgroundColor:'rgba(74,222,128,0.1)',pointRadius:3},
+    {label:'B:優等生型(15.7%)',data:[0.83,0.88,0.89,1.04,0.88,0.93,0.87,0.57,0.82,-0.96,-0.67,-0.54],
+     borderColor:'rgba(248,113,113,0.8)',backgroundColor:'rgba(248,113,113,0.1)',pointRadius:3},
+    {label:'C:平均型(20.4%)',data:[0.24,0.22,-0.14,0.10,-0.20,0.09,0.07,-0.24,-0.10,-0.04,-0.41,-0.27],
+     borderColor:'rgba(129,140,248,0.8)',backgroundColor:'rgba(129,140,248,0.1)',pointRadius:3}
+  ]
+},options:{responsive:true,maintainAspectRatio:false,scales:{r:{min:-1.5,max:1.5,
+  pointLabels:{font:{size:10},color:'#e2e8f0'},grid:{color:'rgba(71,85,105,0.3)'},ticks:{display:false}}},
+  plugins:{legend:{position:'top',labels:{boxWidth:14,padding:10,color:'#e2e8f0'}}}}});
+</script>
+
+</body>
+</html>
