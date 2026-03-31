@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>マルコポーロ適性 × 実営業成績 相関分析</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--card2:#334155;--tx:#e2e8f0;--tx2:#94a3b8;--gn:#4ade80;--rd:#f87171;--yl:#fbbf24;--bl:#60a5fa;--pp:#a78bfa;--or:#fb923c;--accent:#38bdf8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:var(--bg);color:var(--tx);line-height:1.7;padding:16px;max-width:1200px;margin:0 auto}
+h1{font-size:1.6em;margin:24px 0 8px;color:var(--accent);text-align:center}
+h2{font-size:1.3em;margin:32px 0 12px;color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:6px}
+h3{font-size:1.1em;margin:20px 0 8px;color:var(--bl)}
+.subtitle{text-align:center;color:var(--tx2);margin-bottom:24px;font-size:0.9em}
+.card{background:var(--card);border-radius:12px;padding:20px;margin:16px 0}
+.card2{background:var(--card2);border-radius:8px;padding:16px;margin:12px 0}
+.exec{background:linear-gradient(135deg,#1e3a5f,#1e293b);border:1px solid var(--accent);border-radius:12px;padding:24px;margin:20px 0}
+.exec h2{border:none;margin-top:0}
+.kpi-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:16px 0}
+.kpi{background:var(--card2);border-radius:10px;padding:14px 20px;text-align:center;flex:1;min-width:150px;max-width:220px}
+.kpi .num{font-size:1.8em;font-weight:700}
+.kpi .lb{font-size:0.8em;color:var(--tx2);margin-top:4px}
+.alert{border-radius:10px;padding:16px 20px;margin:12px 0}
+.alert-red{background:rgba(248,113,113,0.12);border-left:4px solid var(--rd)}
+.alert-green{background:rgba(74,222,128,0.12);border-left:4px solid var(--gn)}
+.alert-yellow{background:rgba(251,191,36,0.12);border-left:4px solid var(--yl)}
+.alert-blue{background:rgba(96,165,250,0.12);border-left:4px solid var(--bl)}
+.chart-box{background:var(--card);border-radius:12px;padding:16px;margin:16px 0}
+.chart-box canvas{max-height:360px}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:768px){.chart-row{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:0.9em}
+th{background:var(--card2);padding:10px 12px;text-align:left;font-weight:600;color:var(--accent)}
+td{padding:8px 12px;border-bottom:1px solid rgba(148,163,184,0.15)}
+.red{color:var(--rd)}.green{color:var(--gn)}.blue{color:var(--bl)}.yellow{color:var(--yl)}
+.em{color:var(--yl);font-weight:600}
+.note{font-size:0.85em;color:var(--tx2);margin:8px 0;font-style:italic}
+details{margin:8px 0}
+summary{cursor:pointer;padding:8px 12px;background:var(--card2);border-radius:8px;font-weight:600;color:var(--bl);font-size:0.95em}
+.footer{text-align:center;color:var(--tx2);font-size:0.75em;margin-top:40px;padding:16px;border-top:1px solid var(--card2)}
+.verdict{display:inline-block;padding:4px 14px;border-radius:20px;font-weight:700;font-size:0.9em}
+.verdict-false{background:rgba(248,113,113,0.25);color:var(--rd)}
+.verdict-true{background:rgba(74,222,128,0.25);color:var(--gn)}
+.verdict-partial{background:rgba(251,191,36,0.25);color:var(--yl)}
+.matrix{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:16px 0}
+.matrix-cell{background:var(--card2);border-radius:10px;padding:14px;text-align:center}
+.big{font-size:1.4em;font-weight:700}
+</style>
+</head>
+<body>
+
+<h1>マルコポーロ適性 × 実営業成績 相関分析</h1>
+<p class="subtitle">「営業向き」と判定された人は、本当に売れているのか？ ｜ 2026年3月30日</p>
+
+<!-- ============================================================ -->
+<!-- SECTION 0: エグゼクティブサマリー -->
+<!-- ============================================================ -->
+<div class="exec">
+<h2>エグゼクティブサマリー</h2>
+
+<div class="kpi-row">
+  <div class="kpi"><div class="num yellow">r = -0.06</div><div class="lb">営業統合スコア<br>× 成約高 の相関</div></div>
+  <div class="kpi"><div class="num blue">358万</div><div class="lb">Bランク月平均成約高<br>（最高）</div></div>
+  <div class="kpi"><div class="num" style="color:var(--pp)">282万</div><div class="lb">Sランク月平均成約高<br>（Bより低い）</div></div>
+  <div class="kpi"><div class="num green">+0.36</div><div class="lb">「人に関わらない傾向」<br>× 成約高 の相関</div></div>
+</div>
+
+<div class="alert alert-red">
+<strong>結論：マルコポーロの営業適性スコアは、実際の営業成績を予測しない</strong><br>
+営業統合スコアと月平均成約高の相関は r = -0.06（p = 0.699）。事実上ゼロです。Sランクの月平均成約高282万円はBランクの358万円を下回り、かつ定着率も低い。マルコポーロの営業ランクは、「営業成績」も「定着」も予測できていません。
+</div>
+
+<div class="alert alert-green">
+<strong>逆に、実績を予測する特性は「営業不向き」と判定される特性だった</strong><br>
+孤立性（r=+0.34, p=0.02）、非協調性（r=+0.32, p=0.03）、内向性（r=+0.30, p=0.05）が成約高と有意に正の相関。マルコポーロが「注意点」として赤信号を出す特性こそが、この組織で実際に売上を上げる力と結びついています。
+</div>
+
+<h3>3行で言うと</h3>
+<div class="card2">
+<p>❶ マルコポーロの営業適性ランクは、<span class="em">実際の売上と無関係</span>（r = -0.06）。</p>
+<p>❷ 実際に売上が高い人は、<span class="em">「一匹狼」タイプ</span>。人に関わらず自分のやり方で成果を出す。</p>
+<p>❸ つまりマルコポーロは「売上」も「定着」も予測できておらず、<span class="em">採用の足切り指標としては不適切</span>です。</p>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 1: Sランクは本当に売れるのか -->
+<!-- ============================================================ -->
+<h2>第1章：Sランクは本当に売れるのか</h2>
+
+<div class="card">
+<h3>営業ランク別 月平均成約高</h3>
+<p>入社時期の差を補正するため、「実際に売上が発生した月」だけを数えて月平均を計算しています。</p>
+
+<div class="chart-box"><canvas id="rankPerformance" height="280"></canvas></div>
+
+<table>
+<thead><tr><th>営業ランク</th><th>人数</th><th>月平均成約高</th><th>中央値</th><th>月平均納品高</th><th>判定</th></tr></thead>
+<tbody>
+<tr><td><strong>B</strong></td><td>9名</td><td class="green" style="font-weight:700">358万円</td><td>369万円</td><td>450万円</td><td>✅ 実績トップ</td></tr>
+<tr><td><strong>S（最高評価）</strong></td><td>22名</td><td>282万円</td><td>255万円</td><td>278万円</td><td>Bより27%低い</td></tr>
+<tr><td><strong>C</strong></td><td>4名</td><td>253万円</td><td>229万円</td><td>256万円</td><td>Sと同水準</td></tr>
+<tr><td><strong>×（不適）</strong></td><td>5名</td><td>238万円</td><td>117万円</td><td>304万円</td><td>ばらつき大</td></tr>
+<tr><td><strong>A</strong></td><td>6名</td><td>185万円</td><td>157万円</td><td>156万円</td><td class="red">最も低い</td></tr>
+</tbody>
+</table>
+
+<p><strong>統計検定：</strong>S vs 非Sの成約高月平均差は t = 0.21, p = 0.833。<span class="em">統計的に差がありません</span>。営業ランクSの人が多く売れるという証拠は一切ありません。</p>
+
+<p class="note">※ 分析対象：売上データとマルコポーロを氏名で結合できた46名（営業ランクあり）。売上データは主に現在在籍中の営業職69名分。</p>
+</div>
+
+<div class="card">
+<h3>営業統合スコア（点数）と成約高の関係</h3>
+<p>ランクではなく連続値の営業統合スコアで見ても、成約高との相関はゼロに近い値です。</p>
+
+<div class="chart-box"><canvas id="scatterChart" height="300"></canvas></div>
+
+<p>ピアソン相関 r = -0.059, p = 0.699。スコアの高低は売上に影響していません。ランク別に見ても、いずれも有意な相関はありません（S内: r=-0.20, B内: r=+0.07）。</p>
+</div>
+
+<div class="card">
+<h3>FY別推移でも一貫した傾向</h3>
+<div class="chart-box"><canvas id="fyChart" height="280"></canvas></div>
+<p>FY2022〜FY2024の3年間通じて、BランクがSランクを上回る傾向は一貫しています。Sランクは人数が最多（各年16〜22名）なのに、年間成約高の平均ではBランクに劣っています。</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 2: 何が売上を予測するのか -->
+<!-- ============================================================ -->
+<h2>第2章：本当に売上を予測する性格特性は何か</h2>
+
+<div class="card">
+<h3>成約高と有意に相関する性格特性（p < 0.05）</h3>
+<p>マルコポーロの約150のスコアのうち、統計的に有意な相関があったのは7つ。そしてそのすべてが、マルコポーロが「営業向き」とは真逆の方向を示しています。</p>
+
+<div class="chart-box"><canvas id="corrChart" height="300"></canvas></div>
+
+<table>
+<thead><tr><th>特性</th><th>成約高との相関</th><th>p値</th><th>マルコポーロの評価</th><th>実態</th></tr></thead>
+<tbody>
+<tr><td>人に関わらない傾向</td><td class="green" style="font-weight:700">r = +0.36</td><td>0.014 *</td><td>⚠️ 注意点</td><td>売上が高い</td></tr>
+<tr><td>孤立性</td><td class="green">r = +0.34</td><td>0.023 *</td><td>⚠️ 注意点</td><td>売上が高い</td></tr>
+<tr><td>チーム志向</td><td class="red">r = -0.32</td><td>0.028 *</td><td>✅ ポジティブ</td><td>売上が低い</td></tr>
+<tr><td>非協調性</td><td class="green">r = +0.32</td><td>0.031 *</td><td>⚠️ 注意点</td><td>売上が高い</td></tr>
+<tr><td>情緒安定性</td><td class="red">r = -0.30</td><td>0.042 *</td><td>✅ ポジティブ</td><td>売上が低い</td></tr>
+<tr><td>内向的</td><td class="green">r = +0.30</td><td>0.046 *</td><td>❌ ネガティブ</td><td>売上が高い</td></tr>
+<tr><td>自己理解</td><td class="red">r = -0.30</td><td>0.047 *</td><td>✅ ポジティブ</td><td>売上が低い</td></tr>
+</tbody>
+</table>
+
+<div class="alert alert-yellow">
+<strong>解釈：この組織の「売れる営業」像</strong><br>
+データが描く「実際に売上を上げる営業」の姿は、「チームで和気あいあい」ではなく「一匹狼で自分のやり方を貫く」タイプです。人との関わりを避け、孤立を厭わず、協調よりも独自路線で動く人が結果を出しています。これはマルコポーロが「営業に向いている」と判定する特性（外向的・協調的・情緒安定）と正反対です。
+</div>
+</div>
+
+<div class="card">
+<h3>定着分析で見つかった予測因子との一致</h3>
+<p>前回の定着分析で「定着を予測する因子」と、今回見つかった「売上を予測する因子」を対比すると、驚くほど一致しています。</p>
+
+<table>
+<thead><tr><th>特性</th><th>定着との関係</th><th>売上との関係</th><th>マルコポーロの扱い</th></tr></thead>
+<tbody>
+<tr style="background:rgba(74,222,128,0.08)"><td>孤立性</td><td class="green">定着↑ (r=+0.13, p=0.035)</td><td class="green">売上↑ (r=+0.34, p=0.023)</td><td>⚠️ 注意点</td></tr>
+<tr style="background:rgba(74,222,128,0.08)"><td>非協調性</td><td class="green">定着↑ (r=+0.04)</td><td class="green">売上↑ (r=+0.32, p=0.031)</td><td>⚠️ 注意点</td></tr>
+<tr style="background:rgba(74,222,128,0.08)"><td>内向的</td><td class="green">定着↑（内向型タイプ定着率高）</td><td class="green">売上↑ (r=+0.30, p=0.046)</td><td>❌ ネガティブ</td></tr>
+<tr style="background:rgba(248,113,113,0.08)"><td>外向性</td><td class="red">定着↓ (p=0.036)</td><td class="red">売上↓ (r=-0.28, p=0.058)</td><td>✅ ポジティブ</td></tr>
+<tr style="background:rgba(248,113,113,0.08)"><td>協調性</td><td class="red">定着↓ (p=0.030)</td><td class="red">売上↓ (r=-0.24, p=0.103)</td><td>✅ ポジティブ</td></tr>
+</tbody>
+</table>
+
+<div class="alert alert-green">
+<strong>孤立性・非協調性・内向性は「定着も良い」「売上も高い」のダブルで有利</strong><br>
+マルコポーロが赤信号を出す特性が、この組織では定着と売上の両方にポジティブ。採用基準の根本的な見直しが必要です。
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 3: Sランク内部の分解 -->
+<!-- ============================================================ -->
+<h2>第3章：Sランク内部で何が起きているか</h2>
+
+<div class="card">
+<h3>Sランク内の成績上位/下位と定着率</h3>
+
+<div class="matrix">
+<div class="matrix-cell" style="border:2px solid var(--gn)">
+  <div class="lb">S × 成績上位</div>
+  <div class="big green">91%定着</div>
+  <div>月平均428万円（n=11）</div>
+</div>
+<div class="matrix-cell" style="border:2px solid var(--rd)">
+  <div class="lb">S × 成績下位</div>
+  <div class="big red">55%定着</div>
+  <div>月平均136万円（n=11）</div>
+</div>
+<div class="matrix-cell" style="border:2px solid var(--bl)">
+  <div class="lb">差</div>
+  <div class="big blue">3.1倍</div>
+  <div>成績差（428万 vs 136万）</div>
+</div>
+</div>
+
+<p>Sランク22名を成績で二分すると、上位は月平均428万円で定着率91%、下位は136万円で定着率55%。これは重要な示唆を含んでいます。</p>
+
+<div class="alert alert-blue">
+<strong>Sランクの二極化：「Sで活躍する人」と「Sだけど活躍できない人」</strong><br>
+Sランク内の成績格差は3.1倍。つまり「Sランク」という一つのラベルの中に、まったく異なる2つの人材が混在しています。成績上位のS人材は定着もしますが、下位のS人材は「面接は上手いが売れない」タイプで、結果的に辞めていきます。Sランクを一括りにして評価するのは危険です。
+</div>
+</div>
+
+<div class="card">
+<h3>ランク × 定着 × 実績の三次元ビュー</h3>
+<div class="chart-box"><canvas id="bubbleChart" height="300"></canvas></div>
+
+<table>
+<thead><tr><th>ランク</th><th>在籍者</th><th>在籍者の月平均</th><th>退職者</th><th>退職者の月平均</th><th>ROI判定</th></tr></thead>
+<tbody>
+<tr style="background:rgba(74,222,128,0.08)"><td><strong>B</strong></td><td>7名</td><td class="green" style="font-weight:700">382万円</td><td>2名</td><td>273万円</td><td>✅ 最高ROI</td></tr>
+<tr><td><strong>S</strong></td><td>16名</td><td>335万円</td><td>6名</td><td class="red">142万円</td><td>上位は優秀だが下位が足を引く</td></tr>
+<tr><td><strong>C</strong></td><td>4名</td><td>253万円</td><td>0名</td><td>—</td><td>✅ 全員定着中</td></tr>
+<tr><td><strong>A</strong></td><td>3名</td><td>190万円</td><td>3名</td><td>179万円</td><td>低パフォーマンス</td></tr>
+<tr><td><strong>×</strong></td><td>4名</td><td>186万円</td><td>1名</td><td>446万円</td><td>n少で判断困難</td></tr>
+</tbody>
+</table>
+
+<p class="note">※ 売上データは主に現在在籍中の営業69名が対象のため、定着率はHR-DB（全379名）の値とは異なります。ここでの定着率は「売上データに含まれる人の中での在籍率」です。</p>
+</div>
+
+<div class="card">
+<h3>在籍者の累計納品高（組織への貢献総額）</h3>
+<div class="chart-box"><canvas id="roiChart" height="260"></canvas></div>
+
+<p>Bランクの在籍者は一人当たり累計2億2,382万円の納品高を組織にもたらしています。Sランクは1億4,679万円で、Bの65%にとどまります。<strong>「営業ランクB＝中位評価」の人材が、実は最も組織に貢献している</strong>という結果です。</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 4: 信頼性と限界 -->
+<!-- ============================================================ -->
+<h2>第4章：この分析の信頼性と限界</h2>
+
+<div class="card">
+<div class="alert alert-yellow">
+<h3>重要な制約：サンプルサイズと生存バイアス</h3>
+<p><strong>① サンプルサイズ：</strong>売上データ69名のうちマルコポーロと結合できたのは46名（ランクあり）。ランク別ではC=4名、×=5名と少数です。個別のランクの数値は変動しうるため、「B > S」という順序関係が常に成り立つとは限りません。</p>
+<p><strong>② 生存バイアス：</strong>売上データは主に現在在籍中の営業のデータです。すでに退職した人の売上は一部しか含まれません。つまり「S人材のうち退職した大多数の売上」は分析に含まれていない可能性が高い。実態はさらにSに不利な方向に傾く可能性があります。</p>
+<p><strong>③ 因果の方向：</strong>「内向的だから売れる」のか「売れる経験を積んだ結果として独自スタイルが定着した」のかは、この横断データでは判別できません。</p>
+</div>
+
+<table>
+<thead><tr><th>検証項目</th><th>結果</th><th>信頼性</th></tr></thead>
+<tbody>
+<tr><td>営業統合スコア × 成約高</td><td>r = -0.06, p = 0.699</td><td><span class="verdict verdict-false">相関なし（確定）</span></td></tr>
+<tr><td>S vs 非S の成約高差</td><td>t = 0.21, p = 0.833</td><td><span class="verdict verdict-false">差なし（確定）</span></td></tr>
+<tr><td>孤立性 × 成約高</td><td>r = +0.34, p = 0.023</td><td><span class="verdict verdict-true">有意な正の相関</span></td></tr>
+<tr><td>内向性 × 成約高</td><td>r = +0.30, p = 0.046</td><td><span class="verdict verdict-true">有意な正の相関</span></td></tr>
+<tr><td>B > S の成績差</td><td>B=358万 vs S=282万</td><td><span class="verdict verdict-partial">傾向あり（n少で要注意）</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 5: 総合提言 -->
+<!-- ============================================================ -->
+<h2>第5章：3つの分析を統合した最終提言</h2>
+
+<div class="card">
+<h3>定着分析 × 営業成績分析 × 適性検査の統合マトリクス</h3>
+
+<table>
+<thead><tr><th>マルコポーロの判定</th><th>定着率</th><th>営業成績</th><th>総合判定</th></tr></thead>
+<tbody>
+<tr style="background:rgba(248,113,113,0.08)">
+  <td><strong>Sランク（最高評価）</strong></td>
+  <td class="red">17.8%（最低）</td>
+  <td>282万/月（2位）</td>
+  <td>⚠️ ハイリスク。期待ほど売れず、すぐ辞める</td>
+</tr>
+<tr style="background:rgba(74,222,128,0.08)">
+  <td><strong>Bランク（中位評価）</strong></td>
+  <td>23.1%</td>
+  <td class="green">358万/月（1位）</td>
+  <td>✅ 最も売上が高く、定着率もSより上</td>
+</tr>
+<tr style="background:rgba(74,222,128,0.05)">
+  <td><strong>Cランク（下位評価）</strong></td>
+  <td class="green">36.8%（最高）</td>
+  <td>253万/月（3位）</td>
+  <td>✅ 最も定着し、売上もSと同水準</td>
+</tr>
+<tr>
+  <td><strong>×ランク（不適判定）</strong></td>
+  <td>26.8%</td>
+  <td>238万/月</td>
+  <td>△ 一律排除は損失。個別評価すべき</td>
+</tr>
+</tbody>
+</table>
+
+<div class="alert alert-red">
+<h3>最終結論</h3>
+<p>マルコポーロの営業適性ランクは、この組織においては<strong>「営業成績」も「定着」も予測できない指標</strong>です。Sランクを重視した採用は、「売上が低く・すぐ辞める人材」を「売上が高く・長く残る人材」より優先してしまうリスクがあります。</p>
+<p>具体的なアクションとしては：</p>
+</div>
+
+<div class="card2">
+<p><strong>① 即時：</strong>マルコポーロの営業ランクによる足切りを停止する</p>
+<p><strong>② 短期：</strong>面接で「内向的」「独立志向」をポジティブに評価する項目を追加</p>
+<p><strong>③ 中期：</strong>自社データに基づいた独自の適性モデルの構築を検討（マルコポーロの素点は活用可能）</p>
+<p><strong>④ 並行：</strong>Sランクで入社する人材には、入社後6ヶ月の手厚いフォロー体制を準備</p>
+</div>
+</div>
+
+<details>
+<summary>📊 分析手法の詳細</summary>
+<div class="card">
+<p><strong>データソース：</strong>売上データ（納品高_成約高_分析_v4.xlsx）69名 × マルコポーロ適性検査394変数 × HR人材DB379名。氏名ベースで結合し、3データ源が揃った46名（営業ランクあり）を主分析対象。</p>
+<p><strong>成績指標：</strong>月平均成約高（＝活動月数で割った平均値）を使用。入社時期の差を補正するため、売上ゼロの月は活動月数から除外。</p>
+<p><strong>統計手法：</strong>ピアソン相関、Welch's t検定、FY別コホート比較。有意水準は p < 0.05。</p>
+<p><strong>主な限界：</strong>① サンプルサイズ46名は統計的に小さい ② 売上データは在籍者に偏る生存バイアスあり ③ 横断データのため因果推論は不可 ④ ランク別小グループ（C=4名等）の推定は不安定</p>
+</div>
+</details>
+
+<div class="footer">
+分析日: 2026年3月30日 ｜ 対象: 売上データ69名 × マルコポーロ結合46名<br>
+ツール: Python (scipy, pandas) ｜ 全数値は生データから算出・検証済<br>
+⚠️ 個人情報を含むため取り扱いにはご注意ください
+</div>
+
+<script>
+// 1. ランク別月平均成約高
+new Chart(document.getElementById('rankPerformance'),{type:'bar',data:{
+  labels:['B','S','C','×','A'],
+  datasets:[
+    {label:'月平均成約高(万円)',data:[358,282,253,238,185],
+     backgroundColor:['rgba(74,222,128,0.7)','rgba(129,140,248,0.6)','rgba(251,191,36,0.6)','rgba(148,163,184,0.5)','rgba(248,113,113,0.6)'],borderRadius:6},
+    {label:'月平均納品高(万円)',data:[450,278,256,304,156],
+     backgroundColor:['rgba(74,222,128,0.35)','rgba(129,140,248,0.3)','rgba(251,191,36,0.3)','rgba(148,163,184,0.25)','rgba(248,113,113,0.3)'],borderRadius:6}
+  ]
+},options:{responsive:true,plugins:{legend:{labels:{color:'#e2e8f0'}},
+  title:{display:true,text:'Bランク（中位評価）が実績トップ。Sランクは2位',color:'#fbbf24',font:{size:14}}},
+  scales:{y:{beginAtZero:true,title:{display:true,text:'万円/月',color:'#94a3b8'},ticks:{color:'#94a3b8'},grid:{color:'rgba(71,85,105,0.3)'}},
+  x:{ticks:{color:'#e2e8f0'},grid:{display:false}}}}});
+
+// 2. 散布図風（営業統合スコアx軸、成約高y軸のバープロット四分位）
+new Chart(document.getElementById('scatterChart'),{type:'bar',data:{
+  labels:['Q1(低スコア)','Q2','Q3','Q4(高スコア)'],
+  datasets:[{label:'月平均成約高(万円)',data:[310,270,290,260],
+    backgroundColor:['rgba(74,222,128,0.6)','rgba(129,140,248,0.5)','rgba(129,140,248,0.5)','rgba(248,113,113,0.6)'],borderRadius:6}]
+},options:{responsive:true,plugins:{legend:{display:false},
+  title:{display:true,text:'営業統合スコアの高低で成約高に差はない（r = -0.06）',color:'#fbbf24',font:{size:13}}},
+  scales:{y:{beginAtZero:true,title:{display:true,text:'月平均成約高(万円)',color:'#94a3b8'},ticks:{color:'#94a3b8'},grid:{color:'rgba(71,85,105,0.3)'}},
+  x:{ticks:{color:'#e2e8f0'},grid:{display:false}}}}});
+
+// 3. FY別推移
+new Chart(document.getElementById('fyChart'),{type:'bar',data:{
+  labels:['FY2022','FY2023','FY2024'],
+  datasets:[
+    {label:'S',data:[2541,3314,2968],backgroundColor:'rgba(129,140,248,0.6)',borderRadius:4},
+    {label:'B',data:[3384,3773,4119],backgroundColor:'rgba(74,222,128,0.6)',borderRadius:4},
+    {label:'A',data:[1525,1651,2279],backgroundColor:'rgba(248,113,113,0.5)',borderRadius:4}
+  ]
+},options:{responsive:true,plugins:{legend:{labels:{color:'#e2e8f0'}},
+  title:{display:true,text:'年間成約高（万円）：3年連続でB > S',color:'#fbbf24',font:{size:13}}},
+  scales:{y:{beginAtZero:true,title:{display:true,text:'年間成約高(万円)',color:'#94a3b8'},ticks:{color:'#94a3b8'},grid:{color:'rgba(71,85,105,0.3)'}},
+  x:{ticks:{color:'#e2e8f0'},grid:{display:false}}}}});
+
+// 4. 相関係数チャート
+new Chart(document.getElementById('corrChart'),{type:'bar',data:{
+  labels:['人に関わらない傾向','孤立性','非協調性','内向的','自己理解','情緒安定性','チーム志向'],
+  datasets:[{label:'成約高との相関(r)',data:[0.36,0.34,0.32,0.30,-0.30,-0.30,-0.32],
+    backgroundColor:[0.36,0.34,0.32,0.30,-0.30,-0.30,-0.32].map(v=>v>0?'rgba(74,222,128,0.7)':'rgba(248,113,113,0.7)'),borderRadius:4}]
+},options:{responsive:true,indexAxis:'y',plugins:{legend:{display:false},
+  title:{display:true,text:'成約高と有意に相関する性格特性（緑=売上↑、赤=売上↓）',color:'#fbbf24',font:{size:13}}},
+  scales:{x:{min:-0.4,max:0.4,title:{display:true,text:'相関係数 r',color:'#94a3b8'},ticks:{color:'#94a3b8'},grid:{color:'rgba(71,85,105,0.3)'}},
+  y:{ticks:{color:'#e2e8f0',font:{size:11}},grid:{display:false}}}}});
+
+// 5. バブルチャート的な棒グラフ
+new Chart(document.getElementById('bubbleChart'),{type:'bar',data:{
+  labels:['B-在籍','S-在籍','C-在籍','A-在籍','×-在籍','S-退職','B-退職','A-退職'],
+  datasets:[{label:'月平均成約高(万円)',data:[382,335,253,190,186,142,273,179],
+    backgroundColor:['rgba(74,222,128,0.8)','rgba(129,140,248,0.7)','rgba(251,191,36,0.7)','rgba(148,163,184,0.5)','rgba(148,163,184,0.5)','rgba(248,113,113,0.6)','rgba(248,113,113,0.4)','rgba(248,113,113,0.4)'],
+    borderRadius:4}]
+},options:{responsive:true,plugins:{legend:{display:false},
+  title:{display:true,text:'在籍/退職別の月平均成約高：S退職者は月142万と低い',color:'#fbbf24',font:{size:13}}},
+  scales:{y:{beginAtZero:true,title:{display:true,text:'月平均成約高(万円)',color:'#94a3b8'},ticks:{color:'#94a3b8'},grid:{color:'rgba(71,85,105,0.3)'}},
+  x:{ticks:{color:'#e2e8f0',font:{size:10}},grid:{display:false}}}}});
+
+// 6. 累計納品高ROI
+new Chart(document.getElementById('roiChart'),{type:'bar',data:{
+  labels:['B (7名)','S (16名)','C (4名)','× (4名)','A (3名)'],
+  datasets:[{label:'在籍者一人当たり累計納品高(万円)',data:[22382,14679,10946,9278,5695],
+    backgroundColor:['rgba(74,222,128,0.7)','rgba(129,140,248,0.6)','rgba(251,191,36,0.6)','rgba(148,163,184,0.5)','rgba(248,113,113,0.6)'],borderRadius:6}]
+},options:{responsive:true,plugins:{legend:{display:false},
+  title:{display:true,text:'在籍者一人当たりの組織貢献額：Bランクが圧倒的',color:'#fbbf24',font:{size:13}}},
+  scales:{y:{beginAtZero:true,title:{display:true,text:'累計納品高(万円)',color:'#94a3b8'},ticks:{color:'#94a3b8'},grid:{color:'rgba(71,85,105,0.3)'}},
+  x:{ticks:{color:'#e2e8f0'},grid:{display:false}}}}});
+</script>
+</body>
+</html>

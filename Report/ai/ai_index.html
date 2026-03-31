@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新卒採用におけるAI面接の実態調査レポート 2026年3月</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="report-header">
+  <div class="header-inner">
+    <p class="report-label">市場リサーチレポート</p>
+    <h1>新卒採用におけるAI面接の実態調査</h1>
+    <p class="subtitle">対象期間：2022年度〜2025年度（入社年度：2024年4月〜2027年4月）</p>
+    <p class="report-date">作成日：2026年3月27日</p>
+  </div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#sec1">エグゼクティブサマリー</a></li>
+    <li><a href="#sec2">AI面接の定義・種類の整理</a></li>
+    <li><a href="#sec3">企業導入状況</a></li>
+    <li><a href="#sec4">求職者側の反応</a></li>
+    <li><a href="#sec5">メリット・デメリット比較表</a></li>
+    <li><a href="#sec6">法的・倫理的論点の整理</a></li>
+    <li><a href="#sec7">採用戦略への示唆</a></li>
+    <li><a href="#sec8">出典一覧</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<!-- ===== 1. エグゼクティブサマリー ===== -->
+<section id="sec1">
+  <h2>1. エグゼクティブサマリー</h2>
+  <div class="summary-box">
+    <p>新卒採用におけるAI面接の導入は加速しており、2025年卒採用では企業のAI選考活用率が31%に到達した（HR総研, 2024年, n=216）。マイナビの2025年調査では採用AI導入率が47.9%に上る。一方、2026年卒学生の77.5%がAI面接で「受験意欲が下がる」と回答（マイナビ, 2025年, n=1,385）しており、企業の導入拡大と学生の抵抗感の間に大きなギャップが存在する。法的には、日本ではAI専門法が未整備だが、EUのAI Act（2024年8月発効）では採用AI が「高リスク」に分類され、2026年8月までの対応が求められる。企業は導入効果（工数88%削減等）と候補者体験のバランスを取る戦略設計が急務である。</p>
+    <p class="char-count">※ 上記約380字</p>
+  </div>
+</section>
+
+<!-- ===== 2. AI面接の定義・種類の整理 ===== -->
+<section id="sec2">
+  <h2>2. AI面接の定義・種類の整理</h2>
+  <p>本レポートでは、以下の定義に基づき情報を分類・集計している。出典データにおいて分類が不明確な場合は注記を付して参考値として扱う。</p>
+
+  <table class="def-table">
+    <thead>
+      <tr><th>用語</th><th>定義</th><th>本レポートでの扱い</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>AI面接</strong></td>
+        <td>AIが面接官役を担い、動画・音声・テキストで応答を収集し、AIが自動的に評価・スコアリングするシステム。対話型（リアルタイムでAIが質問）と録画型（録画をAIが事後分析）を含む。</td>
+        <td>本レポートの主要分析対象</td>
+      </tr>
+      <tr>
+        <td><strong>動画選考</strong></td>
+        <td>企業が指定したテーマに対し、応募者が録画を提出。企業側の人間が後から確認・評価する形式。AI評価は含まない。</td>
+        <td>AI面接とは区別。混同データは注記の上で参考値</td>
+      </tr>
+      <tr>
+        <td><strong>AI評価補助</strong></td>
+        <td>人間の面接官が主体となり面接を実施し、AIが評価の補助・スコアリング・レポート生成を行う形式。</td>
+        <td>AI面接の広義に含まれる場合があり、出典ごとに注記</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>主要ベンダー・サービス一覧</h3>
+  <table>
+    <thead>
+      <tr><th>サービス名</th><th>提供企業</th><th>主な形式</th><th>備考</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>SHaiN</td><td>タレントアンドアセスメント</td><td>対話型AI面接</td><td>AIが質問を出し、回答を自動評価</td></tr>
+      <tr><td>HARUTAKA</td><td>ZENKIGEN</td><td>録画型＋AI分析</td><td>1,500万件以上の面接動画データ<sup class="note-ref">[※1]</sup></td></tr>
+      <tr><td>HireVue</td><td>Talenta（国内代理）</td><td>録画型＋AI分析</td><td>国内100社超、グローバル700社超<sup class="note-ref">[※1]</sup></td></tr>
+      <tr><td>インタビューメーカー</td><td>Stadium</td><td>Web面接＋録画選考</td><td>2,700以上の導入実績<sup class="note-ref">[※1]</sup></td></tr>
+      <tr><td>AI面接官</td><td>VARIETAS</td><td>対話型AI面接</td><td>キリンHD等が導入</td></tr>
+      <tr><td>Our AI面接</td><td>JetB</td><td>対話型AI面接</td><td>自社調査による導入効果を公表<sup class="note-ref">[※1]</sup></td></tr>
+    </tbody>
+  </table>
+  <p class="footnote"><sup>[※1]</sup> ベンダー自社公表値のため中立性に留意。インタビューメーカーはWeb面接ツールが主体であり、AI評価機能の範囲は限定的な場合がある。</p>
+</section>
+
+<!-- ===== 3. 企業導入状況 ===== -->
+<section id="sec3">
+  <h2>3. 企業導入状況</h2>
+
+  <h3>3-1. 全体導入率</h3>
+  <table>
+    <thead>
+      <tr><th>指標</th><th>数値</th><th>出典</th><th>調査年</th><th>サンプル数</th><th>注記</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>採用活動全般でのAI導入率</td>
+        <td>47.9%</td>
+        <td>マイナビ「2026年卒 大学生キャリア意向調査」</td>
+        <td>2025年</td>
+        <td>企業側サンプル（詳細非公開）</td>
+        <td>AI面接に限定せず、ES選考・適性検査等を含む広義のAI活用率。AI面接単体の数値ではない点に留意</td>
+      </tr>
+      <tr>
+        <td>AI選考活用率（書類＋面接）</td>
+        <td>21%→31%</td>
+        <td>HR総研「2024年＆2025年新卒採用動向調査」</td>
+        <td>2024年6月</td>
+        <td>n=216</td>
+        <td>2024年卒21%→2025年卒31%。書類選考と面接選考の両方またはいずれかでAIを活用</td>
+      </tr>
+      <tr>
+        <td>主要100社のAI活用</td>
+        <td>約3割</td>
+        <td>時事通信「主要100社アンケート」</td>
+        <td>2025年3月</td>
+        <td>n=100</td>
+        <td>2026年春採用からAI導入予定8社、導入済み21社を含む</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="data-note">
+    <p><strong>数値の乖離に関する注記：</strong>マイナビ調査の47.9%は採用AI全般（ES選考・適性検査含む）の数値であり、HR総研の31%は書類選考・面接に限定したAI活用率である。両者は対象範囲が異なるため直接比較は適切ではない。AI「面接」に限定した導入率の精密なデータは、公開調査では確認できなかった。</p>
+  </div>
+
+  <h3>3-2. 業界別・規模別導入率</h3>
+
+  <div class="no-data-box">
+    <p><strong>業界別導入率：</strong>業界ごとの導入率を定量的に示す統計データは、調査範囲内で確認できなかった（「該当データなし」）。以下は個別導入事例から確認できた業界分布である。</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>業界</th><th>導入確認企業（例）</th><th>使用ツール</th><th>出典</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>食品・飲料</td><td>キリンホールディングス</td><td>AI面接官（VARIETAS）</td><td>ITmedia, 2025年3月</td></tr>
+      <tr><td>金融</td><td>横浜銀行、他複数</td><td>各種AI選考ツール</td><td>JetB導入事例</td></tr>
+      <tr><td>小売・外食</td><td>吉野家、ローソン</td><td>AI面接ツール</td><td>各社プレスリリース</td></tr>
+      <tr><td>物流</td><td>福山通運</td><td>AI面接ツール</td><td>Our AI面接導入事例</td></tr>
+      <tr><td>通信</td><td>ソフトバンクC&S</td><td>Our AI面接</td><td>JetB導入事例</td></tr>
+      <tr><td>コンサル</td><td>ビジョン・コンサルティング</td><td>AI面接ツール</td><td>JMAM記事</td></tr>
+    </tbody>
+  </table>
+
+  <div class="no-data-box">
+    <p><strong>企業規模別導入率：</strong>〜300名 / 300〜1,000名 / 1,000名以上の区分別導入率データは、調査範囲内で確認できなかった（「該当データなし」）。定性的には、大企業は大量応募処理を目的に、中小企業は採用担当者の工数不足を背景に導入する傾向が報告されているが、具体的割合のデータは存在しない。</p>
+  </div>
+
+  <h3>3-3. 導入フェーズ</h3>
+  <p>AI面接は主に<strong>一次選考（初期スクリーニング）</strong>で使用される。確認できた事例では、最終面接にAIを使用するケースは確認されなかった。</p>
+  <table>
+    <thead>
+      <tr><th>フェーズ</th><th>AI利用状況</th><th>事例</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ES選考・書類選考</td>
+        <td>AI活用が進行中</td>
+        <td>キリンHD：ESの読み込みをAIが担当</td>
+      </tr>
+      <tr>
+        <td>一次面接</td>
+        <td><strong>最も導入が多いフェーズ</strong></td>
+        <td>キリンHD：一次面接をAI面接官が担当。VARIETAS「AI面接官」は書類選考〜一次面接を対象</td>
+      </tr>
+      <tr>
+        <td>二次面接</td>
+        <td>AI評価補助として部分的に利用</td>
+        <td>具体事例は限定的</td>
+      </tr>
+      <tr>
+        <td>最終面接</td>
+        <td>人間が担当（AI不使用）</td>
+        <td>キリンHD：初期選考で創出した人的リソースを最終面接・育成に充当</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>3-4. 導入目的</h3>
+  <table>
+    <thead>
+      <tr><th>導入目的</th><th>定量データ（ある場合）</th><th>出典</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>選考工数の削減</td>
+        <td>導入企業の73%が工数削減を実感（マイナビ, 2025年）</td>
+        <td>マイナビ「2026年卒 大学生キャリア意向調査」</td>
+      </tr>
+      <tr>
+        <td>評価基準の統一・バイアス排除</td>
+        <td>AIは人間の約6倍多角的に評価（人間5〜6項目 vs AI 30項目）</td>
+        <td>ITmedia, 2025年3月（キリンHD事例）</td>
+      </tr>
+      <tr>
+        <td>大量応募への対応</td>
+        <td>該当データなし（定量値）</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>全社・全拠点での採用基準統一</td>
+        <td>該当データなし（定量値）</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="data-note">
+    <p><strong>注記：</strong>導入目的の複数回答式パーセンテージデータ（例：「工数削減○%、基準統一○%」）は、調査範囲内で確認できなかった。</p>
+  </div>
+
+  <h3>3-5. 年度別トレンド</h3>
+  <table>
+    <thead>
+      <tr><th>年度（卒業年）</th><th>企業側AI選考活用率</th><th>学生AI面接経験率</th><th>出典</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2024年卒（2022〜23年度採用活動）</td>
+        <td>21%（書類＋面接でAI活用）</td>
+        <td>19.3%</td>
+        <td>HR総研 2024年 n=216 / マイナビ</td>
+      </tr>
+      <tr>
+        <td>2025年卒（2023〜24年度採用活動）</td>
+        <td>31%（同上）</td>
+        <td>該当データなし</td>
+        <td>HR総研 2024年 n=216</td>
+      </tr>
+      <tr>
+        <td>2026年卒（2024〜25年度採用活動）</td>
+        <td>47.9%（AI採用全般）</td>
+        <td>28.4%</td>
+        <td>マイナビ 2025年 / リクルートMS 2024年 n=797</td>
+      </tr>
+      <tr>
+        <td>2027年卒（2025〜26年度採用活動）</td>
+        <td>該当データなし</td>
+        <td>該当データなし</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="data-note">
+    <p><strong>注記：</strong>2026年卒の47.9%はAI採用全般（ES選考含む）であり、他年度のHR総研データ（書類＋面接限定）とは対象範囲が異なる。同一基準での経年比較が可能なのはHR総研データの21%→31%のみである。</p>
+  </div>
+</section>
+
+<!-- ===== 4. 求職者側の反応 ===== -->
+<section id="sec4">
+  <h2>4. 求職者側の反応</h2>
+
+  <h3>4-1. 認知率・経験率</h3>
+  <table>
+    <thead>
+      <tr><th>指標</th><th>2024年卒</th><th>2026年卒</th><th>出典</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>AI利用経験（就活全般）</td>
+        <td>39.2%</td>
+        <td>82.7%</td>
+        <td>マイナビ 2025年 n=1,385</td>
+      </tr>
+      <tr>
+        <td>就職活動でのAI利用率</td>
+        <td>18.4%</td>
+        <td>66.6%</td>
+        <td>マイナビ 2025年 n=1,385</td>
+      </tr>
+      <tr>
+        <td>AI面接経験率</td>
+        <td>19.3%</td>
+        <td>28.4%</td>
+        <td>マイナビ / リクルートMS 2024年 n=797</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="data-note">
+    <p><strong>注記：</strong>「AI利用経験」はChatGPT等の生成AIを就活で利用した率であり、「AI面接経験率」とは異なる指標である。2024年卒と2026年卒の間で2年間にAI面接経験率は約9ポイント上昇した。</p>
+  </div>
+
+  <h3>4-2. 受容度・抵抗感</h3>
+  <table>
+    <thead>
+      <tr><th>項目</th><th>賛成</th><th>反対</th><th>中立</th><th>出典</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>適性検査へのAI活用</td>
+        <td>49.8%</td>
+        <td>20.0%</td>
+        <td>30.2%</td>
+        <td>マイナビ 2025年 n=1,385</td>
+      </tr>
+      <tr>
+        <td>面接内容の評価へのAI活用</td>
+        <td>24.2%</td>
+        <td>47.5%</td>
+        <td>28.3%</td>
+        <td>マイナビ 2025年 n=1,385</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>面接手法別の受験意欲への影響（2026年卒）</h4>
+  <table>
+    <thead>
+      <tr><th>面接手法</th><th>受験意欲が高まる</th><th>受験意欲が下がる</th><th>出典</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>対面面接</td><td>80%超</td><td>—</td><td rowspan="4">マイナビ 2025年 n=1,385</td></tr>
+      <tr><td>Web面接</td><td>80%超</td><td>—</td></tr>
+      <tr><td><strong>AI面接</strong></td><td>—</td><td><strong>77.5%</strong></td></tr>
+      <tr><td>動画選考</td><td>—</td><td>70%超</td></tr>
+    </tbody>
+  </table>
+
+  <h4>AI面接への不安感（別調査）</h4>
+  <table>
+    <thead>
+      <tr><th>項目</th><th>割合</th><th>出典</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>AI面接に不安を感じる</td><td>64%</td><td rowspan="3">Synergy Career調査（就活の教科書掲載）</td></tr>
+      <tr><td>全く不安ではない</td><td>3%</td></tr>
+      <tr><td>人間の面接官が良い</td><td>66.5%</td></tr>
+    </tbody>
+  </table>
+  <div class="data-note">
+    <p><strong>出典の注記：</strong>Synergy Career調査は就職情報サイト「就活の教科書」に掲載されたものであり、サンプル数が明示されていない。マイナビ調査と比べ出典信頼度は劣るが、傾向は一致している。</p>
+  </div>
+
+  <h3>4-3. 抵抗感の主な理由（上位5項目）</h3>
+  <table class="rank-table">
+    <thead>
+      <tr><th>順位</th><th>理由</th><th>割合</th><th>出典</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>人に評価してほしいから</td><td>41.2%</td><td>マイナビ 2025年 n=1,385</td></tr>
+      <tr><td>2</td><td>AIの精度が信用できないから</td><td>34.0%</td><td>マイナビ 2025年 n=1,385</td></tr>
+      <tr><td>3</td><td>感情や空気をくみ取ってもらえないから</td><td>32.9%</td><td>マイナビ 2025年 n=1,385</td></tr>
+      <tr><td>4</td><td>評価基準がわからない</td><td>—<sup>※</sup></td><td>Synergy Career調査（複数調査で指摘）</td></tr>
+      <tr><td>5</td><td>人間味がない</td><td>—<sup>※</sup></td><td>Synergy Career調査（複数調査で指摘）</td></tr>
+    </tbody>
+  </table>
+  <p class="footnote"><sup>※</sup> 4位・5位は複数調査で上位に挙がっているが、マイナビ調査での個別割合は公開情報から確認できなかった。</p>
+
+  <h3>4-4. 受け入れ意向の主な理由</h3>
+  <table class="rank-table">
+    <thead>
+      <tr><th>順位</th><th>理由</th><th>割合</th><th>出典</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>気楽に受けられそうだから</td><td>30.9%</td><td>マイナビ 2025年 n=1,385</td></tr>
+      <tr><td>2</td><td>時間や場所を問わず受けられるから</td><td>—<sup>※</sup></td><td>マイナビ 2025年（具体割合は非公開）</td></tr>
+      <tr><td>3</td><td>評価がより客観的かもしれないから</td><td>—<sup>※</sup></td><td>複数調査で指摘（少数意見）</td></tr>
+    </tbody>
+  </table>
+  <p class="footnote"><sup>※</sup> 2位・3位の個別割合は公開情報から確認できなかった。肯定理由は否定理由と比較して回答者数が大幅に少ない。</p>
+
+  <h3>4-5. 属性別の差異</h3>
+  <table>
+    <thead>
+      <tr><th>属性</th><th>面接内容評価へのAI活用「反対」</th><th>出典</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>文系学生</td><td>56%</td><td rowspan="2">マイナビ 2025年</td></tr>
+      <tr><td>理系学生</td><td>48%</td></tr>
+    </tbody>
+  </table>
+  <div class="no-data-box">
+    <p><strong>以下のデータは調査範囲内で確認できなかった（「該当データなし」）：</strong>性別による差異、志望業界別の差異、学年（年代）別の差異、地域別の差異。</p>
+  </div>
+
+  <h3>4-6. 年度別トレンド</h3>
+  <p>AI面接の経験率は上昇傾向にある一方、受容度は改善していない。「企業の導入拡大」と「学生の抵抗感の持続」が並行して進行する構図が見える。</p>
+  <table>
+    <thead>
+      <tr><th>指標</th><th>2024年卒</th><th>2026年卒</th><th>変化</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>AI面接経験率</td><td>19.3%</td><td>28.4%</td><td>+9.1pt</td></tr>
+      <tr><td>AI面接で受験意欲が下がる</td><td>該当データなし</td><td>77.5%</td><td>—</td></tr>
+      <tr><td>面接内容評価へのAI活用「反対」</td><td>該当データなし</td><td>47.5%</td><td>—</td></tr>
+    </tbody>
+  </table>
+  <div class="data-note">
+    <p><strong>注記：</strong>2024年卒時点での受容度データが存在しないため、経年の受容度変化を定量的に示すことはできない。2025年卒のデータも限定的である。</p>
+  </div>
+</section>
+
+<!-- ===== 5. メリット・デメリット比較表 ===== -->
+<section id="sec5">
+  <h2>5. メリット・デメリット比較表</h2>
+
+  <table class="comparison-table">
+    <thead>
+      <tr><th>軸</th><th>メリット</th><th>デメリット</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="axis-label"><strong>企業側</strong></td>
+        <td>
+          <ul>
+            <li><strong>面接工数88.03%削減</strong>（247時間→29.6時間）<br><span class="source">JetB自社導入実績, 2024年10-12月, n=187<sup>[※1]</sup></span></li>
+            <li><strong>初期選考時間97%削減見込み</strong><br><span class="source">キリンHD事例, ITmedia 2025年3月</span></li>
+            <li><strong>ES評価時間70%削減</strong><br><span class="source">横浜銀行事例</span></li>
+            <li><strong>採用コスト10〜20%削減</strong>、目標人数を3ヶ月前倒し達成<br><span class="source">ビジョン・コンサルティング事例, JMAM</span></li>
+            <li>評価基準の統一（AI 30項目 vs 人間5〜6項目）</li>
+            <li>導入企業の73%が工数削減を実感<br><span class="source">マイナビ 2025年</span></li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>学生の受験意欲低下リスク（77.5%が意欲低下）</li>
+            <li>採用CXの毀損（妥当感・納得感の低下）<br><span class="source">リクルートMS 2024年 n=797</span></li>
+            <li>導入コスト・運用コスト（具体額データなし）</li>
+            <li>日本国内での大規模訴訟事例は未確認だが、AIなりすまし面談の被害は発生<br><span class="source">Business Insider Japan, 2025年</span></li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td class="axis-label"><strong>求職者側</strong></td>
+        <td>
+          <ul>
+            <li>24時間いつでも応募可能</li>
+            <li>スケジュール調整が不要</li>
+            <li>気楽に受けられる（30.9%が肯定理由として挙げる）</li>
+            <li>面接官の主観的バイアスが排除される可能性</li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>人に評価してほしい（41.2%）</li>
+            <li>AIの精度が信用できない（34.0%）</li>
+            <li>感情・空気をくみ取ってもらえない（32.9%）</li>
+            <li>評価基準が不透明</li>
+            <li>人間の面接官が良い（66.5%）</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td class="axis-label"><strong>社会的論点</strong></td>
+        <td>
+          <ul>
+            <li>採用プロセスの効率化による社会的コスト削減</li>
+            <li>統一基準による選考の客観性向上の可能性</li>
+            <li>地理的制約の解消</li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li><strong>アルゴリズムバイアス：</strong>性別・障害・人種による不利益が海外事例で確認済み（Amazon事件2018年、Intuit/HireVue訴訟2025年）</li>
+            <li><strong>プライバシー：</strong>顔画像・声紋は個人情報保護法上の個人識別符号に該当。要配慮個人情報のAIプロファイリングリスク</li>
+            <li><strong>規制ギャップ：</strong>日本にはAI専門法が未整備。EUでは高リスク分類、米国では州法による規制が進行</li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="footnote"><sup>[※1]</sup> JetBはAI面接ベンダーであり、自社調査のため中立性に留意。</p>
+</section>
+
+<!-- ===== 6. 法的・倫理的論点の整理 ===== -->
+<section id="sec6">
+  <h2>6. 法的・倫理的論点の整理</h2>
+
+  <h3>6-1. 日本国内の法的フレームワーク</h3>
+  <table>
+    <thead>
+      <tr><th>法令・ガイドライン</th><th>AI面接との関連</th><th>法的拘束力</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>個人情報保護法</td>
+        <td>顔画像・声紋は「個人識別符号」に該当。利用目的の明示・事前公表が必須。不採用候補者のデータは速やかに破棄する運用ルールが求められる。</td>
+        <td>あり（違反時は行政処分）</td>
+      </tr>
+      <tr>
+        <td>要配慮個人情報の規定</td>
+        <td>AI面接が表情・声から人種・病歴・信条を推測する「AIプロファイリング」を行う場合、要配慮個人情報の取扱いに該当し得る。本人同意が必要。</td>
+        <td>あり</td>
+      </tr>
+      <tr>
+        <td>AI事業者ガイドライン（第1.1版, 2025年3月）</td>
+        <td>総務省・経済産業省が公表。採用選考でのAI利用における透明性、公平性、要配慮情報取扱いの指針を示す。</td>
+        <td>なし（任意遵守）</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="data-note">
+    <p><strong>現状：</strong>日本はEU AI Actのような AI専門の統一法を有さない。個人情報保護法と業界ガイドラインの組み合わせで対応しているが、AI面接に特化した規制は存在しない。</p>
+  </div>
+
+  <h3>6-2. 海外規制動向との比較</h3>
+  <table class="regulation-table">
+    <thead>
+      <tr><th>地域</th><th>規制名</th><th>AI面接への主な適用</th><th>施行時期</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td rowspan="2"><strong>EU</strong></td>
+        <td>AI Act</td>
+        <td>採用候補者への<strong>感情認識AI：禁止</strong>（2025年2月〜）。求人応募の分析・フィルタリング・候補者評価は<strong>「高リスク」</strong>に分類。</td>
+        <td>2024年8月発効、高リスク対応期限2026年8月</td>
+      </tr>
+      <tr>
+        <td>GDPR</td>
+        <td>自動化された意思決定に対する異議申立権。データ処理の透明性義務。</td>
+        <td>2018年5月〜</td>
+      </tr>
+      <tr>
+        <td rowspan="3"><strong>米国</strong></td>
+        <td>イリノイ州BIPA</td>
+        <td>AI面接での生体識別子（顔認識・音声分析）収集にBIPA遵守義務。Deyerler v. HireVue事件でビデオ面接プラットフォームにも適用と判例化。違反時：個人あたり最大$5,000。</td>
+        <td>2008年成立</td>
+      </tr>
+      <tr>
+        <td>イリノイ州AI面接法</td>
+        <td>AI使用の開示義務、動作方法の情報提供、候補者の明示的同意が必要。</td>
+        <td>施行済</td>
+      </tr>
+      <tr>
+        <td>NY市AEDT規制</td>
+        <td>自動化された雇用判定ツールに対するバイアス監査義務。</td>
+        <td>2023年7月〜</td>
+      </tr>
+      <tr>
+        <td><strong>日本</strong></td>
+        <td>AI専門法なし</td>
+        <td>個人情報保護法＋AI事業者ガイドライン（任意）で対応。AI面接に特化した規制は不在。</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6-3. 海外における主要訴訟・問題事例</h3>
+  <table>
+    <thead>
+      <tr><th>事例</th><th>年</th><th>概要</th><th>法的根拠</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Intuit / HireVue 障害差別訴訟</td>
+        <td>2025年3月</td>
+        <td>聴覚障害の先住民族女性従業員がACLUとともに提訴。音声認識AIによる「コミュニケーション能力」の不正確な評価、自動字幕の精度不足、合理的配慮（CART）の提供拒否を主張。</td>
+        <td>ADA（米国障害者差別禁止法）</td>
+      </tr>
+      <tr>
+        <td>Amazon AI採用ツール性別バイアス</td>
+        <td>2014〜2018年</td>
+        <td>過去10年分の男性主体の履歴書で学習した結果、「women's」を含む履歴書を減点、女子大学名を処罰。2018年10月に廃止。</td>
+        <td>内部問題として公表（訴訟ではない）</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="data-note">
+    <p><strong>日本国内の訴訟事例：</strong>AI面接に関連する大規模訴訟は、調査範囲内で確認できなかった（「該当データなし」）。ただし、AIなりすまし面談による被害は2025年時点で日本国内で報告されている（Business Insider Japan）。</p>
+  </div>
+</section>
+
+<!-- ===== 7. 採用戦略への示唆 ===== -->
+<section id="sec7">
+  <h2>7. 採用戦略への示唆</h2>
+  <p>以下は、本レポートで収集したデータから導ける範囲の示唆である（推測・補完値は含まない）。</p>
+
+  <div class="insight-box">
+    <h3>示唆 1：AI面接は「一次スクリーニング」に限定し、候補者体験を補完する設計が必要</h3>
+    <p>AI面接で受験意欲が下がる学生は77.5%に達する（マイナビ, 2025年, n=1,385）。一方、導入企業の73%が工数削減を実感しており、効率化の効果は明確である。このギャップを最小化するには、AI面接を一次スクリーニングに限定し、二次以降では人間面接官によるフォローを明示的に約束する設計が有効と考えられる。キリンHDが「初期選考のAI化で生まれたリソースを最終面接と育成に充当」した事例は、この方向性を示している。</p>
+  </div>
+
+  <div class="insight-box">
+    <h3>示唆 2：AI面接導入時には「評価基準の開示」と「人間への異議申立経路」の確保が不可欠</h3>
+    <p>抵抗感の最大理由は「人に評価してほしい」（41.2%）であり、次いで「AIの精度が信用できない」（34.0%）である。EUのAI Actでは採用AIの透明性義務が2026年8月までに求められる。日本ではAI専門法は未整備だが、AI事業者ガイドライン（第1.1版, 2025年3月）は透明性を指針として示しており、先行対応は企業ブランディング上も有利に働く可能性がある。</p>
+  </div>
+
+  <div class="insight-box">
+    <h3>示唆 3：生体情報の取り扱いに関する法的リスクへの事前対応</h3>
+    <p>AI面接では顔画像・声紋が個人識別符号として個人情報保護法の対象となる。さらに、表情分析から推測される情報が「要配慮個人情報」に該当するリスクがある。海外ではBIPA違反で個人あたり最大$5,000の罰金、Intuit/HireVue訴訟（2025年）など具体的なリスクが顕在化している。導入前にプライバシーポリシーの整備、データ保持期間の明文化、不採用者データの速やかな破棄ルールを定めることが推奨される。</p>
+  </div>
+</section>
+
+<!-- ===== 8. 出典一覧 ===== -->
+<section id="sec8">
+  <h2>8. 出典一覧</h2>
+  <table class="source-table">
+    <thead>
+      <tr><th>#</th><th>出典名</th><th>URL</th><th>発行年</th><th>サンプル数</th><th>備考</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>マイナビ「2026年卒 大学生キャリア意向調査 4月＜就職活動におけるAI利用について＞」</td>
+        <td><a href="https://career-research.mynavi.jp/reserch/20250526_96625/" target="_blank">リンク</a></td>
+        <td>2025年</td>
+        <td>n=1,385</td>
+        <td>就職情報会社公式調査</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>HR総研「2024年＆2025年新卒採用動向調査」</td>
+        <td><a href="https://www.hrpro.co.jp/research_detail.php?r_no=366" target="_blank">リンク</a></td>
+        <td>2024年6月</td>
+        <td>n=216</td>
+        <td>業界団体（HR総研）調査</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>リクルートマネジメントソリューションズ「日本の新卒採用選考プロセスにおける採用CX調査」</td>
+        <td><a href="https://www.recruit-ms.co.jp/news/pressrelease/0433848699/" target="_blank">リンク</a></td>
+        <td>2024年8月</td>
+        <td>n=797</td>
+        <td>リクルート傘下企業調査</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>時事通信「主要100社アンケート」</td>
+        <td><a href="https://www.jiji.com/jc/article?k=2025032500880&g=eco" target="_blank">リンク</a></td>
+        <td>2025年3月</td>
+        <td>n=100</td>
+        <td>主要メディア</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>ITmedia「キリンHD AI面接官導入事例」</td>
+        <td><a href="https://www.itmedia.co.jp/business/articles/2503/19/news081.html" target="_blank">リンク</a></td>
+        <td>2025年3月</td>
+        <td>—</td>
+        <td>主要メディア（企業事例報道）</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>VARIETAS「AI面接官」プレスリリース</td>
+        <td><a href="https://prtimes.jp/main/html/rd/p/000000017.000079152.html" target="_blank">リンク</a></td>
+        <td>2024年</td>
+        <td>—</td>
+        <td>ベンダー公式（中立性に留意）</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>JetB「Our AI面接ツール導入レポート」</td>
+        <td><a href="https://jetb.co.jp/ai-interview-use-report" target="_blank">リンク</a></td>
+        <td>2024年</td>
+        <td>n=187（自社事例）</td>
+        <td>ベンダー自社調査（中立性に留意）</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>JetB プレスリリース「AI面接導入効果」</td>
+        <td><a href="https://prtimes.jp/main/html/rd/p/000000059.000010333.html" target="_blank">リンク</a></td>
+        <td>2024年</td>
+        <td>—</td>
+        <td>ベンダー自社調査（中立性に留意）</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>経済産業省・総務省「AI事業者ガイドライン（第1.0版）」</td>
+        <td><a href="https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/20240419_report.html" target="_blank">リンク</a></td>
+        <td>2024年7月（第1.1版：2025年3月）</td>
+        <td>—</td>
+        <td>政府ガイドライン</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>HR Dive「Intuit/HireVue障害差別訴訟」</td>
+        <td><a href="https://www.hrdive.com/news/ai-intuit-hirevue-deaf-indigenous-employee-discrimination-aclu/743273/" target="_blank">リンク</a></td>
+        <td>2025年3月</td>
+        <td>—</td>
+        <td>主要メディア（訴訟報道）</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>Fisher Phillips「AI Screening Systems Face Fresh Scrutiny」</td>
+        <td><a href="https://www.fisherphillips.com/en/news-insights/ai-screening-systems-face-fresh-scrutiny-6-key-takeaways-from-claims-filed-against-hiring-technology-company.html" target="_blank">リンク</a></td>
+        <td>2025年</td>
+        <td>—</td>
+        <td>法律事務所レポート</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>Epstein Becker Green「Deyerler v. HireVue BIPA判例」</td>
+        <td><a href="https://www.workforcebulletin.com/deyerler-v-hirevue-expands-biometric-privacy-law-to-ai-video-interview-platform" target="_blank">リンク</a></td>
+        <td>—</td>
+        <td>—</td>
+        <td>法律事務所レポート</td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>DLA Piper「EU AI Act Implications for Employers」</td>
+        <td><a href="https://knowledge.dlapiper.com/dlapiperknowledge/globalemploymentlatestdevelopments/2024/eu-ai-act-to-enter-into-force-implications-for-employers" target="_blank">リンク</a></td>
+        <td>2024年</td>
+        <td>—</td>
+        <td>法律事務所レポート</td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>EEOC「Employment Discrimination and AI for Workers」</td>
+        <td><a href="https://www.eeoc.gov/sites/default/files/2024-04/20240429_Employment%20Discrimination%20and%20AI%20for%20Workers.pdf" target="_blank">リンク</a></td>
+        <td>2024年</td>
+        <td>—</td>
+        <td>米国政府機関</td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>Business Insider Japan「AIなりすまし面談リスク」</td>
+        <td><a href="https://www.businessinsider.jp/article/2603-deepfake-job-interview-risk-japan/" target="_blank">リンク</a></td>
+        <td>2025年</td>
+        <td>—</td>
+        <td>主要メディア</td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>HARUTAKA 導入事例</td>
+        <td><a href="https://harutaka.jp/case" target="_blank">リンク</a></td>
+        <td>—</td>
+        <td>—</td>
+        <td>ベンダー公式（中立性に留意）</td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td>ITreview「HARUTAKA vs HireVue vs インタビューメーカー比較」</td>
+        <td><a href="https://www.itreview.jp/compares/harutaka_vs_hirevue_vs_intabyumeka_vs_mee2box" target="_blank">リンク</a></td>
+        <td>—</td>
+        <td>—</td>
+        <td>IT製品比較サイト</td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>事業構想オンライン「AI面接の公平性」</td>
+        <td><a href="https://www.projectdesign.jp/articles/news/f09f9ce0-2a38-4b5e-8bb4-79f7859aa764" target="_blank">リンク</a></td>
+        <td>—</td>
+        <td>—</td>
+        <td>業界メディア</td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td>PwC Japan「AI事業者ガイドライン解説」</td>
+        <td><a href="https://www.pwc.com/jp/ja/knowledge/column/ai-governance/ai-guideline.html" target="_blank">リンク</a></td>
+        <td>—</td>
+        <td>—</td>
+        <td>コンサルティングファーム分析</td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>TOPCOURT法律事務所「顔認識AIと個人情報保護法」</td>
+        <td><a href="https://topcourt-law.com/ai-iot/image-recognition-personallaw" target="_blank">リンク</a></td>
+        <td>—</td>
+        <td>—</td>
+        <td>法律事務所解説</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+</main>
+
+<footer>
+  <p>本レポートは2026年3月27日時点のWeb公開情報に基づき作成されたものです。推測値・補完値は使用していません。「該当データなし」と記載された項目は、調査範囲内で信頼性のある出典が確認できなかったことを意味します。</p>
+</footer>
+
+</body>
+</html>

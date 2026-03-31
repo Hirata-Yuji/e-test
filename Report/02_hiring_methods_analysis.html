@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内定につながった採用手法リサーチレポート（2024〜2027年卒）</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2b6cb0;
+            --accent: #dd6b20;
+            --bg: #f7fafc;
+            --card: #ffffff;
+            --text: #2d3748;
+            --text-light: #718096;
+            --border: #e2e8f0;
+            --success: #276749;
+            --danger: #9b2c2c;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'メイリオ', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 50%, #2b6cb0 100%);
+            color: #fff;
+            padding: 48px 24px;
+            text-align: center;
+        }
+        .header h1 { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { font-size: 15px; opacity: 0.85; }
+        .header .date { font-size: 13px; opacity: 0.7; margin-top: 12px; }
+        .container { max-width: 980px; margin: 0 auto; padding: 32px 20px; }
+
+        .toc {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 8px; padding: 24px 32px; margin-bottom: 32px;
+        }
+        .toc h2 { font-size: 18px; color: var(--primary); margin-bottom: 12px; border-bottom: 2px solid var(--accent); padding-bottom: 8px; display: inline-block; }
+        .toc ol { padding-left: 20px; }
+        .toc li { margin-bottom: 6px; }
+        .toc a { color: var(--primary-light); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+
+        .section {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 8px; padding: 32px; margin-bottom: 28px;
+        }
+        .section h2 { font-size: 22px; color: var(--primary); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid var(--accent); }
+        .section h3 { font-size: 17px; color: var(--primary-light); margin: 24px 0 12px 0; }
+        .section h4 { font-size: 15px; color: var(--text); margin: 16px 0 8px 0; font-weight: 600; }
+        p { margin-bottom: 12px; font-size: 14.5px; }
+
+        table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+        th, td { border: 1px solid var(--border); padding: 10px 14px; text-align: left; }
+        th { background: var(--primary); color: #fff; font-weight: 600; font-size: 13px; }
+        tr:nth-child(even) { background: #f7fafc; }
+        tr:hover { background: #edf2f7; }
+
+        .highlight {
+            background: #fffbeb; border-left: 4px solid var(--accent);
+            padding: 14px 18px; margin: 16px 0; border-radius: 0 6px 6px 0; font-size: 14px;
+        }
+        .note {
+            background: #fff5f5; border: 1px solid #feb2b2;
+            border-radius: 6px; padding: 12px 16px; margin: 16px 0; font-size: 13px; color: #742a2a;
+        }
+        .info {
+            background: #ebf8ff; border: 1px solid #90cdf4;
+            border-radius: 6px; padding: 12px 16px; margin: 16px 0; font-size: 13px; color: #2a4365;
+        }
+
+        .bar-chart { display: flex; flex-direction: column; gap: 10px; max-width: 650px; margin: 16px auto; }
+        .bar-row { display: flex; align-items: center; gap: 10px; }
+        .bar-label { width: 180px; text-align: right; font-size: 13px; font-weight: 600; flex-shrink: 0; }
+        .bar-track { flex: 1; background: #edf2f7; border-radius: 4px; height: 28px; position: relative; }
+        .bar-fill {
+            height: 100%; border-radius: 4px; display: flex; align-items: center;
+            justify-content: flex-end; padding-right: 8px; color: #fff; font-size: 12px; font-weight: 700; min-width: 40px;
+        }
+        .bar-fill.blue { background: linear-gradient(90deg, #2b6cb0, #4299e1); }
+        .bar-fill.green { background: linear-gradient(90deg, #276749, #48bb78); }
+        .bar-fill.orange { background: linear-gradient(90deg, #c05621, #ed8936); }
+        .bar-fill.purple { background: linear-gradient(90deg, #553c9a, #805ad5); }
+        .bar-fill.red { background: linear-gradient(90deg, #9b2c2c, #fc8181); }
+        .bar-fill.teal { background: linear-gradient(90deg, #285e61, #38b2ac); }
+        .bar-fill.pink { background: linear-gradient(90deg, #97266d, #ed64a6); }
+
+        .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; margin-left: 6px; }
+        .badge-up { background: #c6f6d5; color: #276749; }
+        .badge-down { background: #fed7d7; color: #9b2c2c; }
+        .badge-new { background: #bee3f8; color: #2a4365; }
+        .badge-hot { background: #fefcbf; color: #975a16; }
+
+        .exec-summary {
+            background: linear-gradient(135deg, #ebf8ff 0%, #e9d8fd 100%);
+            border: 1px solid #bee3f8; border-radius: 8px; padding: 24px 28px; margin-bottom: 28px;
+        }
+        .exec-summary h2 { color: var(--primary); font-size: 18px; margin-bottom: 12px; }
+        .exec-summary ul { padding-left: 20px; }
+        .exec-summary li { margin-bottom: 6px; font-size: 14px; }
+
+        .compare-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0;
+        }
+        .compare-card {
+            background: #f7fafc; border: 1px solid var(--border); border-radius: 8px; padding: 18px;
+        }
+        .compare-card h4 { margin-top: 0; color: var(--primary); font-size: 15px; margin-bottom: 8px; }
+        .compare-card .metric { font-size: 28px; font-weight: 800; color: var(--primary-light); }
+        .compare-card .desc { font-size: 12px; color: var(--text-light); }
+
+        .sources {
+            background: #f7fafc; border: 1px solid var(--border);
+            border-radius: 8px; padding: 24px 32px; margin-top: 32px;
+        }
+        .sources h2 { font-size: 18px; color: var(--primary); margin-bottom: 12px; }
+        .sources ul { list-style: none; padding: 0; }
+        .sources li { margin-bottom: 8px; font-size: 13px; padding-left: 16px; position: relative; }
+        .sources li::before { content: '•'; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+        .sources a { color: var(--primary-light); text-decoration: none; word-break: break-all; }
+        .sources a:hover { text-decoration: underline; }
+        .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 12px; }
+
+        @media (max-width: 640px) {
+            .header h1 { font-size: 20px; }
+            .section { padding: 20px; }
+            .bar-label { width: 120px; font-size: 11px; }
+            table { font-size: 12px; }
+            th, td { padding: 6px 8px; }
+            .compare-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>内定につながった採用手法 リサーチレポート</h1>
+    <div class="subtitle">2024年卒〜2027年卒｜就活媒体・スカウト・人材紹介・リファラル等の実態と効果</div>
+    <div class="date">調査日：2026年3月26日 ｜ 作成：株式会社Enjin リサーチチーム</div>
+</div>
+
+<div class="container">
+
+    <!-- 目次 -->
+    <div class="toc">
+        <h2>目次</h2>
+        <ol>
+            <li><a href="#summary">エグゼクティブサマリー</a></li>
+            <li><a href="#overview">採用手法の全体像と実施率推移</a></li>
+            <li><a href="#navi">就職ナビサイト経由の採用</a></li>
+            <li><a href="#scout">スカウト・ダイレクトリクルーティング</a></li>
+            <li><a href="#internship">インターンシップ起点の採用</a></li>
+            <li><a href="#agent">就活エージェント（人材紹介）</a></li>
+            <li><a href="#referral">リファラル採用</a></li>
+            <li><a href="#other">その他の採用手法</a></li>
+            <li><a href="#decline">内定辞退率と採用手法の関連</a></li>
+            <li><a href="#implications">企業への示唆</a></li>
+            <li><a href="#methodology">調査方法・出典</a></li>
+        </ol>
+    </div>
+
+    <!-- エグゼクティブサマリー -->
+    <div class="exec-summary" id="summary">
+        <h2>1. エグゼクティブサマリー</h2>
+        <ul>
+            <li><strong>就職ナビサイトは依然最大のチャネル</strong>だが、ナビ経由の応募→内定の「歩留まり」は悪化傾向。マイナビ登録者数は約59.4万人（26卒）で最大だが、内定辞退率は65.1%（25卒12月時点）と高水準。</li>
+            <li><strong>スカウト・ダイレクトリクルーティング（DR）が急拡大</strong>：就職白書2025によると、26卒でスカウト型採用の実施率は36.1%（前年+3.9pt）。大手（5,000人以上）では過半数が実施。内定承諾率はナビ経由より高い傾向。</li>
+            <li><strong>インターンシップが内定の最重要起点に</strong>：26卒のインターンシップ実施率は61.9%（4年連続増、過去最高）。インターン参加で志望企業が変わった学生は19.1%。採用直結インターンの実施率は19.6%（24卒→25卒で+6.7pt）。</li>
+            <li><strong>就活エージェント（人材紹介）の利用は2〜3割</strong>：doda新卒エージェントは25卒で14万人以上が利用。紹介経由は内定承諾率が高い傾向だが、企業コストも高い。</li>
+            <li><strong>リファラル採用は新卒でも定着</strong>：企業の62.5%がリファラル採用を実施（2025年調査）。新卒リファラルの応募→内定率は約20%と高水準。</li>
+        </ul>
+    </div>
+
+    <!-- 採用手法の全体像 -->
+    <div class="section" id="overview">
+        <h2>2. 採用手法の全体像と実施率推移</h2>
+
+        <h3>2-1. 採用手法別 企業の実施率（就職白書2024・2025より）</h3>
+        <p>リクルート就職みらい研究所の調査に基づく、主要採用手法の企業実施率の推移です。</p>
+
+        <table>
+            <tr>
+                <th>採用手法</th>
+                <th>24卒実績</th>
+                <th>25卒実績/予定</th>
+                <th>26卒予定</th>
+                <th>傾向</th>
+            </tr>
+            <tr>
+                <td><strong>就職サイト</strong></td>
+                <td>約85%</td>
+                <td>約83%</td>
+                <td>約80%</td>
+                <td>微減 <span class="badge badge-down">↓</span></td>
+            </tr>
+            <tr>
+                <td><strong>スカウト・オファー型</strong></td>
+                <td>約30%</td>
+                <td>34.0%</td>
+                <td>36.1%</td>
+                <td>拡大継続 <span class="badge badge-up">↑</span></td>
+            </tr>
+            <tr>
+                <td><strong>インターンシップ起点</strong></td>
+                <td>約13%</td>
+                <td>19.6%</td>
+                <td>—</td>
+                <td>急拡大 <span class="badge badge-up">↑↑</span></td>
+            </tr>
+            <tr>
+                <td><strong>リファラル採用</strong></td>
+                <td>約18%</td>
+                <td>21.1%</td>
+                <td>—</td>
+                <td>拡大 <span class="badge badge-up">↑</span></td>
+            </tr>
+            <tr>
+                <td><strong>人材紹介（エージェント）</strong></td>
+                <td>約15%</td>
+                <td>約18%</td>
+                <td>約20%</td>
+                <td>拡大 <span class="badge badge-up">↑</span></td>
+            </tr>
+            <tr>
+                <td><strong>通年採用</strong></td>
+                <td>約30%</td>
+                <td>約33%</td>
+                <td>35.1%</td>
+                <td>拡大 <span class="badge badge-up">↑</span></td>
+            </tr>
+        </table>
+
+        <div class="note">
+            ※ 就職白書2024・2025（リクルート就職みらい研究所）のプレスリリース公開数値を基に構成。「約」がつく数値はプレスリリース上で明確な単独数値が公開されていないため、複数ソースから推定した概算値です。
+        </div>
+
+        <h3>2-2. 構造変化の概観</h3>
+        <div class="highlight">
+            <strong>「待ち」から「攻め」へのシフト：</strong>従来のナビサイト掲載→エントリー待ちの「待ち型採用」から、企業が学生に直接アプローチする「攻め型採用」（スカウト・DR・インターンシップ・リファラル）への転換が加速。背景には売り手市場の強まり（26卒内定充足率69.7%、4年連続低下）と採用早期化がある。
+        </div>
+    </div>
+
+    <!-- 就職ナビサイト -->
+    <div class="section" id="navi">
+        <h2>3. 就職ナビサイト経由の採用</h2>
+
+        <h3>3-1. 依然最大の採用チャネル</h3>
+        <p>就職情報サイトは企業の約80〜85%が利用する最大の採用チャネルです。マイナビの調査では、学生が企業情報を調べる際に利用する情報源として「就職情報サイト」が86.2%で最多です。</p>
+
+        <table>
+            <tr>
+                <th>主要ナビサイト</th>
+                <th>26卒登録者数</th>
+                <th>掲載企業数</th>
+                <th>特徴</th>
+            </tr>
+            <tr>
+                <td><strong>マイナビ</strong></td>
+                <td>約59.4万人</td>
+                <td>約3万社</td>
+                <td>最大手。幅広い業界・企業規模をカバー</td>
+            </tr>
+            <tr>
+                <td><strong>リクナビ</strong></td>
+                <td>約43.0万人</td>
+                <td>約1.1万社</td>
+                <td>減少傾向。大手企業の掲載が中心</td>
+            </tr>
+            <tr>
+                <td><strong>ONE CAREER</strong></td>
+                <td>累計40万人超</td>
+                <td>—</td>
+                <td>選考体験記・ES情報が強み。急成長中</td>
+            </tr>
+            <tr>
+                <td><strong>キャリタス就活</strong></td>
+                <td>約35万人</td>
+                <td>—</td>
+                <td>緩やかに減少傾向</td>
+            </tr>
+        </table>
+
+        <h3>3-2. ナビサイトの課題：歩留まりの悪化</h3>
+        <p>ナビサイト経由は「量」は集まるものの、選考辞退・内定辞退が多発し、最終的な採用効率に課題を抱える企業が増えています。</p>
+
+        <div class="compare-grid">
+            <div class="compare-card">
+                <h4>強み</h4>
+                <ul style="font-size:13px; padding-left:16px;">
+                    <li>最大の母集団形成力</li>
+                    <li>幅広い業界・職種への露出</li>
+                    <li>学生の「初期接点」として不可欠</li>
+                    <li>説明会・イベント連動が容易</li>
+                </ul>
+            </div>
+            <div class="compare-card">
+                <h4>課題</h4>
+                <ul style="font-size:13px; padding-left:16px;">
+                    <li>エントリー数は多いが志望度が低い応募も混在</li>
+                    <li>内定辞退率が高水準（65.1%、25卒12月時点）</li>
+                    <li>中堅・中小企業は大手に埋もれやすい</li>
+                    <li>「ナビ離れ」で学生の利用時期が短縮化</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- スカウト・DR -->
+    <div class="section" id="scout">
+        <h2>4. スカウト・ダイレクトリクルーティング（DR）</h2>
+
+        <h3>4-1. 実施率の推移</h3>
+        <div class="chart-container">
+            <div class="bar-chart">
+                <div class="bar-row">
+                    <div class="bar-label">24卒実績</div>
+                    <div class="bar-track"><div class="bar-fill blue" style="width:60%">約30%</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">25卒実績</div>
+                    <div class="bar-track"><div class="bar-fill blue" style="width:68%">34.0%</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">26卒予定</div>
+                    <div class="bar-track"><div class="bar-fill blue" style="width:72.2%">36.1%</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">大手（5,000人以上）26卒</div>
+                    <div class="bar-track"><div class="bar-fill orange" style="width:100%">50%超</div></div>
+                </div>
+            </div>
+        </div>
+
+        <h3>4-2. 主要サービスと内定実績</h3>
+        <table>
+            <tr>
+                <th>サービス</th>
+                <th>登録学生数</th>
+                <th>利用企業数</th>
+                <th>内定関連指標</th>
+            </tr>
+            <tr>
+                <td><strong>OfferBox</strong></td>
+                <td>約24万人</td>
+                <td>約1.9万社</td>
+                <td>オファー開封率87%。プロフィール入力率の高い学生への精緻なマッチングが強み。</td>
+            </tr>
+            <tr>
+                <td><strong>キミスカ</strong></td>
+                <td>約13.2万人</td>
+                <td>—</td>
+                <td>3段階スカウト（ゴールド・シルバー・ノーマル）で企業の本気度を可視化。ゴールドスカウトは承諾率が高い。</td>
+            </tr>
+            <tr>
+                <td><strong>dodaキャンパス</strong></td>
+                <td>約66.8万人（4学年合算）</td>
+                <td>—</td>
+                <td>低学年からの接点構築が可能。インターンシップへの誘導に強い。</td>
+            </tr>
+            <tr>
+                <td><strong>ABABA</strong></td>
+                <td>—</td>
+                <td>—</td>
+                <td>スカウト承諾率10%、内定承諾率67.5%（業界平均約25%の約2.7倍）。最終面接不合格者へのスカウトが特徴。</td>
+            </tr>
+        </table>
+
+        <h3>4-3. スカウト型が内定につながる理由</h3>
+        <div class="highlight">
+            <strong>ナビ経由 vs スカウト経由の比較：</strong>
+            <ul style="margin-top:8px; padding-left:20px; font-size:14px;">
+                <li><strong>志望度</strong>：企業から「あなたに来てほしい」とアプローチされるため、学生の初期志望度が高い</li>
+                <li><strong>マッチング精度</strong>：企業がプロフィール・適性を見て送るため、ミスマッチが少ない</li>
+                <li><strong>内定承諾率</strong>：ナビ経由より高い傾向（ABABAの例：67.5% vs 業界平均約25%）</li>
+                <li><strong>早期接点</strong>：3年生の夏〜秋にアプローチ可能で、競合が少ない時期に接点を持てる</li>
+            </ul>
+        </div>
+
+        <div class="info">
+            <strong>企業規模別の傾向：</strong>従業員1,000〜4,999人で45.3%、5,000人以上で50%超がスカウト型を実施。中小企業では、ナビサイトで埋もれがちな自社をスカウトで直接学生にアプローチできる点がメリット。ただし、運用工数（スカウト文面作成・送信・フォロー）が課題。
+        </div>
+    </div>
+
+    <!-- インターンシップ -->
+    <div class="section" id="internship">
+        <h2>5. インターンシップ起点の採用</h2>
+
+        <h3>5-1. インターンシップ実施率と採用直結化</h3>
+
+        <div class="compare-grid">
+            <div class="compare-card">
+                <h4>インターンシップ実施率（企業側）</h4>
+                <div class="metric">61.9%</div>
+                <div class="desc">26卒向け（4年連続増、過去最高）｜マイナビ調査</div>
+            </div>
+            <div class="compare-card">
+                <h4>インターン参加率（学生側）</h4>
+                <div class="metric">85.5%</div>
+                <div class="desc">26卒（2025年11月時点）｜マイナビ調査</div>
+            </div>
+        </div>
+
+        <table>
+            <tr>
+                <th>指標</th>
+                <th>24卒→25卒</th>
+                <th>26卒</th>
+                <th>備考</th>
+            </tr>
+            <tr>
+                <td>採用直結インターンシップ実施率</td>
+                <td>12.9%→19.6%（+6.7pt）</td>
+                <td>拡大見込み</td>
+                <td>就職白書2024</td>
+            </tr>
+            <tr>
+                <td>キャリア形成支援プログラム実施率</td>
+                <td>56.3%→75.4%</td>
+                <td>75.4%</td>
+                <td>就職白書2025</td>
+            </tr>
+            <tr>
+                <td>インターン参加で志望企業が変わった学生</td>
+                <td>—</td>
+                <td>19.1%</td>
+                <td>マイナビ26卒内定者調査</td>
+            </tr>
+        </table>
+
+        <h3>5-2. インターンシップの種類と内定への接続</h3>
+        <table>
+            <tr>
+                <th>タイプ</th>
+                <th>内容</th>
+                <th>実施率</th>
+                <th>内定との関連性</th>
+            </tr>
+            <tr>
+                <td><strong>タイプ1：オープン・カンパニー</strong></td>
+                <td>企業説明・見学型（1日程度）</td>
+                <td>87.8%</td>
+                <td>低い（認知獲得が主目的）</td>
+            </tr>
+            <tr>
+                <td><strong>タイプ2：キャリア教育</strong></td>
+                <td>業界理解・スキル学習型</td>
+                <td>26.7%</td>
+                <td>中程度（志望度向上に寄与）</td>
+            </tr>
+            <tr>
+                <td><strong>タイプ3：汎用的能力・専門活用型</strong></td>
+                <td>実務体験型（5日以上）</td>
+                <td>31.6%</td>
+                <td>高い（実質的な選考機能あり）</td>
+            </tr>
+            <tr>
+                <td><strong>採用直結型</strong></td>
+                <td>インターン参加→選考→内定</td>
+                <td>19.6%</td>
+                <td>非常に高い（直接的な内定経路）</td>
+            </tr>
+        </table>
+
+        <div class="highlight">
+            <strong>ポイント：</strong>インターンシップは「内定の起点」として最も重要なチャネルに成長。特に早期化が進む中、3年生夏のインターンシップが事実上の「採用活動の開始点」となっている。26卒では、インターン・仕事体験に参加して志望企業が変わった学生が約2割に上り、企業にとってインターンの質が採用成果を左右する。
+        </div>
+    </div>
+
+    <!-- 就活エージェント -->
+    <div class="section" id="agent">
+        <h2>6. 就活エージェント（人材紹介）</h2>
+
+        <h3>6-1. 利用率と市場規模</h3>
+        <p>就活エージェント（新卒人材紹介）は、学生側の利用率が約20〜30%とされ、年々増加傾向にあります。</p>
+
+        <table>
+            <tr>
+                <th>サービス</th>
+                <th>利用者数（参考）</th>
+                <th>特徴</th>
+            </tr>
+            <tr>
+                <td><strong>doda新卒エージェント</strong></td>
+                <td>25卒で14万人以上</td>
+                <td>契約企業数が豊富。大手〜中堅企業の非公開求人に強い。</td>
+            </tr>
+            <tr>
+                <td><strong>キャリアチケット</strong></td>
+                <td>毎年1万人以上</td>
+                <td>マッチング精度重視。サポート実施で内定率78%向上と公表。</td>
+            </tr>
+            <tr>
+                <td><strong>JobSpring</strong></td>
+                <td>—</td>
+                <td>AIマッチング+アドバイザーの組み合わせ。内定承諾率高め。</td>
+            </tr>
+            <tr>
+                <td><strong>マイナビ新卒紹介</strong></td>
+                <td>—</td>
+                <td>マイナビのデータベースを活用。業界最大級の求人数。</td>
+            </tr>
+        </table>
+
+        <h3>6-2. エージェント経由の内定特性</h3>
+        <div class="compare-grid">
+            <div class="compare-card">
+                <h4>メリット（内定につながりやすい理由）</h4>
+                <ul style="font-size:13px; padding-left:16px;">
+                    <li>アドバイザーが学生の適性を理解した上で企業を紹介</li>
+                    <li>ES添削・面接対策による選考通過率の向上</li>
+                    <li>非公開求人へのアクセス</li>
+                    <li>企業との条件交渉を代行</li>
+                    <li>24卒・25卒利用者の約9割が「思ったより良かった」と回答</li>
+                </ul>
+            </div>
+            <div class="compare-card">
+                <h4>留意点</h4>
+                <ul style="font-size:13px; padding-left:16px;">
+                    <li>企業側のコストが高い（成功報酬型で1人あたり数十万〜100万円超）</li>
+                    <li>紹介先が限定的（エージェントの取引企業に依存）</li>
+                    <li>エージェントの質にばらつきがある</li>
+                    <li>学生の自主性が損なわれるリスク</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- リファラル -->
+    <div class="section" id="referral">
+        <h2>7. リファラル採用</h2>
+
+        <h3>7-1. 新卒リファラル採用の現状</h3>
+
+        <div class="compare-grid">
+            <div class="compare-card">
+                <h4>リファラル採用実施企業</h4>
+                <div class="metric">62.5%</div>
+                <div class="desc">2025年調査（2018年の41.7%から+20.8pt）｜TalentX調査</div>
+            </div>
+            <div class="compare-card">
+                <h4>新卒リファラル 応募→内定率</h4>
+                <div class="metric">約20%</div>
+                <div class="desc">応募者5人に1人が内定｜MyRefer調査</div>
+            </div>
+        </div>
+
+        <h3>7-2. 新卒リファラルの実態</h3>
+        <table>
+            <tr>
+                <th>指標</th>
+                <th>数値</th>
+                <th>出典</th>
+            </tr>
+            <tr>
+                <td>リファラル採用実施率（全体）</td>
+                <td>62.5%</td>
+                <td>TalentX 2025年調査</td>
+            </tr>
+            <tr>
+                <td>制度なし・紹介実績あり企業</td>
+                <td>18.0%</td>
+                <td>TalentX 2025年調査</td>
+            </tr>
+            <tr>
+                <td>若手社員・内定者の紹介実施率</td>
+                <td>約33%（3人に1人）</td>
+                <td>MyRefer調査</td>
+            </tr>
+            <tr>
+                <td>新卒リファラル 応募→内定率</td>
+                <td>約20%</td>
+                <td>MyRefer調査</td>
+            </tr>
+        </table>
+
+        <div class="highlight">
+            <strong>新卒リファラルの特徴：</strong>
+            <ul style="margin-top:8px; padding-left:20px; font-size:14px;">
+                <li><strong>紹介者</strong>：若手社員（入社1〜3年目）や内定者が中心。大学時代の後輩・同期を紹介するケースが多い。</li>
+                <li><strong>内定承諾率</strong>：紹介者からのリアルな情報提供があるため、入社後のミスマッチが少なく、承諾率が高い。</li>
+                <li><strong>コスト</strong>：紹介報奨金（数万〜数十万円程度）のみで、エージェントより大幅に低コスト。</li>
+                <li><strong>課題</strong>：紹介数のコントロールが難しい。多様性が限定されるリスク。</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- その他 -->
+    <div class="section" id="other">
+        <h2>8. その他の採用手法</h2>
+
+        <table>
+            <tr>
+                <th>手法</th>
+                <th>概要</th>
+                <th>内定との関連性</th>
+                <th>傾向</th>
+            </tr>
+            <tr>
+                <td><strong>合同企業説明会</strong></td>
+                <td>複数企業が参加するイベント型</td>
+                <td>認知獲得が主。直接内定にはつながりにくいが、初期接点として重要。</td>
+                <td>オンライン・オフライン併用が定着</td>
+            </tr>
+            <tr>
+                <td><strong>大学キャリアセンター経由</strong></td>
+                <td>大学推薦・学校推薦・キャリアセンター紹介</td>
+                <td>理系の推薦制度は内定率が非常に高い。文系は限定的。</td>
+                <td>横ばい</td>
+            </tr>
+            <tr>
+                <td><strong>SNS採用</strong></td>
+                <td>X・Instagram・TikTok等での採用広報・DM</td>
+                <td>認知・興味喚起が主だが、一部企業ではDMからの選考誘導→内定も。</td>
+                <td>拡大中 <span class="badge badge-hot">注目</span></td>
+            </tr>
+            <tr>
+                <td><strong>OB/OG訪問アプリ</strong></td>
+                <td>Matcher、ビズリーチ・キャンパス等</td>
+                <td>社員との対話が志望度向上に寄与。間接的に内定につながるケースあり。</td>
+                <td>拡大中</td>
+            </tr>
+            <tr>
+                <td><strong>通年採用</strong></td>
+                <td>年間を通じた採用活動</td>
+                <td>26卒で35.1%の企業が実施予定。300人未満の企業で40.4%と最も高い。</td>
+                <td>拡大中 <span class="badge badge-up">↑</span></td>
+            </tr>
+            <tr>
+                <td><strong>自社採用サイト・オウンドメディア</strong></td>
+                <td>企業独自の採用ページ・コンテンツ</td>
+                <td>ナビサイト経由の流入受け皿として機能。直接応募→内定のケースも増加。</td>
+                <td>重要度増</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 内定辞退率 -->
+    <div class="section" id="decline">
+        <h2>9. 内定辞退率と採用手法の関連</h2>
+
+        <h3>9-1. 内定辞退率の推移</h3>
+        <table>
+            <tr>
+                <th>卒年</th>
+                <th>内定辞退率（12月時点）</th>
+                <th>備考</th>
+            </tr>
+            <tr>
+                <td>2024年卒</td>
+                <td>64.3%</td>
+                <td>マイナビ調査</td>
+            </tr>
+            <tr>
+                <td>2025年卒</td>
+                <td>65.1%</td>
+                <td>マイナビ調査（+0.8pt）</td>
+            </tr>
+            <tr>
+                <td>2026年卒</td>
+                <td>—（4月時点39.7%、前年+5.3pt）</td>
+                <td>早期辞退が増加傾向</td>
+            </tr>
+        </table>
+
+        <h3>9-2. 採用手法別の内定承諾率の傾向</h3>
+        <p>採用手法によって内定承諾率には大きな差があります。以下は各種調査から得られた傾向です。</p>
+
+        <div class="chart-container">
+            <div class="bar-chart">
+                <div class="bar-row">
+                    <div class="bar-label">リファラル経由</div>
+                    <div class="bar-track"><div class="bar-fill green" style="width:75%">高い（推定60〜70%）</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">スカウト経由（ABABA例）</div>
+                    <div class="bar-track"><div class="bar-fill blue" style="width:67.5%">67.5%</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">エージェント経由</div>
+                    <div class="bar-track"><div class="bar-fill purple" style="width:55%">中〜高（推定40〜55%）</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">インターンシップ経由</div>
+                    <div class="bar-track"><div class="bar-fill teal" style="width:50%">中程度（推定40〜50%）</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">ナビサイト経由</div>
+                    <div class="bar-track"><div class="bar-fill red" style="width:35%">低い（全体平均約35%）</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="note">
+            ※ 上記は各種調査・サービス公表値・業界レポートから推定した傾向値です。ナビサイト経由の内定承諾率は全体の内定辞退率65.1%（25卒）から逆算した概算値（約35%）。リファラル・エージェント経由の数値は個別サービスの公表値と業界推定に基づきます。チャネルごとの統一的な横断調査は限定的であり、厳密な比較ではありません。
+        </div>
+
+        <div class="highlight">
+            <strong>示唆：</strong>「量を集めて歩留まりが低い」ナビサイト型と、「量は少ないが承諾率が高い」スカウト・リファラル型は補完関係にある。最適な組み合わせ（チャネルミックス）の設計が内定充足率の改善に直結する。
+        </div>
+    </div>
+
+    <!-- 企業への示唆 -->
+    <div class="section" id="implications">
+        <h2>10. 企業への示唆</h2>
+
+        <h3>10-1. 採用手法別の比較一覧</h3>
+        <table>
+            <tr>
+                <th>手法</th>
+                <th>母集団形成力</th>
+                <th>内定承諾率</th>
+                <th>コスト</th>
+                <th>運用工数</th>
+                <th>適した企業</th>
+            </tr>
+            <tr>
+                <td><strong>就職ナビサイト</strong></td>
+                <td>◎ 大</td>
+                <td>△ 低め</td>
+                <td>○ 中</td>
+                <td>○ 中</td>
+                <td>大量採用・知名度の高い企業</td>
+            </tr>
+            <tr>
+                <td><strong>スカウト・DR</strong></td>
+                <td>○ 中</td>
+                <td>◎ 高め</td>
+                <td>○ 中</td>
+                <td>△ 高い</td>
+                <td>ターゲット人材を採りたい企業</td>
+            </tr>
+            <tr>
+                <td><strong>インターンシップ</strong></td>
+                <td>○ 中</td>
+                <td>◎ 高め</td>
+                <td>△ 高い</td>
+                <td>△ 高い</td>
+                <td>ミスマッチを減らしたい企業</td>
+            </tr>
+            <tr>
+                <td><strong>エージェント</strong></td>
+                <td>△ 限定的</td>
+                <td>○ 中〜高</td>
+                <td>× 高い</td>
+                <td>◎ 低い</td>
+                <td>採用工数を削減したい企業</td>
+            </tr>
+            <tr>
+                <td><strong>リファラル</strong></td>
+                <td>△ 限定的</td>
+                <td>◎ 高い</td>
+                <td>◎ 低い</td>
+                <td>○ 中</td>
+                <td>社風マッチを重視する企業</td>
+            </tr>
+        </table>
+
+        <h3>10-2. 推奨アクション</h3>
+        <table>
+            <tr>
+                <th>課題</th>
+                <th>A案</th>
+                <th>B案</th>
+            </tr>
+            <tr>
+                <td>母集団は集まるが内定辞退が多い</td>
+                <td>スカウト・DRの比率を引き上げ、ナビ依存を下げる</td>
+                <td>インターンシップの質を向上させ、選考直結化を推進</td>
+            </tr>
+            <tr>
+                <td>中小企業で母集団が集まらない</td>
+                <td>リファラル制度を導入し、若手社員・内定者を活用</td>
+                <td>ニッチな特化型媒体（LabBase、外資就活等）に注力</td>
+            </tr>
+            <tr>
+                <td>採用工数が不足している</td>
+                <td>エージェントを活用し、スクリーニングを外部委託</td>
+                <td>AI×スカウトツールで運用を自動化</td>
+            </tr>
+            <tr>
+                <td>早期化に対応できていない</td>
+                <td>3年生夏のインターンシップを強化し、早期接点を確保</td>
+                <td>低学年向けスカウト（dodaキャンパス等）を活用</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 出典 -->
+    <div class="sources" id="methodology">
+        <h2>11. 調査方法・出典</h2>
+        <p style="margin-bottom:16px; font-size:13px;">本レポートは、以下の公開調査データおよび報道記事を基に作成しています。各数値は出典元の調査時点・調査母集団に基づくものであり、採用手法間の横断的比較には一定の留意が必要です。</p>
+        <ul>
+            <li><a href="https://shushokumirai.recruit.co.jp/white_paper_article/20240220001/" target="_blank">リクルート就職みらい研究所『就職白書2024』（2024年2月）</a></li>
+            <li><a href="https://shushokumirai.recruit.co.jp/white_paper_article/20250220001/" target="_blank">リクルート就職みらい研究所『就職白書2025』（2025年2月）</a></li>
+            <li><a href="https://shushokumirai.recruit.co.jp/white_paper_article/20260220001/" target="_blank">リクルート就職みらい研究所『就職白書2026』（2026年2月）</a></li>
+            <li><a href="https://career-research.mynavi.jp/reserch/20251107_104128/" target="_blank">マイナビ「2026年卒企業新卒内定状況調査」（2025年11月）</a></li>
+            <li><a href="https://career-research.mynavi.jp/reserch/20250731_99110/" target="_blank">マイナビ「2026年卒 内定者意識調査」（2025年7月）</a></li>
+            <li><a href="https://career-research.mynavi.jp/reserch/20241107_87889/" target="_blank">マイナビ「2025年卒企業新卒内定状況調査」（2024年11月）</a></li>
+            <li><a href="https://career-research.mynavi.jp/reserch/20250926_101951/" target="_blank">マイナビ「2025年度（2026年卒版）新卒採用・就職戦線総括」（2025年9月）</a></li>
+            <li><a href="https://mytalent.jp/lab/resource_337/" target="_blank">TalentX Lab.「2025年版リファラル採用の実施状況に関する統計レポート」</a></li>
+            <li><a href="https://service.jinjibu.jp/news/detl/16516/" target="_blank">日本の人事部「新卒リファラル採用調査」</a></li>
+            <li><a href="https://www.rshd.co.jp/news/saiyou-trend.html" target="_blank">ロケットスタートHD「新卒・中途採用の最新の採用手法トレンド」（2025年）</a></li>
+            <li><a href="https://www.kakehashi-skysol.co.jp/newgrad-chiebukuro/naiteizitai_2025report/" target="_blank">かけはし「2026年最新 内定辞退率の平均」</a></li>
+            <li><a href="https://www.theport.jp/portcareer/qa/1222/" target="_blank">PORTキャリア「新卒エージェントの利用率」</a></li>
+            <li><a href="https://shukatsu-venture.com/article/307795" target="_blank">就活ベンチャー「就活エージェントの利用率」</a></li>
+            <li><a href="https://axia-ag.co.jp/newgrad-info/27trend/" target="_blank">アクシア「27卒新卒採用トレンドまとめ」</a></li>
+            <li><a href="https://r09.jp/columns/26998/" target="_blank">アールナイン「2027卒 新卒採用の最新トレンド」</a></li>
+            <li><a href="https://www.ssen.co.jp/blog/154" target="_blank">採用総研「主要新卒就職ナビ2026グランドオープン速報」</a></li>
+            <li><a href="https://www.career-tasu.co.jp/wp/wp-content/uploads/2024/10/2025_kigyouchousa_kakuho.pdf" target="_blank">キャリタス「2025年卒採用活動調査」（PDF）</a></li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        &copy; 2026 株式会社Enjin ｜ 本レポートの無断転載を禁じます。
+    </div>
+</div>
+
+</body>
+</html>

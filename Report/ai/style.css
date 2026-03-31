@@ -1,0 +1,257 @@
+/* === Base === */
+:root {
+  --primary: #1a365d;
+  --primary-light: #2c5282;
+  --accent: #e53e3e;
+  --bg: #f7fafc;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --text: #2d3748;
+  --text-light: #718096;
+  --note-bg: #fffbeb;
+  --note-border: #f6ad55;
+  --nodata-bg: #fff5f5;
+  --nodata-border: #fc8181;
+  --insight-bg: #ebf8ff;
+  --insight-border: #4299e1;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Meiryo", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.8;
+  font-size: 15px;
+}
+
+/* === Header === */
+.report-header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: #fff;
+  padding: 60px 40px 50px;
+}
+.header-inner { max-width: 960px; margin: 0 auto; }
+.report-label {
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin-bottom: 12px;
+}
+.report-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+.subtitle { font-size: 15px; opacity: 0.85; margin-bottom: 6px; }
+.report-date { font-size: 14px; opacity: 0.7; }
+
+/* === TOC === */
+.toc {
+  max-width: 960px;
+  margin: -30px auto 0;
+  background: var(--surface);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  padding: 28px 36px;
+  position: relative;
+  z-index: 1;
+}
+.toc h2 {
+  font-size: 16px;
+  color: var(--primary);
+  margin-bottom: 14px;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 8px;
+}
+.toc ol { padding-left: 22px; }
+.toc li { margin-bottom: 6px; font-size: 14px; }
+.toc a { color: var(--primary-light); text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+
+/* === Main === */
+main {
+  max-width: 960px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+section {
+  background: var(--surface);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 36px 40px;
+  margin-bottom: 32px;
+}
+
+h2 {
+  font-size: 22px;
+  color: var(--primary);
+  border-left: 4px solid var(--accent);
+  padding-left: 14px;
+  margin-bottom: 22px;
+}
+h3 {
+  font-size: 17px;
+  color: var(--primary-light);
+  margin-top: 28px;
+  margin-bottom: 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+h4 {
+  font-size: 15px;
+  color: var(--text);
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+p { margin-bottom: 14px; }
+
+/* === Summary Box === */
+.summary-box {
+  background: var(--insight-bg);
+  border-left: 4px solid var(--insight-border);
+  padding: 20px 24px;
+  border-radius: 0 6px 6px 0;
+  font-size: 15px;
+}
+.char-count {
+  font-size: 12px;
+  color: var(--text-light);
+  text-align: right;
+  margin-bottom: 0;
+}
+
+/* === Tables === */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 18px;
+  font-size: 14px;
+}
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: top;
+}
+thead th {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: #f8fafc; }
+tbody tr:hover { background: #edf2f7; }
+
+.def-table th:first-child,
+.def-table td:first-child { width: 140px; white-space: nowrap; }
+
+.rank-table td:first-child { text-align: center; width: 50px; font-weight: 700; color: var(--primary); }
+
+.source-table { font-size: 13px; }
+.source-table td:first-child { text-align: center; width: 36px; }
+.source-table a { color: var(--primary-light); }
+
+.regulation-table td:first-child { font-weight: 700; white-space: nowrap; }
+
+/* === Comparison Table === */
+.comparison-table .axis-label {
+  background: var(--primary);
+  color: #fff;
+  font-size: 14px;
+  width: 100px;
+  vertical-align: middle;
+  text-align: center;
+}
+.comparison-table ul {
+  padding-left: 18px;
+  margin: 0;
+}
+.comparison-table li {
+  margin-bottom: 8px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.comparison-table .source {
+  display: block;
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+/* === Note Boxes === */
+.data-note {
+  background: var(--note-bg);
+  border-left: 4px solid var(--note-border);
+  padding: 14px 18px;
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 18px;
+  font-size: 14px;
+}
+.no-data-box {
+  background: var(--nodata-bg);
+  border-left: 4px solid var(--nodata-border);
+  padding: 14px 18px;
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 18px;
+  font-size: 14px;
+}
+.insight-box {
+  background: var(--insight-bg);
+  border-left: 4px solid var(--insight-border);
+  padding: 20px 24px;
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 18px;
+}
+.insight-box h3 {
+  border-bottom: none;
+  margin-top: 0;
+  margin-bottom: 10px;
+  padding-bottom: 0;
+  font-size: 16px;
+  color: var(--primary);
+}
+
+/* === Footnotes === */
+.footnote {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: -8px;
+  margin-bottom: 14px;
+}
+.note-ref { color: var(--accent); font-size: 11px; }
+.source { font-size: 12px; color: var(--text-light); }
+
+/* === Footer === */
+footer {
+  max-width: 960px;
+  margin: 0 auto 60px;
+  padding: 20px 24px;
+  font-size: 13px;
+  color: var(--text-light);
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+
+/* === Print === */
+@media print {
+  body { background: #fff; font-size: 12px; }
+  .report-header { padding: 30px; }
+  section { box-shadow: none; break-inside: avoid; }
+  .toc { box-shadow: none; margin-top: 0; }
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .report-header { padding: 30px 20px; }
+  .report-header h1 { font-size: 22px; }
+  section { padding: 24px 20px; }
+  .toc { padding: 20px; }
+  table { font-size: 12px; }
+  th, td { padding: 6px 8px; }
+}
