@@ -11,7 +11,7 @@ const SERVICES = [
     points: ['南紀白浜・熊野古道など和歌山の観光手配', '宿泊・バス・レンタカー・アクティビティの一括手配', '旅行代理店向け卸販売・ランドサービス', '個人・グループ・法人ツアーに対応'],
     points_en: ['Shirahama & Kumano Kodo sightseeing arrangements', 'One-stop booking: accommodation, buses, car rental, activities', 'Wholesale services for travel agencies', 'Individual, group, and corporate tours'],
     color: 'from-[#1B6CA8] to-[#0A3B5C]',
-    img: '/e-test/images/service-domestic.jpg',
+    img: '/images/service-domestic.jpg',
   },
   {
     id: 'overseas', num: '02', emoji: '✈️',
@@ -19,7 +19,7 @@ const SERVICES = [
     points: ['アジア・欧米・オセアニアへのパッケージツアー', '法人視察旅行・インセンティブツアーの企画', 'ハネムーン・記念旅行のコーディネート', '航空券・ホテル・オプショナルツアーの手配'],
     points_en: ['Package tours to Asia, Europe & Oceania', 'Corporate incentive trips & study tours', 'Honeymoon & anniversary trip planning', 'Flights, hotels & optional tour arrangements'],
     color: 'from-[#0A1628] to-[#1A2E4A]',
-    img: '/e-test/images/service-overseas.jpg',
+    img: '/images/service-overseas.jpg',
   },
   {
     id: 'inbound', num: '03', emoji: '🌏',
@@ -27,7 +27,7 @@ const SERVICES = [
     points: ['5言語対応（日本語・英語・中国語・タイ語・韓国語）', '南紀白浜・熊野古道エリアの観光案内', '外国人旅行者向け宿泊・交通手配', '海外エージェント・OTA向け素材提供'],
     points_en: ['5-language support (JP/EN/ZH/TH/KO)', 'Guided sightseeing in Shirahama & Kumano', 'Accommodation & transport for inbound visitors', 'Travel content for overseas agents & OTAs'],
     color: 'from-[#C9A227] to-[#A8831A]',
-    img: '/e-test/images/service-inbound.jpg',
+    img: '/images/service-inbound.jpg',
   },
   {
     id: 'landop', num: '04', emoji: '🏨',
@@ -35,7 +35,7 @@ const SERVICES = [
     points: ['宿泊・バス・送迎・ガイドの一括手配', '国内旅行代理店・海外エージェントへの対応', '多言語ガイドの手配・同行', '南紀白浜・熊野エリアを中心としたランドサービス'],
     points_en: ['One-stop local coordination: accommodation, buses, guides', 'Support for domestic agencies and overseas agents', 'Multilingual guide arrangements', 'Land services centered on Shirahama & Kumano'],
     color: 'from-[#2E5C3F] to-[#1A3A28]',
-    img: '/e-test/images/service-landop.jpg',
+    img: '/images/service-landop.jpg',
   },
   {
     id: 'bustour', num: '05', emoji: '🚌',
@@ -43,7 +43,7 @@ const SERVICES = [
     points: ['多言語ガイド同行（英語・中国語・タイ語・韓国語）', '少人数制でゆったりと観光', '海外旅行代理店・ホテルとの提携プラン対応'],
     points_en: ['Multilingual guides (EN/ZH/TH/KO)', 'Small-group tours for a relaxed experience', 'Partnership plans with overseas agents & hotels'],
     color: 'from-[#8B4513] to-[#5C2D0A]',
-    img: '/e-test/images/service-bustour.jpg',
+    img: '/images/service-bustour.jpg',
   },
 ]
 

@@ -12,11 +12,11 @@ const NEWS = [
 ]
 
 const SERVICES = [
-  { num: '01', titleKey: 'svc1_title', bodyKey: 'svc1_body', href: '/service#domestic', img: '/e-test/images/domestic.jpg', alt: '国内旅行', tag: 'DOMESTIC' },
-  { num: '02', titleKey: 'svc2_title', bodyKey: 'svc2_body', href: '/service#overseas', img: '/e-test/images/overseas.jpg', alt: '海外旅行', tag: 'OVERSEAS' },
-  { num: '03', titleKey: 'svc3_title', bodyKey: 'svc3_body', href: '/service#inbound',  img: '/e-test/images/inbound.jpg',  alt: 'インバウンド', tag: 'INBOUND' },
-  { num: '04', titleKey: 'svc4_title', bodyKey: 'svc4_body', href: '/service#landop',   img: '/e-test/images/landop.jpg',   alt: 'ランドオペレーター', tag: 'LAND OP' },
-  { num: '05', titleKey: 'svc5_title', bodyKey: 'svc5_body', href: '/service#bustour',  img: '/e-test/images/service-bustour.jpg', alt: '観光バス事業', tag: 'CHARTER BUS' },
+  { num: '01', titleKey: 'svc1_title', bodyKey: 'svc1_body', href: '/service#domestic', img: '/images/domestic.jpg', alt: '国内旅行', tag: 'DOMESTIC' },
+  { num: '02', titleKey: 'svc2_title', bodyKey: 'svc2_body', href: '/service#overseas', img: '/images/overseas.jpg', alt: '海外旅行', tag: 'OVERSEAS' },
+  { num: '03', titleKey: 'svc3_title', bodyKey: 'svc3_body', href: '/service#inbound',  img: '/images/inbound.jpg',  alt: 'インバウンド', tag: 'INBOUND' },
+  { num: '04', titleKey: 'svc4_title', bodyKey: 'svc4_body', href: '/service#landop',   img: '/images/landop.jpg',   alt: 'ランドオペレーター', tag: 'LAND OP' },
+  { num: '05', titleKey: 'svc5_title', bodyKey: 'svc5_body', href: '/service#bustour',  img: '/images/service-bustour.jpg', alt: '観光バス事業', tag: 'CHARTER BUS' },
 ]
 
 export default function Home() {
@@ -34,7 +34,7 @@ export default function Home() {
         {/* Parallax photo */}
         <motion.div style={{ y: heroImgY }} className="absolute inset-0 will-change-transform">
           <img
-            src="/e-test/images/hero.jpg"
+            src="/images/hero.jpg"
             alt="南紀白浜の海"
             className="w-full h-[130%] object-cover object-center"
           />
@@ -97,7 +97,7 @@ export default function Home() {
               <div className="relative h-[460px]">
                 {/* Main photo */}
                 <div className="absolute top-0 left-8 right-0 h-80 overflow-hidden shadow-2xl">
-                  <img src="/e-test/images/about.jpg" alt="南紀白浜の海岸"
+                  <img src="/images/about.jpg" alt="南紀白浜の海岸"
                     className="w-full h-full object-cover object-center" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                   <div className="absolute bottom-5 left-5 bg-white/85 backdrop-blur-sm px-4 py-2">
@@ -107,7 +107,7 @@ export default function Home() {
                 </div>
                 {/* Secondary photo offset */}
                 <div className="absolute bottom-0 left-0 w-52 h-44 overflow-hidden shadow-xl border-4 border-white">
-                  <img src="/e-test/images/domestic.jpg" alt="日本の自然"
+                  <img src="/images/domestic.jpg" alt="日本の自然"
                     className="w-full h-full object-cover object-center" />
                 </div>
                 {/* Badge */}
@@ -262,7 +262,7 @@ export default function Home() {
       <section className="relative py-40 overflow-hidden">
         {/* Full-bleed photo background */}
         <div className="absolute inset-0">
-          <img src="/e-test/images/hero.jpg" alt="" className="w-full h-full object-cover object-[50%_40%]" />
+          <img src="/images/hero.jpg" alt="" className="w-full h-full object-cover object-[50%_40%]" />
           <div className="absolute inset-0 bg-white/75" />
         </div>
         <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-crimson-pale opacity-80" />
@@ -292,7 +292,7 @@ function WhyUsParallax() {
   return (
     <div ref={ref} className="w-full h-full overflow-hidden">
       <motion.img
-        src="/e-test/images/whyus.jpg"
+        src="/images/whyus.jpg"
         alt="南紀白浜の澄んだ海"
         style={{ y }}
         className="w-full h-[115%] object-cover object-center will-change-transform"

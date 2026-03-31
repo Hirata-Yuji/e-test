@@ -16,7 +16,7 @@ export default function Logo({ size = 'md' }: Props) {
 
   return (
     <Image
-      src="/e-test/logo.png"
+      src="/logo.png"
       alt="En Journey"
       width={width}
       height={height}

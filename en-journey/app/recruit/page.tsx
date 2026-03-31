@@ -66,7 +66,7 @@ export default function RecruitPage() {
       {/* Hero message */}
       <section className="py-32 bg-navy relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src="/e-test/images/recruit-hero.jpg" alt="recruit"
+          <img src="/images/recruit-hero.jpg" alt="recruit"
             className="w-full h-full object-cover object-center opacity-30" />
         </div>
         <div className="absolute inset-0 opacity-60"
