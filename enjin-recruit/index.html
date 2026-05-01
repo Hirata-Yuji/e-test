@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>株式会社Enjin 新卒採用 2027 | ブランディングPRで世界を動かす。</title>
+<meta name="description" content="株式会社Enjin（証券コード:7370 東証グロース）の2027年新卒採用サイト。ブランディングPRカンパニーで、若手のうちから経営者と向き合い、社会の役に立つ立派な人間を目指す。" />
+<meta name="robots" content="noindex" />
+<meta property="og:title" content="株式会社Enjin 新卒採用 2027" />
+<meta property="og:description" content="ブランディングPRで世界を動かす。Enjinの1年は、他社の3年に匹敵する。" />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@400;700;900&family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0f;
+    --bg-soft: #11121a;
+    --ink: #f5f3ee;
+    --ink-soft: #b8b4a8;
+    --ink-mute: #6e6a5e;
+    --accent: #ff5a36;
+    --accent-soft: #ff8867;
+    --gold: #d4a64a;
+    --line: rgba(245,243,238,0.12);
+    --serif: "Noto Serif JP", "Hiragino Mincho ProN", serif;
+    --sans: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+    --display: "Bebas Neue", "Inter", sans-serif;
+    --en: "Inter", sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img, svg { display: block; max-width: 100%; }
+  .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .label-en {
+    font-family: var(--en);
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    color: var(--accent);
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 18px;
+  }
+  .label-en::before {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--accent);
+    vertical-align: middle;
+    margin-right: 12px;
+    transform: translateY(-2px);
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 44px);
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+  .section-lead {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 2;
+    max-width: 640px;
+    margin-bottom: 56px;
+    letter-spacing: 0.05em;
+  }
+  section { padding: 120px 0; position: relative; }
+
+  /* ====== Header ====== */
+  header {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    background: rgba(10,10,15,0.7);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 32px;
+    max-width: 1400px; margin: 0 auto;
+  }
+  .logo {
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .logo-mark {
+    font-family: var(--display);
+    font-size: 28px;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+  }
+  .logo-mark span { color: var(--accent); }
+  .logo-sub {
+    font-family: var(--en);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+  }
+  nav.global { display: flex; align-items: center; gap: 28px; }
+  nav.global a {
+    font-family: var(--en);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    color: var(--ink-soft);
+    transition: color .25s;
+    text-transform: uppercase;
+  }
+  nav.global a:hover { color: var(--accent); }
+  .btn-entry {
+    background: var(--accent);
+    color: #fff;
+    padding: 12px 22px;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    font-family: var(--en);
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: background .25s, transform .25s;
+  }
+  .btn-entry:hover { background: var(--accent-soft); transform: translateY(-2px); }
+  .nav-mobile-toggle { display: none; }
+  @media (max-width: 880px) {
+    nav.global a:not(.btn-entry) { display: none; }
+  }
+
+  /* ====== Hero ====== */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative;
+    padding: 160px 0 80px;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(255,90,54,0.18), transparent 50%),
+      radial-gradient(circle at 10% 90%, rgba(212,166,74,0.10), transparent 50%),
+      linear-gradient(180deg, #0a0a0f 0%, #14141c 100%);
+    z-index: 0;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
+    z-index: 0;
+    mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+  }
+  .hero-inner {
+    position: relative; z-index: 2;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  @media (max-width: 880px) {
+    .hero-inner { grid-template-columns: 1fr; }
+  }
+  .hero-tag {
+    font-family: var(--en);
+    font-size: 12px;
+    letter-spacing: 0.4em;
+    color: var(--accent);
+    margin-bottom: 32px;
+    font-weight: 600;
+  }
+  .hero-tag::before {
+    content: "■";
+    color: var(--accent);
+    margin-right: 12px;
+    font-size: 9px;
+    vertical-align: middle;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(40px, 7vw, 96px);
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    margin-bottom: 32px;
+  }
+  .hero h1 .accent { color: var(--accent); display: inline-block; position: relative; }
+  .hero h1 .accent::after {
+    content: "";
+    position: absolute; left: -4px; right: -4px; bottom: -4px;
+    height: 8px;
+    background: rgba(255,90,54,0.25);
+    z-index: -1;
+  }
+  .hero-sub {
+    font-size: 15px;
+    line-height: 2.1;
+    color: var(--ink-soft);
+    max-width: 540px;
+    margin-bottom: 48px;
+    letter-spacing: 0.06em;
+  }
+  .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary, .btn-ghost {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 18px 36px;
+    font-family: var(--en);
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all .25s;
+    cursor: pointer;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-soft); transform: translateY(-2px); }
+  .btn-ghost { border: 1px solid var(--ink-soft); color: var(--ink); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-primary svg, .btn-ghost svg { width: 14px; height: 14px; }
+
+  .hero-visual {
+    position: relative;
+    aspect-ratio: 1/1.1;
+    max-width: 460px;
+    margin-left: auto;
+  }
+  .hv-card {
+    position: absolute;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    padding: 24px;
+  }
+  .hv-card-1 { top: 0; left: 0; width: 65%; padding: 32px; background: linear-gradient(135deg, var(--accent) 0%, #c83a1f 100%); color: #fff; }
+  .hv-card-1 .num { font-family: var(--display); font-size: 88px; line-height: 1; letter-spacing: 0.02em; }
+  .hv-card-1 .lbl { font-family: var(--en); font-size: 10px; letter-spacing: 0.3em; opacity: 0.85; margin-top: 8px; text-transform: uppercase; }
+  .hv-card-1 .desc { font-size: 11px; margin-top: 16px; line-height: 1.7; opacity: 0.95; }
+  .hv-card-2 { top: 35%; right: 0; width: 55%; }
+  .hv-card-2 .num { font-family: var(--display); font-size: 64px; color: var(--gold); line-height: 1; }
+  .hv-card-2 .lbl { font-family: var(--en); font-size: 10px; letter-spacing: 0.3em; color: var(--ink-mute); margin-top: 6px; text-transform: uppercase; }
+  .hv-card-2 .desc { font-size: 11px; color: var(--ink-soft); margin-top: 14px; line-height: 1.7; }
+  .hv-card-3 { bottom: 0; left: 5%; width: 70%; background: var(--ink); color: var(--bg); padding: 20px 28px; }
+  .hv-card-3 .lbl { font-family: var(--en); font-size: 9px; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 6px; }
+  .hv-card-3 .txt { font-family: var(--serif); font-weight: 700; font-size: 16px; letter-spacing: 0.04em; }
+
+  .scroll-down {
+    position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+    font-family: var(--en); font-size: 10px; letter-spacing: 0.4em; color: var(--ink-mute);
+    text-transform: uppercase;
+  }
+  .scroll-down::after {
+    content: ""; display: block; width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    margin: 12px auto 0;
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0%,100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.4); transform-origin: top; }
+  }
+
+  /* ====== Marquee ====== */
+  .marquee {
+    background: var(--bg-soft);
+    padding: 36px 0;
+    overflow: hidden;
+    border-block: 1px solid var(--line);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 64px;
+    white-space: nowrap;
+    animation: marquee 35s linear infinite;
+    font-family: var(--display);
+    font-size: 36px;
+    color: var(--ink-mute);
+    letter-spacing: 0.05em;
+  }
+  .marquee-track span { display: inline-flex; align-items: center; gap: 64px; }
+  .marquee-track span::after {
+    content: "✦";
+    color: var(--accent);
+    font-size: 22px;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ====== Mission Section ====== */
+  .mission-grid {
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    gap: 80px; align-items: center;
+  }
+  @media (max-width: 880px) { .mission-grid { grid-template-columns: 1fr; gap: 48px; } }
+  .mission-quote {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(26px, 3.4vw, 44px);
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+  }
+  .mission-quote .hl { color: var(--accent); }
+  .mission-text p { color: var(--ink-soft); margin-bottom: 24px; line-height: 2.1; font-size: 14px; letter-spacing: 0.06em; }
+  .mission-text .small {
+    font-family: var(--en); font-size: 10px; letter-spacing: 0.3em;
+    color: var(--ink-mute); text-transform: uppercase; margin-top: 32px;
+  }
+
+  /* ====== Numbers ====== */
+  .numbers {
+    background: var(--bg-soft);
+    border-block: 1px solid var(--line);
+  }
+  .numbers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  @media (max-width: 880px) { .numbers-grid { grid-template-columns: repeat(2, 1fr); } }
+  .num-item {
+    padding: 32px 24px;
+    border-right: 1px solid var(--line);
+    text-align: center;
+  }
+  .num-item:last-child { border-right: none; }
+  @media (max-width: 880px) {
+    .num-item:nth-child(2n) { border-right: none; }
+    .num-item:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  }
+  .num-item .lbl-en {
+    font-family: var(--en); font-size: 10px; letter-spacing: 0.3em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 12px;
+  }
+  .num-item .val {
+    font-family: var(--display); font-size: clamp(42px, 5vw, 64px); line-height: 1;
+    color: var(--ink);
+  }
+  .num-item .val .unit { font-size: 18px; color: var(--ink-soft); margin-left: 4px; letter-spacing: 0.05em; }
+  .num-item .desc {
+    font-size: 11px; color: var(--ink-soft); margin-top: 12px; letter-spacing: 0.06em;
+  }
+
+  /* ====== Why ====== */
+  .why-list {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+  }
+  @media (max-width: 880px) { .why-list { grid-template-columns: 1fr; } }
+  .why-card {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    padding: 40px 32px;
+    transition: border-color .3s, transform .3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .why-card::before {
+    content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--gold));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .4s;
+  }
+  .why-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .why-card:hover::before { transform: scaleX(1); }
+  .why-num {
+    font-family: var(--display);
+    font-size: 56px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+  .why-card h3 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .why-card p {
+    font-size: 13px; color: var(--ink-soft); line-height: 2; letter-spacing: 0.05em;
+  }
+
+  /* ====== Person ====== */
+  .person {
+    background:
+      linear-gradient(135deg, rgba(255,90,54,0.08), transparent 60%),
+      var(--bg);
+  }
+  .person-hero {
+    text-align: center;
+    margin-bottom: 72px;
+  }
+  .person-tags {
+    display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;
+    max-width: 900px; margin: 0 auto;
+  }
+  .person-tag {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(16px, 2vw, 22px);
+    padding: 16px 28px;
+    border: 1px solid var(--line);
+    background: var(--bg-soft);
+    letter-spacing: 0.05em;
+    transition: all .3s;
+  }
+  .person-tag:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .person-tag .b { color: var(--accent); margin-right: 6px; }
+
+  /* ====== Process ====== */
+  .process-list {
+    display: grid; gap: 0;
+    counter-reset: step;
+  }
+  .process-step {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 32px;
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+    align-items: center;
+  }
+  .process-step:last-child { border-bottom: 1px solid var(--line); }
+  .process-step .step-num {
+    font-family: var(--display);
+    font-size: 48px;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .process-step .step-num::before {
+    content: "STEP ";
+    font-family: var(--en);
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--ink-mute);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .process-step h4 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+  }
+  .process-step p {
+    font-size: 13px; color: var(--ink-soft); line-height: 1.9;
+  }
+
+  /* ====== Recruit Detail ====== */
+  .recruit { background: var(--bg-soft); border-block: 1px solid var(--line); }
+  .recruit-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .recruit-table tr { border-top: 1px solid var(--line); }
+  .recruit-table tr:last-child { border-bottom: 1px solid var(--line); }
+  .recruit-table th, .recruit-table td {
+    padding: 24px 20px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 13px;
+    line-height: 1.9;
+    letter-spacing: 0.04em;
+  }
+  .recruit-table th {
+    width: 220px;
+    font-family: var(--en);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .recruit-table td {
+    color: var(--ink-soft);
+  }
+  .recruit-table td strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
+  @media (max-width: 880px) {
+    .recruit-table tr { display: block; padding: 20px 0; }
+    .recruit-table th, .recruit-table td { display: block; padding: 4px 0; width: 100%; }
+  }
+
+  /* ====== CTA ====== */
+  .cta {
+    text-align: center;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(255,90,54,0.18), transparent 60%),
+      var(--bg);
+    padding: 140px 0;
+  }
+  .cta h2 {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(32px, 5vw, 56px);
+    line-height: 1.4;
+    margin-bottom: 24px;
+    letter-spacing: 0.04em;
+  }
+  .cta h2 .hl { color: var(--accent); }
+  .cta p { color: var(--ink-soft); font-size: 14px; max-width: 540px; margin: 0 auto 48px; line-height: 2; letter-spacing: 0.06em; }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .cta .contact-info {
+    margin-top: 56px;
+    font-family: var(--en);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--ink-mute);
+  }
+  .cta .contact-info strong { color: var(--ink); font-weight: 600; }
+
+  /* ====== Footer ====== */
+  footer {
+    background: #06060a;
+    padding: 64px 0 32px;
+    border-top: 1px solid var(--line);
+  }
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+  @media (max-width: 880px) { .footer-inner { grid-template-columns: 1fr; gap: 32px; } }
+  .footer-brand .logo-mark { font-size: 32px; margin-bottom: 16px; }
+  .footer-brand p { font-size: 12px; color: var(--ink-mute); line-height: 1.9; max-width: 320px; }
+  .footer-col h5 {
+    font-family: var(--en); font-size: 10px; letter-spacing: 0.3em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 20px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { font-size: 12px; color: var(--ink-soft); margin-bottom: 10px; line-height: 1.8; letter-spacing: 0.05em; }
+  .footer-col li strong { color: var(--ink); display: block; font-size: 10px; letter-spacing: 0.2em; margin-bottom: 2px; }
+  .footer-bottom {
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--en);
+    font-size: 10px; letter-spacing: 0.2em; color: var(--ink-mute);
+    text-transform: uppercase;
+  }
+  .footer-bottom .ticker {
+    background: var(--accent); color: #fff;
+    padding: 4px 10px; letter-spacing: 0.2em; font-weight: 600;
+  }
+
+  /* ====== Animations ====== */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.show { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="#top" class="logo">
+      <span class="logo-mark">En<span>j</span>in</span>
+      <span class="logo-sub">Recruit 2027</span>
+    </a>
+    <nav class="global">
+      <a href="#mission">Mission</a>
+      <a href="#why">Why Enjin</a>
+      <a href="#person">Person</a>
+      <a href="#process">Process</a>
+      <a href="#recruit">Recruit</a>
+      <a href="#entry" class="btn-entry">Entry</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ====== HERO ====== -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <div>
+          <p class="hero-tag reveal">NEW GRADUATE RECRUITING 2027</p>
+          <h1 class="reveal">
+            言葉で、<br />
+            社会を <span class="accent">動かせ</span>。
+          </h1>
+          <p class="hero-sub reveal">
+            株式会社Enjinは、ブランディングPRで、まだ知られていない優れた企業・人・地域の価値を社会に届けるカンパニーです。<br />
+            「社会の役に立つ立派な人間を一人でも多く輩出する」——その本気のパーパスに、本気で挑む若者を、私たちは待っています。
+          </p>
+          <div class="hero-cta reveal">
+            <a href="#entry" class="btn-primary">
+              ENTRY
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#mission" class="btn-ghost">
+              ABOUT ENJIN
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="hero-visual reveal">
+          <div class="hv-card hv-card-1">
+            <div class="num">1=3</div>
+            <div class="lbl">Speed of Growth</div>
+            <div class="desc">Enjinの1年は、他社の3年に匹敵する。</div>
+          </div>
+          <div class="hv-card hv-card-2">
+            <div class="num">26.5</div>
+            <div class="lbl">Average Age</div>
+            <div class="desc">若手主体の組織で、誰もが主役。20代で経営者と渡り合う。</div>
+          </div>
+          <div class="hv-card hv-card-3">
+            <div class="lbl">TSE Growth · 7370</div>
+            <div class="txt">東証グロース市場 上場企業</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-down">SCROLL</div>
+  </section>
+
+  <!-- ====== Marquee ====== -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>BRANDING PR</span><span>MEDIA PLATFORM</span><span>CORPORATE VC</span><span>FOR THE PEOPLE</span><span>BRANDING PR</span><span>MEDIA PLATFORM</span><span>CORPORATE VC</span><span>FOR THE PEOPLE</span>
+    </div>
+  </div>
+
+  <!-- ====== MISSION ====== -->
+  <section id="mission">
+    <div class="container">
+      <div class="mission-grid">
+        <div class="reveal">
+          <p class="label-en">Our Purpose</p>
+          <p class="mission-quote">
+            社会の役に立つ<br />
+            <span class="hl">立派な人間</span>を、<br />
+            一人でも多く輩出する。
+          </p>
+        </div>
+        <div class="mission-text reveal">
+          <p>Enjinは「人」にこだわるカンパニーです。中小・中堅企業の経営者、医療機関のドクター、地方で挑戦する事業家——社会を本気で良くしようとする人々の想いを、メディアの力で世の中に届けています。</p>
+          <p>テレビ、新聞、Web、SNS。あらゆるチャネルを駆使したPRコンサルティングと、メディアと取材ニーズを直接マッチングする自社プラットフォーム「メディチョク」、そしてCVCを通じたスタートアップ支援。3つの事業すべてが「人を輝かせる」ためにあります。</p>
+          <p>そんな私たちが採用で見ているのは、スキルや学歴ではありません。<strong style="color:var(--ink);">「誰かのために本気になれるか」</strong>——たったそれだけです。</p>
+          <p class="small">— Established 2006 / Listed on TSE Growth 2021</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Numbers ====== -->
+  <section class="numbers" style="padding: 0;">
+    <div class="numbers-grid">
+      <div class="num-item">
+        <div class="lbl-en">Founded</div>
+        <div class="val">2006</div>
+        <div class="desc">大阪にて創業<br />全国へ拠点拡大</div>
+      </div>
+      <div class="num-item">
+        <div class="lbl-en">IPO</div>
+        <div class="val">2021</div>
+        <div class="desc">東証マザーズ上場<br />（現・グロース）</div>
+      </div>
+      <div class="num-item">
+        <div class="lbl-en">Employees</div>
+        <div class="val">168<span class="unit">名</span></div>
+        <div class="desc">平均年齢26.5歳<br />若手主体の組織</div>
+      </div>
+      <div class="num-item">
+        <div class="lbl-en">Capital</div>
+        <div class="val">17.7<span class="unit">億円</span></div>
+        <div class="desc">資本準備金含む<br />（2024年5月時点）</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== WHY ENJIN ====== -->
+  <section id="why">
+    <div class="container">
+      <div class="reveal" style="margin-bottom: 56px;">
+        <p class="label-en">Why Enjin</p>
+        <h2 class="section-title">Enjinで働く、3つの理由。</h2>
+        <p class="section-lead">大手では味わえない裁量と、上場企業ならではの安定基盤。両方を手にできる、希少な環境がここにあります。</p>
+      </div>
+      <div class="why-list">
+        <div class="why-card reveal">
+          <div class="why-num">01</div>
+          <h3>20代で、経営者と話す。</h3>
+          <p>クライアントは、社長・院長・代表クラス。新卒1年目から、業界のキーマンと向き合い、ブランディング戦略を提案する経験ができます。なかなか聞けない経営者の本音と、業界の最前線が、あなたの血肉になります。</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-num">02</div>
+          <h3>圧倒的スピード成長。</h3>
+          <p>Enjinの1年は、他社の3年。手を挙げれば、年次関係なくチャンスが回ってきます。上場直後のフェーズで、新規事業立ち上げ、組織づくり、メディア戦略——あらゆる挑戦の場に飛び込める環境です。</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-num">03</div>
+          <h3>「人」を本気で大切にする。</h3>
+          <p>Enjinが定義するのは「ギバー」——人に与えることのできる人。成果主義でフラットに評価されながらも、根底にあるのは仲間へのリスペクトと、お客様への誠実さ。働く人の幸せが、企業の成長そのものです。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PERSON ====== -->
+  <section id="person" class="person">
+    <div class="container">
+      <div class="person-hero reveal">
+        <p class="label-en" style="text-align:left;">Person We Want</p>
+        <h2 class="section-title">こんな人と、働きたい。</h2>
+        <p class="section-lead" style="margin-left:auto; margin-right:auto;">
+          スキルや経験は、入社後にいくらでも磨けます。<br />
+          私たちが大切にしているのは、その人の「あり方」。下記のいずれかに心が動いた方、ぜひEnjinへ。
+        </p>
+      </div>
+      <div class="person-tags">
+        <div class="person-tag reveal"><span class="b">#</span>社会を良くしたい</div>
+        <div class="person-tag reveal"><span class="b">#</span>主体的に動ける</div>
+        <div class="person-tag reveal"><span class="b">#</span>市場価値を高めたい</div>
+        <div class="person-tag reveal"><span class="b">#</span>チームで戦いたい</div>
+        <div class="person-tag reveal"><span class="b">#</span>上場企業のスピードを体感したい</div>
+        <div class="person-tag reveal"><span class="b">#</span>人と関わるのが好き</div>
+        <div class="person-tag reveal"><span class="b">#</span>新しい価値を創りたい</div>
+        <div class="person-tag reveal"><span class="b">#</span>言葉で人を動かしたい</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PROCESS ====== -->
+  <section id="process">
+    <div class="container">
+      <div class="reveal" style="margin-bottom: 32px;">
+        <p class="label-en">Selection Process</p>
+        <h2 class="section-title">選考フロー</h2>
+        <p class="section-lead">エントリーから内定まで、最短2週間。あなたの本気と、私たちの本気で向き合います。</p>
+      </div>
+      <div class="process-list">
+        <div class="process-step reveal">
+          <div class="step-num">01</div>
+          <div>
+            <h4>エントリー / 説明会</h4>
+            <p>本ページ最下部のエントリーフォームよりお申込みください。オンライン説明会は随時開催。事業内容・カルチャー・キャリアパスをお伝えします。</p>
+          </div>
+        </div>
+        <div class="process-step reveal">
+          <div class="step-num">02</div>
+          <div>
+            <h4>1次面接（人事 / 現場社員）</h4>
+            <p>あなたのこれまでと、これから。お互いを深く知る場です。Enjinが大切にする価値観との相性を、対話を通じて確認します。</p>
+          </div>
+        </div>
+        <div class="process-step reveal">
+          <div class="step-num">03</div>
+          <div>
+            <h4>最終面接（役員）</h4>
+            <p>役員クラスとの直接対話。Enjinで実現したいことを、率直にぶつけてください。</p>
+          </div>
+        </div>
+        <div class="process-step reveal">
+          <div class="step-num">04</div>
+          <div>
+            <h4>内定</h4>
+            <p>最終面接後、原則1週間以内にご連絡。内定後は懇親会・オフィス見学等で、入社前から仲間とのつながりを深めていただきます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== RECRUIT DETAIL ====== -->
+  <section id="recruit" class="recruit">
+    <div class="container">
+      <div class="reveal" style="margin-bottom: 32px;">
+        <p class="label-en">Recruit Information</p>
+        <h2 class="section-title">募集要項</h2>
+      </div>
+      <table class="recruit-table reveal">
+        <tr>
+          <th>募集職種</th>
+          <td>
+            <strong>総合職（PRコンサルタント／メディアプラットフォーム営業／コーポレート）</strong><br />
+            ※入社後の研修・適性面談を経て配属を決定します。
+          </td>
+        </tr>
+        <tr>
+          <th>応募資格</th>
+          <td>2027年3月までに4年制大学・大学院・高等専門学校・専門学校を卒業／修了見込みの方<br />（既卒3年以内も応募可）</td>
+        </tr>
+        <tr>
+          <th>勤務地</th>
+          <td><strong>東京本社</strong>：東京都中央区銀座5-13-16 ヒューリック銀座イーストビル<br />全国オフィス（大阪・名古屋・福岡 ほか）への配属可能性あり</td>
+        </tr>
+        <tr>
+          <th>給与</th>
+          <td>月給制／インセンティブ制度あり<br />詳細は選考時にご案内いたします。</td>
+        </tr>
+        <tr>
+          <th>勤務時間</th>
+          <td>9:00 – 18:00（実働8時間／休憩60分）<br />フレックスタイム制度・リモートワーク制度あり</td>
+        </tr>
+        <tr>
+          <th>休日休暇</th>
+          <td>完全週休2日制（土日）／祝日／年末年始／夏季休暇／有給休暇／慶弔休暇 ほか</td>
+        </tr>
+        <tr>
+          <th>福利厚生</th>
+          <td>各種社会保険完備／交通費支給／スポーツジム補助／社内表彰制度／資格取得支援／社内勉強会／社員食堂優待 ほか</td>
+        </tr>
+        <tr>
+          <th>研修制度</th>
+          <td>新卒導入研修（ビジネスマナー・PR基礎・業界理解）／OJT／メンター制度／階層別研修／メディア知識研修 ほか</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ====== CTA ====== -->
+  <section id="entry" class="cta">
+    <div class="container">
+      <div class="reveal">
+        <p class="label-en" style="text-align:center;">Entry</p>
+        <h2>
+          一度きりの人生に、<br />
+          <span class="hl">本気の挑戦</span>を。
+        </h2>
+        <p>あなたが社会に届けたいメッセージは、何ですか？<br />Enjinは、あなたの本気を待っています。</p>
+        <div class="cta-buttons">
+          <a href="mailto:saiyo@y-enjin.co.jp?subject=【新卒採用2027】エントリー" class="btn-primary">
+            エントリーする
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="mailto:saiyo@y-enjin.co.jp?subject=【新卒採用2027】お問い合わせ" class="btn-ghost">
+            お問い合わせ
+          </a>
+        </div>
+        <div class="contact-info">
+          新卒採用担当 ／ <strong>TEL: 03-4590-0808</strong> ／ <strong>saiyo@y-enjin.co.jp</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ====== FOOTER ====== -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo-mark">En<span style="color:var(--accent);">j</span>in</div>
+        <p>株式会社Enjinは、ブランディングPRを通じて、社会の役に立つ立派な人間を一人でも多く輩出することを使命とするカンパニーです。</p>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><strong>商号</strong>株式会社Enjin</li>
+          <li><strong>代表者</strong>代表取締役 大村 貴康</li>
+          <li><strong>設立</strong>2006年6月</li>
+          <li><strong>上場市場</strong>東京証券取引所グロース市場</li>
+          <li><strong>証券コード</strong>7370</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><strong>本社所在地</strong>東京都中央区銀座5-13-16<br />ヒューリック銀座イーストビル</li>
+          <li><strong>採用専用</strong>TEL: 03-4590-0808</li>
+          <li><strong>Email</strong>saiyo@y-enjin.co.jp</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Enjin Inc. All Rights Reserved.</span>
+      <span class="ticker">TSE GROWTH · 7370</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Reveal-on-scroll animation
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('show');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>
+
+</body>
+</html>
